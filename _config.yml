@@ -9,12 +9,12 @@ paginate: 1
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Wén
+title : Jianwen SUN
 #tagline: Site Tagline
 author :
   name : JS
   email : sun10@outlook.com
-  github : 0xAS
+  github : jsinfo
   twitter : username
   feedburner : feedname
 

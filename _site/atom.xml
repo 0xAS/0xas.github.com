@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+ 
+ <title>琉森部屋</title>
+ <link href="http://www.jwsun.info/atom.xml" rel="self"/>
+ <link href="http://www.jwsun.info"/>
+ <updated>2012-09-06T11:24:10+02:00</updated>
+ <id>http://www.jwsun.info</id>
+ <author>
+   <name>JS</name>
+   <email>sun10@outlook.com</email>
+ </author>
+
+ 
+ <entry>
+   <title>Hello World</title>
+   <link href="http://www.jwsun.info/2012/09/05/Hello-World"/>
+   <updated>2012-09-05T00:00:00+02:00</updated>
+   <id>http://www.jwsun.info/2012/09/05/Hello-World</id>
+   <content type="html">&lt;p&gt;Hello World!&lt;/p&gt;
+
+&lt;p&gt;This is a personal website, or blog, run by Jianwen.&lt;/p&gt;
+
+&lt;h2 id='to_reach_him'&gt;To reach him&lt;/h2&gt;
+
+&lt;p&gt;email: sun10 AT outlook DOT com&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Thank you&lt;/strong&gt; for reading this far.&lt;/p&gt;</content>
+ </entry>
+ 
+ 
+</feed>
