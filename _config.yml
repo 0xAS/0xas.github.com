@@ -13,7 +13,7 @@ title : Jianwen SUN
 #tagline: Site Tagline
 author :
   name : JS
-  email : sun10@outlook.com
+  email : jianwen.sun@outlook.com
   github : jsinfo
   twitter : username
   feedburner : feedname
@@ -26,7 +26,7 @@ author :
 # Else if you are pushing to username.github.com, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://www.jwsun.info
+production_url : http://www.sunjianwen.info
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
