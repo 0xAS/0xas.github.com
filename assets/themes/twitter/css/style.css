@@ -1,8 +1,12 @@
 /* Override some defaults */
 html, body {
   background-color: whitesmoke;
+  font-family: Palatino;
+  background-repeat: repeat-x;
 	/*background-image:url(images/web_back.jpg);*/
 }
+
+
 .navbar {
 	position: fixed;
 	width:100%;
