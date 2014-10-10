@@ -1,0 +1,130 @@
+### HPCSE 1 #CPP11
+
+@(Coding)[HPCSE|ReadingNote]
+
+This slides introduce some new features about c++ 11.
+
+* Random Generator
+
+```cpp
+#include <random>
+std::mt19937 mt; // create a random number generator engine (Mersenne twisters)
+std::mt19937_64;
+
+/* linear congruential generators*/
+std::minstd_rand0;
+std::minstd_rand;
+
+/*other generators*/
+std::ranlux24;
+std::ranlux48;
+std::knuth_b;
+```
+* Distributions
+Distributions are templated on the type of return values and the parameters of the distribution are passed to the constructor.
+
+```cpp
+#include <random>
+/* Uniform distributions*/
+std::uniform_int_distribution<T>;
+std::uniform_real_distribution<T>;
+std::generate_canonical<T> // uniform real numbers in [0,1)
+
+/* Bernoulli distributions*/
+std::bernoulli_distribution<T>;
+std::binomial_distribution<T>;
+std::negative_binomial_distribution<T>;
+std::geometric_distribution<T>;
+
+/* Sampling distributions*/
+std::discrete_distribution<T>;
+std::piecewise_constant_distribution<T>;
+std::piecewise_linear_distribution<T>;
+
+/* Poisson distributions*/
+std::poisson_distribution<T>;
+std::exponential_distribution<T>;
+std::gamma_distribution<T>;
+std::weibull_distribution<T>;
+std::extreme_value_distribution<T>;
+
+/**/
+std::normal_distribution<T>;
+std::lognormal_distribution<T>;
+std::chi_squared_distribution<T>;
+std::cauchy_distribution<T>;
+std::fisher_f_distribution<T>;
+std::student_t_distribution<T>;
+```
+* std::function
+A runtime polymorphic function object constructible from any compatible
+- function pointers
+- member function pointers
+- function object
+- lambda functions
+
+```cpp
+/* Declaration of the result and argument types*/
+std::function<Result(Arg1, Arg2, Arg3)>
+/*example*/
+double simpson(std::function<double(double)> f, double a, double b, unsigned int N);
+```
+
+* auto
+The new **auto** keyword tells C++11 to deduce the type of a variable from the initializer argument.
+
+```cpp
+#include<functional>
+
+auto x = 3.141+5;
+auto y = call_to_function_with_horrible_return_type();
+```
+
+* lambda function
+Lambda functions are unnamed functions declared in the statement. It is a good way to intergrate multiple variables/functions.
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    // create a function and store a pointer to it in f
+    auto f = []() {std::cout << "Hello world!\n";};
+    
+    // call the function
+    f();
+}
+```
+
+The [] indicate a lambda function, and how variables from the enclosing scope should be used (captured) inside the lambda.
+
+* fixed size integer types
+
+|      |signed|unsigned|
+|------|--------|--------|
+|8 bit|int8_t|uint8_t|
+|16 bit|int16_t| unit16_t|
+|32 bit|int32_t| unit32_t|
+|64 bit| int64_t| unit64_t|
+
+* decltyoe
+* avoiding traits
+* suffix return type syntax
+* simpler loops
+
+```cpp
+std::vector<int> v;
+
+// lots of typing
+for (std::vector<int>::iterator it=v.begin(); it = v.end() ; ++it)  
+    std::cout << *it;
+// ugly indexed access, will not work when changing to list
+for (int = 0; i<v.size(); ++i)
+    std::cout << v[i];
+// nicer C++11 version
+for (int x: v)
+    std::cout << x;
+// even nicer C++11 version
+for (auto x: v)
+    std::cout << x;
+```
