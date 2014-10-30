@@ -12,7 +12,7 @@ group: navigation
 </div>
 
 <div class="row">
-  <div class="span10"> 
+  <div class="span9"> 
 	<p class="data">{{ post.date | date_to_string }} | Category:
 {% for category in post.categories %}
 <a href="/categories">{{ category }}</a>{% unless forloop.last %},{% endunless %}
