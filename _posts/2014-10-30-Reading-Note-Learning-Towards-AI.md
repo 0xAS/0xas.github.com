@@ -1,6 +1,6 @@
 ---
 layout: post
-category : tutorial
+category : blog
 tags : [ReadingNotes, DeepLearning]
 ---
 {% include JB/setup %}
