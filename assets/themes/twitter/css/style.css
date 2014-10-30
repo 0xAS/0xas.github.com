@@ -95,7 +95,7 @@ html, body {
 .main_article pre {
    display:block;
    padding:5px;
-   margin:5px;
+   margin:7px;
    border:1px solid #ccc;
 }
 
@@ -108,9 +108,9 @@ html, body {
 	color:#666;
 }
 .main_article{
-  	font-size:14px;
+  	font-size:15px;
 	color:#666;
-	line-height:190%;
+	line-height:210%;
 }
 .main_article a{
 	color:#FC7F10;
@@ -122,7 +122,7 @@ html, body {
 .read_more{
    font-size:12px;
    line-height:22px;
-   margin-top:5px;
+   margin-top:9px;
 }
 /* Navigation bar TOP */
 
