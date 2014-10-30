@@ -5,7 +5,5 @@ tags : [ReadingNotes, DeepLearning]
 ---
 {% include JB/setup %}
 
-This is just a test
-<!--more-->
+$$a^2$$
 
-another test test test
