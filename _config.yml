@@ -9,14 +9,13 @@ paginate: 1
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Jianwen SUN
+title : Wén
 #tagline: Site Tagline
 author :
   name : JS
-  email : jianwen.sun@outlook.com
-  github : jsinfo
+  email : jwsun@jwsun.info
+  github : 0xas
   twitter : username
-  feedburner : feedname
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
@@ -26,7 +25,7 @@ author :
 # Else if you are pushing to username.github.com, replace with your username.
 # Finally if you are pushing to a GitHub project page, include the project name at the end.
 #
-production_url : http://www.sunjianwen.info
+production_url : http://www.jwsun.info
 
 # All Jekyll-Bootstrap specific configurations are namespaced into this hash
 #
