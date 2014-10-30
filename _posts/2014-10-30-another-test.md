@@ -5,4 +5,4 @@ tags : [test]
 ---
 {% include JB/setup %}
 
-test for another tim
+test for another test
