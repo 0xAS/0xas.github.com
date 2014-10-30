@@ -9,6 +9,6 @@ tags : [DeepLearning, DBN]
 
 <!--more-->
 
-#### Introduction
+### Introduction
  
 - *Arguments*
