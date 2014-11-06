@@ -3,6 +3,7 @@ html, body {
   background-color: whitesmoke;
   font-family: Helvetica Neue;
   background-repeat: repeat-x;
+  line-height:150%;
 	/*background-image:url(images/web_back.jpg);*/
 }
 
