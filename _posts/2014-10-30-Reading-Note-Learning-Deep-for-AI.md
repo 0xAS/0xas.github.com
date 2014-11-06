@@ -20,16 +20,16 @@ tags : [DeepLearning, DBN]
 <!--more-->
     + **Breakthrough in 2006**
         * <cite>Hinton et al [73], greedy layer-wise learning algorithm exploiting an unsupervised learning algorithm for each RBM layer [51]</cite>
-        * *auto-encoders proposed [17, 153]. guiding the training of intermediate levels of representation using unsupervised learning, which can be performed locally at each level.*
-        * *deep convolutional neural network*
+        * <cite>auto-encoders proposed [17, 153]. guiding the training of intermediate levels of representation using unsupervised learning, which can be performed locally at each level.</cite>
+        * <cite>deep convolutional neural network</cite>
     + Observation found with many successful experiment: once a good representation has been found at each level, it can be used to initialize and successfully train a deep neural network by supervised gradient-based optimization.
     + Brain has **sparse** and **distributed representation** to process visual information.
     + Deep architectures natually provide sharing and re-use components for multi-task learning: low-level visual features and intermediate-level visual features are useful for a large group of visual tasks. Deep learning algorithms are based on learning intermediate representations which can be shared across tasks.
     + Learning about a large set of interrelated concepts might provide a key to the kind of broad generalizations that human appear able to do.
 - *Bibliography*
-    + [173] [link]() biological side of how human brain processes the information. The brain appears to process information through multiple stages of transformation and representation, especially in primate visual system.
-    + [17,153] [link]() auto-encoder based deep architecture learning algorithm
-    + [37] [link]() poverty of labeled data solved by dln.
+    + <cite>[173] [link]() biological side of how human brain processes the information. The brain appears to process information through multiple stages of transformation and representation, especially in primate visual system.</cite>
+    + <cite>[17,153] [link]() auto-encoder based deep architecture learning algorithm</cite>
+    + <cite>[37] [link]() poverty of labeled data solved by dln.</cite>
 
 **Ch2. Theoretical Advantages of Deep Architectures**
 
@@ -44,11 +44,11 @@ tags : [DeepLearning, DBN]
         * A function which can be expressed by the composition of computational elements from a given set, can be pictured as a graph formalizing the composition with one node per computational element. *Depth of architecture refers to the depth of that graph*.
         * The composition of computational units in a small but deep circuit can actually be seen as an efficient factorization of a large but shallow circuit.
         * The depth of architectures is very important for statistical efficiency.
-- *Bibliography* 
-    + [156]: multilayer neural network: putting artificial neurons into the set of computational elements.
-    + [63]: Theorem 2.1: monotone weighted threshold circuits 
-    + [19] & [191]: discussion on the power of deep architectures and their potential for AI
-    + [140] an early survey of theoretical results in computational complexity relevant to machine learning algorithms.
+- *Bibliography*
+    + <cite>[156]: multilayer neural network: putting artificial neurons into the set of computational elements.</cite>
+    + <cite>[63]: Theorem 2.1: monotone weighted threshold circuits </cite>
+    + <cite>[19] & [191]: discussion on the power of deep architectures and their potential for AI</cite>
+    + <cite>[140] an early survey of theoretical results in computational complexity relevant to machine learning algorithms.</cite>
 
-#### Ch3. Local vs. Non-local Generalization
+**Ch3. Local vs. Non-local Generalization**
 
