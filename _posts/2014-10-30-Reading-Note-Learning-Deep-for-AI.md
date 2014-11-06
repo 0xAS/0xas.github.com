@@ -34,7 +34,7 @@ tags : [DeepLearning, DBN]
 **Ch2. Theoretical Advantages of Deep Architectures**
 
 - *Concepts*
-    + *Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.
+    + [cite]Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.[/cite]
     + *Compact function*: the expression of a function is compact when it has few computational elements.
     + *artificial neuron*: an affine transformation followed by a non-linearity.
     + *Monotone weighted threshold circuits*: multi-layer neural networks with linear threshold units and positive weights.
