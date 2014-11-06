@@ -25,7 +25,10 @@ html, body {
 /* The white background content wrapper */
 .content {
   background-color: #FFFFF0;
-  padding: 36px;
+  padding-top: 30px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-bottom: 20px;
   margin: 0 156px; /* negative indent the amount of the padding to maintain the grid system */
   -webkit-border-radius: 0 0 6px 6px;
      -moz-border-radius: 0 0 6px 6px;
@@ -182,7 +185,7 @@ img.navDock:hover {
 
 
 #nav_below{
-   margin-top:20px;
+   margin-top:10px;
    font-size:14px;
    color:#666;
 }
