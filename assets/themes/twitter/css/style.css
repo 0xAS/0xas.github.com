@@ -1,7 +1,7 @@
 /* Override some defaults */
 html, body {
   background-color: whitesmoke;
-  font-family: Palatino;
+  font-family: Helvetica Neue;
   background-repeat: repeat-x;
 	/*background-image:url(images/web_back.jpg);*/
 }
