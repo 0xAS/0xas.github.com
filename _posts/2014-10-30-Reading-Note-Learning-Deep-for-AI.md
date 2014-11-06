@@ -19,7 +19,7 @@ tags : [DeepLearning, DBN]
     + Automatical feature learning at multiple levels of abstraction allows a system to learn complex (non-linear) functions mapping the input to the output directly from data, without depending completely on human-crafted features. *Important for high-level features*: since humans often do not know how to specify explicitly in terms of raw sensory input.
 <!--more-->
     + **Breakthrough in 2006**
-        * *Hinton et al [73], greedy layer-wise learning algorithm exploiting an unsupervised learning algorithm for each RBM layer [51]*
+        * <cite>Hinton et al [73], greedy layer-wise learning algorithm exploiting an unsupervised learning algorithm for each RBM layer [51]</cite>
         * *auto-encoders proposed [17, 153]. guiding the training of intermediate levels of representation using unsupervised learning, which can be performed locally at each level.*
         * *deep convolutional neural network*
     + Observation found with many successful experiment: once a good representation has been found at each level, it can be used to initialize and successfully train a deep neural network by supervised gradient-based optimization.
@@ -34,7 +34,7 @@ tags : [DeepLearning, DBN]
 **Ch2. Theoretical Advantages of Deep Architectures**
 
 - *Concepts*
-    + [cite]Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.[/cite]
+    + Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.
     + *Compact function*: the expression of a function is compact when it has few computational elements.
     + *artificial neuron*: an affine transformation followed by a non-linearity.
     + *Monotone weighted threshold circuits*: multi-layer neural networks with linear threshold units and positive weights.
