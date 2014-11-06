@@ -16,8 +16,9 @@ tags : [DeepLearning, DBN]
 - *Arguments*
     + The *motivation of deep learning* is to *automatically discover abstractions from the lowest level features to the highest level abstract concepts*. The ideal learning algorithms are desired to discover these features with as little human effort as possible, without having to manually define all necessary abstractions or having to provide a huge set of relevant hand-labeled samples.
     + The *aim of deep learning methods* is to learn feature hierarchies with features from higher levels of the hierarchy formed by the composition of lower level features.
-    + Automatical feature learning at multiple levels of abstraction allows a system to learn complex (non-linear) functions mapping the input to the output directly from data, without depending completely on human-crafted features. *Important for high-level features*: since humans often do not know how to specify explicitly in terms of raw sensory input.
+    + Automatical feature learning at multiple levels of abstraction allows a system to learn complex (non-linear) functions mapping the input to the output directly from data, without depending completely on human-crafted
 <!--more-->
+    features. *Important for high-level features*: since humans often do not know how to specify explicitly in terms of raw sensory input.
     + **Breakthrough in 2006**
         * <cite>Hinton et al [73], greedy layer-wise learning algorithm exploiting an unsupervised learning algorithm for each RBM layer [51]</cite>
         * <cite>auto-encoders proposed [17, 153]. guiding the training of intermediate levels of representation using unsupervised learning, which can be performed locally at each level.</cite>
@@ -34,7 +35,7 @@ tags : [DeepLearning, DBN]
 **Ch2. Theoretical Advantages of Deep Architectures**
 
 - *Concepts*
-    + Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.
+    + *Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.
     + *Compact function*: the expression of a function is compact when it has few computational elements.
     + *artificial neuron*: an affine transformation followed by a non-linearity.
     + *Monotone weighted threshold circuits*: multi-layer neural networks with linear threshold units and positive weights.
@@ -52,3 +53,5 @@ tags : [DeepLearning, DBN]
 
 **Ch3. Local vs. Non-local Generalization**
 
+- *Concepts*
+    + *Local in input space estimator* an estimator obtains good generalization for a new input $x$ by mostly exploiting training samples in the neighborhood of $x$.
