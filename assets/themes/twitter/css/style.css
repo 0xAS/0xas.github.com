@@ -118,7 +118,7 @@ html, body {
 }
 .main_article p{
     display:block;
-    margin:12px 0;
+    /*margin:12px 0;*/
 }
 .read_more{
    font-size:12px;
