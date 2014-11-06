@@ -54,4 +54,9 @@ tags : [DeepLearning, DBN]
 **Ch3. Local vs. Non-local Generalization**
 
 - *Concepts*
-    + *Local in input space estimator* an estimator obtains good generalization for a new input $x$ by mostly exploiting training samples in the neighborhood of $x$.
+    + *Local in input space estimator*: an estimator obtains good generalization for a new input $$x$$ by mostly exploiting training samples in the neighborhood of $$x$$.
+    + *Parity function*: a boolean function whose value is 1 if and only if the input vector has an odd number of ones.
+    + *Local kernel*: a kernel is locak when $$k(x, x_i) > row$$ is true only for $$x$$ in some connected region around $$x_i$$ (for some threshold row). $$x_i$$ is he training sample, while $$x$$ is the input sample to be learned/classified.
+    + *Distributed representation*: the input pattern is represented by a set of features that are not mutually exclusive and might even be statistically independent.
+- *Arguments*
+    + *Curse of dimension*: what matters for generalization is not dimensionality, but instead the number of "variations" of the function we wish to obtain after learning.

@@ -68,7 +68,7 @@ html, body {
 	font-weight:900;
 	height:20px;
 	margin:9px 0;
-	line-height:105%;
+	line-height:80%;
 }
 
 .article_column h2 a:hover{
@@ -187,7 +187,7 @@ img.navDock:hover {
 #nav_below{
    /*margin-top:5px;*/
    font-size:14px;
-   color:#808080;
+   color:#708090;
 }
 #nav_below a{
    color:#999;
