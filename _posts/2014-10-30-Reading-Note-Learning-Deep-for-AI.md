@@ -8,7 +8,7 @@ tags : [DeepLearning, DBN]
 *"Learning Deep Architectures for AI"* [link](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf) gives a brief introduction about one main type of deep learning algorithms, *Deep Belief Networks (DBNs)*. It starts with the motivation for deep architecture, after which is the brief theoretical introduction of *DBNs*. This reading notes tries to summarize the arguements, theorems, proofs, fomulars and algorithms in section wise.
 
 
-#### Ch1. Introduction
+Ch1. Introduction
 
 - *Concepts*
     + *Depth of architectures:* the number of levels of composition of non-linear operations in the function learned. (shallow architectures: 1, 2, or 3 levels). Mammal brain is in a deep architecture [173].
@@ -31,7 +31,7 @@ tags : [DeepLearning, DBN]
     + [17,153] [link]() auto-encoder based deep architecture learning algorithm
     + [37] [link]() poverty of labeled data solved by dln.
 
-#### Ch2. Theoretical Advantages of Deep Architectures
+Ch2. Theoretical Advantages of Deep Architectures
 
 - *Concepts*
     + *Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.
