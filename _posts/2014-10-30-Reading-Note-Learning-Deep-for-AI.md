@@ -236,9 +236,13 @@ tags : [DeepLearning, DBN]
     + Contrastive divergence update in this generalized RBM:
         $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
         The gradient of the free energy of a sample $$x$$ is thus \\
-        $$ \frac{}{} = \sum_h\frac{exp(-\sum_{i,j}\eta_{i,j}(h_i, x_j))}{\sum_h exp(-Í\sum_{i,j}\eta_{i,j}(\widetilde{h_i}, x_j))}\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}} \\
-                     = \sum_h P(h|x)\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}} \\
-                     = E_h[\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}}|x]$$
+        $$ 
+        \begin{aligned}
+            \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} = \sum_h\frac{exp(-\sum_{i,j}\eta_{i,j}(h_i, x_j))}{\sum_h exp(-Í\sum_{i,j}\eta_{i,j}(\widetilde{h_i}, x_j))}\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}} 
+            = \sum_h P(h|x)\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}}
+            = E_h[\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}}|x]
+        \end{aligned}
+        $$
 - *Bibliography*
     + <cite>[150] justify the sparsity of the representation in the context of models based on auto-encoders. how one might get good models even though the partition function is not explicitly minimized, or only minimized approximately as long as other constraints are used on the learned representation.</cite>
     + <cite>[110] training sparse DBN.</cite>
