@@ -212,11 +212,11 @@ tags : [DeepLearning, DBN]
     + Conditional RBMs: some of the parameters are not free, but instead parametrized functions of a conditioning random variable. Generalizing RBMs to conditional RBMs allows building deep architectures in which the hidden variables at each level can be conditioned on the value of other variable.
     + Temporal RBMs: an extension of conditional RBM. The parameters (offsets and weights) are not only conditional on past inputs, but also past values of the state (units). it explores the temporal dependencies of the signal in time domain. 
     + Factorized RBMs: for probabilistic language models.
-- *Arguemtns*
+- *Arguements*
     + why the sparse representation?
         1. if one is to have fixed-size representations, sparse representations are more efficient than non-sparse ones in an information-theoretic sense, allowing for varying the effective number of bits per example.
         2. the fixed-length representation is going to be used as input for further processing so that it should be easy to interpret. A highly compressed encoding is usually highly entangled so that no subset of bits in the code can really be interpreted unless all the other bits are taken into account. But sparse representation allows a subset or an individual bit can interpret some features of the data, which might be sufficient for some particular prediction tasks.
-    + in compressed sensing, sparsity is achieved with the $$l_1$$ penalty on the codes. Given bases in matrix $$W$$, we look for codes $$h$$ such that the input signal $$x$$ is reconstructed with low $$l_2$$ reconstruction error while $$h$$ is sparse: $$ min_h \left \| x- Wh \right \|_2^2 + \lambda \left \|h \right \|_1 $$. where $$\left \|h \right \|_1 = \sum_i|h_i|$$
+    + In compressed sensing, sparsity is achieved with the $$l_1$$ penalty on the codes. Given bases in matrix $$W$$, we look for codes $$h$$ such that the input signal $$x$$ is reconstructed with low $$l_2$$ reconstruction error while $$h$$ is sparse: $$ min_h \left \| x- Wh \right \|_2^2 + \lambda \left \|h \right \|_1 $$. where $$\left \|h \right \|_1 = \sum_i \left \|h \right \|_1$$
     + sparse coding performs a kind of explaining away: it chooses one configuration among many of the hidden codes that could explain the input.
         1. advantage: if a cause is much more probable than the other, then it is the one that we want to highlight.
         2. disadvantage: 
