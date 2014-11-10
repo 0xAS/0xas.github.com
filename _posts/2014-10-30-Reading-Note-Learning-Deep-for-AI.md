@@ -140,9 +140,9 @@ tags : [DeepLearning, DBN]
     + *Score matching*: the score function of a distribution is defined as $\Psi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
 - *Arguements*
     + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* \\
-    -> $$ \frac{\partial{logP(x)}}{\theta} = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} $$ \\
-                                        $$= -\frac{1}{\sum_h e^{-Energy(x,h)}}\sum_h e^{-Energy(x,h)}\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \frac{1}{\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h}}\sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{theta}} $$\\
-                                        $$= -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} $$ \\<-
+    -> $$ \frac{\partial{logP(x)}}{\theta} = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} $$<- \\
+                                        ->$$= -\frac{1}{\sum_h e^{-Energy(x,h)}}\sum_h e^{-Energy(x,h)}\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \frac{1}{\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h}}\sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{theta}} $$<-\\
+                                        ->$$= -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} $$<-\\
         * Derivatives are easy to compute. Hence *the only difficulty* here is to propose a sampling procedure to sample from $$P(h\mid x)$$ and one to sample from $$P(x,h)$$, to approximate the log-likelihood gradient of Boltzmann machine.
         * MCMC sampling approach is based on *Gibbs Sampling*. Sampled sample of $$x's$$ distribution converges to $$P(x)$$ as the number of sampling step goes to infinity under some conditions.
     + In a boltzmann machine, for binary sample units, $$P(S_i\mid S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. $$sigm(d_i + 2a_{-i}^{'}s_{-i})$$.
@@ -185,7 +185,7 @@ tags : [DeepLearning, DBN]
 - *Arguements*
     + Deep Belief Network with $$l$$ layers models the joint distribution between observed vector $$x$$ and $$l$$ hidden layers $$h^k$$ as follows:
         $$ P(x, h^1, ... , h^l) = (\prod_{h^k}^{h^{k+1}}P(h^k|h^{k+1}))P(h^{l-1}, h^l)$$
-    + *Distribution $$P(h^{k-1}|h^k)$$ and $$P(h^{l-1}, h^l)$$ define the generative model.*
+    + *Distribution $$P(h^{k-1}\mid h^k)$$ and $$P(h^{l-1}, h^l)$$ define the generative model.*
     + *Training of the DBN*:
         * *Recognition phase*:
             - first sample $$h^1 ~ Q(h^1\mid x)$$ from first level RBM, or alternatively with a mean-field approach using $$\overline{h^1} = E[h^1\mid x]$$.
