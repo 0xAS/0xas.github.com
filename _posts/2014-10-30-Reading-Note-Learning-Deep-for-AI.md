@@ -193,7 +193,7 @@ tags : [DeepLearning, DBN]
             - repeat this until the last layer.
             - once all the layers' parameters are learned, these parameters can be used to initialize a deep multi-layer neural network, which can be fine tuned with the help of supervised learning.
         * *generative phase*:
-            - sample a visible vector $$h^{l-1}$$ from top-level RBM. Use CD-k (Gibbs chain in the RBM alternating between $$h^l ~ P(h^\mid h^{l-1})$$ and $$h^{l-1} ~ P(h^{l-1}\mid h^l)$$).
+            - sample a visible vector $$h^{l-1}$$ from top-level RBM. Use CD-k (Gibbs chain in the RBM alternating between $$h^l ~ P(h^l \mid h^{l-1})$$ and $$h^{l-1} ~ P(h^{l-1}\mid h^l)$$).
             - for $$k=l-1$$ down to 1, sample $$h^{k-1}$$ given $$h^k$$ according to the level-k hidden-to-visible conditional distribution $$P(h^{k-1}\mid h^k)$$.
             - $$x=h^0$$ is the DBN sample.
     + Training of stacked auto-encoder: it just changes the RBM to auto-encode. So the initialization of parameters are done by reconstruction error minimization.
@@ -223,15 +223,15 @@ tags : [DeepLearning, DBN]
             1. it makes the resulting codes somewhat unstable. small perturbations of the input x could give rise to very different values of the optimal code h.
             2. optimizing equation 7.1 is efficient, it can be hundreds of time slower than the kind of computation involved in computing the codes in ordinary auto-encoders or RBMs, making both training and recognition very slow.
             3. joint optimization of the bases W with higher levels of a deep architecture is another stability issue.
-    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because sparse coding systems only parametrize the decoder, while the encoder is defined implicitly as the solution of an optimization. Instead, an ordinary auto-encoder or an RBM has an encoder part $$(P(h\mid x))$$ and a decoder part $$(P(x\midh))$$.
+    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because sparse coding systems only parametrize the decoder, while the encoder is defined implicitly as the solution of an optimization. Instead, an ordinary auto-encoder or an RBM has an encoder part $$(P(h\mid x))$$ and a decoder part $$(P(x\mid h))$$.
     + middle ground between ordinary auto-encoders and sparse coding. Let the codes h be free but include a parametric encoder and a penalty for the difference between the free non-parametric codes h and the outputs of the parametric encoder.
     + Lateral connections capture pairwise dependencies that can be more easily captured this way than using hidden units, saving the hidden units for capturing higher-oder dependencies.
         1. advantage: the higher level factors represented by the hidden units do not have to encode all the local "details" that the lateral connections at the levels below can capture.
     + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
-    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\midx)$$ and $$P(x\midh)$$ both factorise.
+    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise.
     
     Complementary priors allow the posterior distribution $$P(h|x)$$ to factorize by a proper choice of $$P(h)$$.
-    > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\midx) = \prod_i P(h_i\midx)$$ and $$P(x\midh)=\prod_j P(x_j\midh)$$ must have the form
+    > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\mid x) = \prod_i P(h_i\mid x)$$ and $$P(x\mid h)=\prod_j P(x_j\mid h)$$ must have the form
     > $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
     + Contrastive divergence update in this generalized RBM:
         $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
