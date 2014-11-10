@@ -5,7 +5,7 @@ tags : [DeepLearning, DBN]
 ---
 {% include JB/setup %}
 
-*"Learning Deep Architectures for AI"* [link](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf) gives a brief introduction about one main type of deep learning algorithms, *Deep Belief Networks (DBNs)*. It starts with the motivation for deep architecture, after which is the brief theoretical introduction of *DBNs*. This reading notes tries to summarize the arguements, theorems, proofs, fomulars and algorithms in section wise.
+*"Learning Deep Architectures for AI"* [link](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf) gives a brief introduction about one main type of deep learning algorithms, *Deep Belief Networks (DBNs)*. It starts with the motivation for deep architecture, after which is the brief theoretical introduction of *DBNs*. This reading notes tries to summarize the arguments, theorems, proofs, fomulars and algorithms in section wise.
 
 
 **Ch1. Introduction**
@@ -89,7 +89,7 @@ tags : [DeepLearning, DBN]
     + Auto-encoder: encode the input $$x$$ into some representation $$c(x)$$ so that the input can be reconstructed from that representation.
     + Training distribution: the emperical distribution of the training set, or the generating distribution for our training samples.
     + Model distribution: the probability distribution of the trained model.
-- *Arguements*
+- *Arguments*
     + *Difficulties* in training deep architectures:
         * random initialization of network parameters often leads to "*apparent local minima or plateaus*"
         * the deeper the network goes, the worse the generalization we get.
@@ -138,7 +138,7 @@ tags : [DeepLearning, DBN]
         * Equation: $$ \Delta \theta \propto \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} - \frac{\partial{FreeEnergy(\widetilde{x})}}{\partial{\theta}}$$
     + *Persistent MCMC for Negative Phase*: instead of CD-k for updating parameters, an MCMC chain is kept in the background to obtain the negative phase samples $$(x,h)$$.
     + *Score matching*: the score function of a distribution is defined as $\Psi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
-- *Arguements*
+- *Arguments*
     + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* 
     $$ 
     \begin{aligned}
@@ -186,7 +186,7 @@ tags : [DeepLearning, DBN]
 - *Concepts*
     + *Deep Belief Networks (DBNs)*: a generative model (generative path with $$P$$ distributions) and a mean to extract multiple levels of representation of the input (recognition path with $$Q$$ distributions).
      ![Deep Belief Network as a generative model](/images/DBN.png "DBN network")
-- *Arguements*
+- *Arguments*
     + Deep Belief Network with $$l$$ layers models the joint distribution between observed vector $$x$$ and $$l$$ hidden layers $$h^k$$ as follows:
         $$ P(x, h^1, ... , h^l) = (\prod_{h^k}^{h^{k+1}}P(h^k|h^{k+1}))P(h^{l-1}, h^l)$$
     + *Distribution $$P(h^{k-1}\mid h^k)$$ and $$P(h^{l-1}, h^l)$$ define the generative model.*
@@ -216,7 +216,7 @@ tags : [DeepLearning, DBN]
     + Conditional RBMs: some of the parameters are not free, but instead parametrized functions of a conditioning random variable. Generalizing RBMs to conditional RBMs allows building deep architectures in which the hidden variables at each level can be conditioned on the value of other variable.
     + Temporal RBMs: an extension of conditional RBM. The parameters (offsets and weights) are not only conditional on past inputs, but also past values of the state (units). it explores the temporal dependencies of the signal in time domain. 
     + Factorized RBMs: for probabilistic language models.
-- *Arguements*
+- *Arguments*
     + why the sparse representation?
         1. if one is to have fixed-size representations, sparse representations are more efficient than non-sparse ones in an information-theoretic sense, allowing for varying the effective number of bits per example.
         2. the fixed-length representation is going to be used as input for further processing so that it should be easy to interpret. A highly compressed encoding is usually highly entangled so that no subset of bits in the code can really be interpreted unless all the other bits are taken into account. But sparse representation allows a subset or an individual bit can interpret some features of the data, which might be sufficient for some particular prediction tasks.
@@ -257,7 +257,32 @@ tags : [DeepLearning, DBN]
 **Ch8. Stochastic Variational Bounds for Joint Optimization of DBN Layers**
 
 - *Concepts*
-- *Arguemtns*
+    + *KL Divergence*: a.k.a. *relative entropy*. a non-symmetric *measure of the difference between two probability distributions $$P$$ and $$Q$$*. Specially, KL divergence of $$Q$$ from $$P$$ is to measure the information lost when the $$Q$$ is used to approximate the $$P$$.  
+    + *wake-sleep algorithm*: wake phase & sleep phase
+      1. wake phase updates for the weights of the top RBM. sample x from the training set generate $$h ~ Q(h\mid x)$$ and use this $$(h,x)$$ as fully observed data for training $$P(x\mid h)$$ and $$P(h)$$.
+      2. sleep phase: sample $$(h,x)$$ from model $$P(x,h)$$ and use that pair as fully observed data for training $$Q(h\mid x)$$
+- *Arguments*
+    + The log-likelihood of a DBN can be *lower bounded* using *Jensen's inequality*, and can justify the greedy layer-wise training strategy.
+    $$
+    \begin{aligned}
+    logP(x) & = (\sum_h Q(h|x))logP(x) = \sum_hQ(h|x)log\frac{P(x,h)}{P(h|x)}\\
+    & = \sum_hQ(h|x)log\frac{P(x,h)}{P(h|x)}\frac{Q(h|x)}{Q(h|x)} \\
+    & = \sum_hQ(h|x)logP(x,h) - \sum_hQ(h|x)logQ(h|x) + \sum_hQ(h|x)log\frac{Q(h|x)}{P(h|x)} \\
+    & = \sum_hQ(h|x)logP(x,h) + H_{Q(h|x)} + KL(Q(h|x)||P(h|x)) \\
+    & = KL(Q(h|x)||P(h|x)) + H_{Q(h|x)} + \sum_hQ(h|x)lop(P(h)P(x|h)) \\
+    & = KL(Q(h|x)||P(h|x)) + H_{Q(h|x)} + \sum_hQ(h|x)(logP(h) + logP(x|h))
+    \end{aligned}
+    $$
+    $$H_{Q(h\mid x)}$$ is the entropy of distribution $$Q(h\mid x)$$.\\
+    Due to the non-negativity of the KL divergence:
+    $$ logP(x) \geq H_{Q(h\mid x)} + \sum_hQ(h|x)(logP(h) + logP(x|h))$$, which becomes an equity when $$P$$ and $$Q$$ are identical.
+    + There exists a DBN whose $$h^1$$ marginal equals the first RBM's $$h^1$$ marginal, as long as the dimension of $$h^2$$ equals the dimension of $$h^0 = x$$. By symmetry of the roles of visible and hidden units in an RBM joint distribution, the marginal distribution over the visible vector of the second RBM is equal to the marginal distribution of the hidden vector of the first RBM.
+    + Further training of an additional RBM increases a lower bound on the log-likelihood inequality.
+    + As the lower bound continues to increase, the actual log-likelihood could start decreasing. 
+    + Another argument to explain why the greedy procedure works is that: training distribution for the second RBM looks more like data generated by an RBM than the original training distribution. 
+    + a good criterion for training the first RBM is the KL divergence between the data distribution and the distribution of the stochastic reconstruction vectors after one step of the Gibbs chain. This criterion yields better optimization of the DBN.
+        1. disadvantage: this criterion is intractable since it involves summing over all configurations of the hidden vector $$h$$.
+    + In the Wake phase, we consider $$Q$$ fixed and do a stochastic gradient step towards maximizing the expected value of $$F(x)$$ over samples $$x$$ of the training set, with respect to parameters $$P$$. In the Sleep phase, make $$Q$$ as close to $$P$$ as possible in the sense of minimizing $$KL(Q(h\mid x)||P(h\mid x))$$. However, instead of minimizing $$KL$$, take $$P$$ as the reference because $$KL$$ is intractable.
 - *Bibliography*
     + <cite>[72] train sigmoidal belief networks with Wake-Sleep algorithm</cite>
     + <cite>[73] wake-sleep algorithm for DBN.</cite>
