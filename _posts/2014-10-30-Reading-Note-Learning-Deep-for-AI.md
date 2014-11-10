@@ -233,8 +233,8 @@ tags : [DeepLearning, DBN]
         1. advantage: the higher level factors represented by the hidden units do not have to encode all the local "details" that the lateral connections at the levels below can capture.
     + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
     + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise.
-    > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\mid x) = \prod_i P(h_i\mid x)$$ and $$P(x\mid h)=\prod_j P(x_j\mid h)$$ must have the form
-    > $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
+    >Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\mid x) = \prod_i P(h_i\mid x)$$ and $$P(x\mid h)=\prod_j P(x_j\mid h)$$ must have the form
+    >$$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
     Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
     + Contrastive divergence update in this generalized RBM:
         $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
