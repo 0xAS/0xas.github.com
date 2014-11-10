@@ -90,4 +90,45 @@ tags : [DeepLearning, DBN]
     + Training distribution: the emperical distribution of the training set, or the generating distribution for our training samples.
     + Model distribution: the probability distribution of the trained model.
 - *Arguements*
-    + 
+    + *Difficulties* in training deep architectures:
+        * random initialization of network parameters often leads to "*apparent local minima or plateaus*"
+        * the deeper the network goes, the worse the generalization we get.
+    + Greedy layer-wise unsupervised training (RBM, auto-encoder) helps to initialize the network's parameters, which improves the generalization performance.
+    + Possible explanation for the improvements brought by unsupervised pre-training.
+        * These unsupervised training algorithms have layer-local unsupervised criteria. That helps guide the parameters of that layer towards better regions in parameter space.
+        * Unsupervised pre-training can be seen as *a form of regularizer* (and prior): unsupervised pre-training amounts to a constraint on the region in parameter space where a solution is allowed.
+        * The effect of unsupervised learning is most marked for the lower layers of a deep architecture, which means it is more in the "optimization" direction.
+        * Unsupervised pre-training helps generalization by allowing for a better tuning of lower layers a deep architecture. WIth unsupervised pre-training, the lower layers are constrained to capture regularities of the input distribution.
+        * The unsupervised pre-training does not only help to regularize the nework, but also helps to optimize the weights of the lower layers in the deep architecture.
+        * The gradient descent criterion defined at the output layer becomes less useful as it propagates backwards to the lower layer. That's why the generalization error is poor with random parameter initialization. Because the criterion cannot help optimize the lower level layer parameters.
+        * Generally speaking, *unsupervised learning could help reduce the dependency on the unreliable update direction given by the gradient of a supervised criterion*. It also helps to decompose the problem into sub-problems associated with different levels of abstraction.
+    + Convolutional neural networks is not difficult to train even without unsupervised pre-training.
+    + One issue with *auto-encoder*: if there is no other constraint, the auto-encoder with n-dimensional inout and an encoding of dimension at least n could potentially just learn the identity function.
+        * This might be avoided by using the stochastic gradient descent with early stopping, which is similar to an $$l_2$$ regularization of the parameters.
+        * *adding noises* to the encoding may help avoid this problem as well.
+    + *Denoising auto-encoder* not only tries to *encode the input* but also to *capture the statistical structure in the input*, by approximately *maximizing the likelihood of a generative model*. This maximizes a lower bound on the log-likelihood of a generative model.
+- *Bibliography*
+    + <cite>[73] initial experiments using RBM for each layer</cite>
+    + <cite>[17,98,99] statistical comparisons to prove the advantage of unsupervised pre-training versus random initialization</cite>
+    + <cite>[50] unsupervised pre-training acts more like a data dependent "regularizer".</cite>
+    + <cite>[91] generative models can often be represented as graphical models</cite>
+    + <cite>[83] convolutional nets were inspired by the visual system's structure.</cite>
+    + <cite>[101,104] LeCun's state of art convolutional neural network on visual classification tasks. error-gradient</cite>
+    + <cite>[45, 111] imported convolutonal structure into DBN, design of a generative version of pooling/subsampling units.</cite>
+
+**Ch5. Energy based Models and RBM**
+
+- *Concepts*
+    + *Energy based model*: The model associates a scalar energy to each configuration of the variables of interst.
+        $$P(x) = \frac{e^{-Energy(x)}}{Z}$$, where $$Z = \sum_x e^{-Energy(x)}$$ is the partition function as a sum running over the input space.
+    + *Boltzmann machine*: Energy function of a BM is $$Energy(x,h) =  -b^'x - c^'h - h^'Wx - x^'Ux - h^'Vh$$. These parameters (offsets and weights) are collectively denoted by $$\theta$$.
+    + *Restricted Boltzmann Machine (RBM)*: Building block of the DBN. It shares parametrization with individual layers of a DBN.
+        * Hidden units are independent of each other, when conditioning on visible units $$x$$. Likewise for visible units.
+        * Energy function:
+            $$Energy(x,h) = -b^'x - c^' - h^'Wx$$
+          Free energy function:
+            $$ FreeEnergy(x) = -b^'x - \sum_i log \sum_{h_i}e^{j_i (c_i + W_ix)}$$
+        * Conditional probability: 
+            $$P(h_i = 1|x) = $$
+- *Arguements*
+- *Bibliography*
