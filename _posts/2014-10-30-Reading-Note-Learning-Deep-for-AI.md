@@ -64,3 +64,30 @@ tags : [DeepLearning, DBN]
         * $$1^{st} level$$: input sample will be matched to a set of templates, with an output of a value indicating the degree of matching.
         * $$2^{nd} level$$: perform a kind of interpolation to predit with template the input sample mostly fits in.
             $$ f(x) = b + \sum_i {\alpha_i K (x, x_i)}$$
+    + Kernal machine is the *prototypical example* of local matching architecture. It yields generalization by exploiting the *smoothness prior*.
+    + For a maximally varying function such as the parity function, the number of examples necessary to achieve some error rate with a Gaussian kernel machine is *exponential* in the input dimension.
+    + *Biggest disadvantage of supervised, semi-supervised learning algorithms based on neighbor graph*: they need as many samples as there are variations of interest in the target function, and they *cannot generalize to new variations not covered in the training set*.
+    + Local representation for a vector can be represented in a much more compact way with the help of distributed representation (*exponentially*).
+- *Bibliography*
+    + <cite>[160] a Gaussian Process kernel machine can be improved using a Deep Belief Network to learn a feature space</cite>
+    + <cite>[41] computational complexity literature tells that the number of training examples necessary to achieve a given error rate is exponential in the input dimension.</cite>
+    
+**Ch4. Neural Networks for Deep Architectures**
+
+- *Concepts*
+    + *Neural Network*: multilayer perceptron.
+        * *equation of each layer*: 
+        $$h^k = tanh(b^k + W^k h^{k-1})$$
+        This equation performs an additional nonlinear computation on top of the affine transformation. The hyperbolic tangent non-linearity can be replaced by sign function, softamx function, etc..
+        * *loss function*: 
+        $$L(h^l, y) = -logP(Y = y|x) = -log h_{y}^{l}$$
+        Loss function is typically *convex* in $$b^l + W^l h^{l-1}$$.
+        * *training rule*: The target is to reduce the loss of the prediction. By that, it means to minimize the log-likelihood of the conditional probability of $$y$$ given $$x$$.
+    + Sigmoid belief network: units in each layer are independent given the values of the units in the layer above.
+    + Deep belief network: similar to sigmoid networks, but top two layers are RBM.
+    + LeCun's Convolutional neural networks: convolutional layers, subsampling layers, error gradient. Each neuron is associated with a fixed two dimenional position that corresponds to a location in the input image, along with a receptive field.
+    + Auto-encoder: encode the input $$x$$ into some representation $$c(x)$$ so that the input can be reconstructed from that representation.
+    + Training distribution: the emperical distribution of the training set, or the generating distribution for our training samples.
+    + Model distribution: the probability distribution of the trained model.
+- *Arguements*
+    + 
