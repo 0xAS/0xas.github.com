@@ -182,6 +182,106 @@ tags : [DeepLearning, DBN]
 - *Concepts*
     + *Deep Belief Networks (DBNs)*: a generative model (generative path with $$P$$ distributions) and a mean to extract multiple levels of representation of the input (recognition path with $$Q$$ distributions).
      ![Deep Belief Network as a generative model](/images/DBN.png "DBN network")
-
 - *Arguements*
+    + Deep Belief Network with $$l$$ layers models the joint distribution between observed vector $$x$$ and $$l$$ hidden layers $$h^k$$ as follows:
+        $$ P(x, h^1, ... , h^l) = (\prod_{h^k}^{h^{k+1}}P(h^k|h^{k+1}))P(h^{l-1}, h^l)$$
+    + *Distribution $$P(h^{k-1}|h^k)$$ and $$P(h^{l-1}, h^l)$$ define the generative model.*
+    + *Training of the DBN*:
+        * *Recognition phase*:
+            - first sample $$h^1 ~ Q(h^1|x)$$ from first level RBM, or alternatively with a mean-field approach using $$\overline{h^1} = E[h^1|x]$$.
+            - take the output of first-level RBM as the input for the second-level RBM and compute the $$h^2$$.
+            - repeat this until the last layer.
+            - once all the layers' parameters are learned, these parameters can be used to initialize a deep multi-layer neural network, which can be fine tuned with the help of supervised learning.
+        * *generative phase*:
+            - sample a visible vector $$h^{l-1}$$ from top-level RBM. Use CD-k (Gibbs chain in the RBM alternating between $$h^l ~ P(h^l|h^{l-1})$$ and $$h^{l-1} ~ P(h^{l-1} | h^l)$$).
+            - for $$k=l-1$$ down to 1, sample $$h^{k-1}$$ given $$h^k$$ according to the level-k hidden-to-visible conditional distribution $$P(h^{k-1}|h^k)$$.
+            - $$x=h^0$$ is the DBN sample.
+    + Training of stacked auto-encoder: it just changes the RBM to auto-encode. So the initialization of parameters are done by reconstruction error minimization.
+    + In general, the DBN has an edge over stacked auto-encoders. However, denoising auto-encoder is comparable to DBN, which performs the stochastic approximation.
 - *Bibliography*
+    + <cite>[73] learning algorithm for DBN by G.Hinton.</cite>
+    + <cite>[109, 148] self-taught learning</cite> 
+
+**Ch7. Variants of RBMs and Auto-encoders**
+
+- *Concepts*
+    + sparse deep architecture
+    + *Denoising auto-encoders*: stochastic version of the auto-encoder where the input is stochastically corrupted, however the uncorrupted input is still used as target for the reconstruction.
+        * Training criterion: a reconstruction log-likehood $$-logP(x|c(x^{\overline{x}}))$$, where $$x$$ is the uncorrupted input, $$\overline{x}$$ is the corrupted one, and $$c(\overline{x})$$ is the code obtained from $$\overline{x}$$.
+    + Lateral connections: introduse lateral connections between visible units.
+    + Conditional RBMs: some of the parameters are not free, but instead parametrized functions of a conditioning random variable. Generalizing RBMs to conditional RBMs allows building deep architectures in which the hidden variables at each level can be conditioned on the value of other variable.
+    + Temporal RBMs: an extension of conditional RBM. The parameters (offsets and weights) are not only conditional on past inputs, but also past values of the state (units). it explores the temporal dependencies of the signal in time domain. 
+    + Factorized RBMs: for probabilistic language models.
+- *Arguemtns*
+    + why the sparse representation?
+        1. if one is to have fixed-size representations, sparse representations are more efficient than non-sparse ones in an information-theoretic sense, allowing for varying the effective number of bits per example.
+        2. the fixed-length representation is going to be used as input for further processing so that it should be easy to interpret. A highly compressed encoding is usually highly entangled so that no subset of bits in the code can really be interpreted unless all the other bits are taken into account. But sparse representation allows a subset or an individual bit can interpret some features of the data, which might be sufficient for some particular prediction tasks.
+    + in compressed sensing, sparsity is achieved with the $$l_1$$ penalty on the codes. Given bases in matrix $$W$$, we look for codes $$h$$ such that the input signal $$x$$ is reconstructed with low $$l_2$$ reconstruction error while $$h$$ is sparse: $$ min_h \left \| x- Wh \right \|_2^2 + \lambda \left \|h \right \|_1 $$. where $$\left \|h \right \|_1 = \sum_i|h_i|$$
+    + sparse coding performs a kind of explaining away: it chooses one configuration among many of the hidden codes that could explain the input.
+        1. advantage: if a cause is much more probable than the other, then it is the one that we want to highlight.
+        2. disadvantage: 
+            1. it makes the resulting codes somewhat unstable. small perturbations of the input x could give rise to very different values of the optimal code h.
+            2. optimizing equation 7.1 is efficient, it can be hundreds of time slower than the kind of computation involved in computing the codes in ordinary auto-encoders or RBMs, making both training and recognition very slow.
+            3. joint optimization of the bases W with higher levels of a deep architecture is another stability issue.
+    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because sparse coding systems only parametrize the decoder, while the encoder is defined implicitly as the solution of an optimization. Instead, an ordinary auto-encoder or an RBM has an encoder part $$(P(h|x))$$ and a decoder part $$(P(x|h))$$.
+    + middle ground between ordinary auto-encoders and sparse coding. Let the codes h be free but include a parametric encoder and a penalty for the difference between the free non-parametric codes h and the outputs of the parametric encoder.
+    + Lateral connections capture pairwise dependencies that can be more easily captured this way than using hidden units, saving the hidden units for capturing higher-oder dependencies.
+        1. advantage: the higher level factors represented by the hidden units do not have to encode all the local "details" that the lateral connections at the levels below can capture.
+    + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
+    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h|x)$$ and $$P(x|h)$$ both factorise.
+    
+    Complementary priors allow the posterior distribution $$P(h|x)$$ to factorize by a proper choice of $$P(h)$$.
+    > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h|x) = \prod_i P(h_i|x)$$ and $$P(x|h)=\prod_j P(x_j|h)$$ must have the form
+    > $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
+    + Contrastive divergence update in this generalized RBM:
+        $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
+        The gradient of the free energy of a sample $$x$$ is thus \\
+        $$ \frac{}{} = \sum_h\frac{exp(-\sum_{i,j}\eta_{i,j}(h_i, x_j))}{\sum_h exp(-Í\sum_{i,j}\eta_{i,j}(\widetilde{h_i}, x_j))}\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}} \\
+                     = \sum_h P(h|x)\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}} \\
+                     = E_h[\sum_{i,j}\frac{\partial{\eta_{i,j}(h_i, x_j)}}{\partial{\theta}}|x]$$
+- *Bibliography*
+    + <cite>[150] justify the sparsity of the representation in the context of models based on auto-encoders. how one might get good models even though the partition function is not explicitly minimized, or only minimized approximately as long as other constraints are used on the learned representation.</cite>
+    + <cite>[110] training sparse DBN.</cite>
+    + <cite>[195]shows how the strategy is highly successful as unsupervised pre-training for a deep architecture, and links the denoising auto-encoder to a generative model.</cite>
+    + <cite>[141] model based on lateral connected RBMs, proves that DBN based on this model generates more realistic image patches than DBN based on ordinary RBMs.</cite>
+    + <cite>[139] whitening is useful for image processing systems.</cite>
+    + <cite>[73] energy function associated with a model of the the form of Equation 5.5 such that P(h|x) and P(x|h) must have the form.</cite>
+    
+**Ch8. Stochastic Variational Bounds for Joint Optimization of DBN Layers**
+
+- *Concepts*
+- *Arguemtns*
+- *Bibliography*
+    + <cite>[72] train sigmoidal belief networks with Wake-Sleep algorithm</cite>
+    + <cite>[73] wake-sleep algorithm for DBN.</cite>
+    + <cite>[161] transform DBN to a Boltzmann Machine by halving the RBM weights when initializing the deep Boltzmann machine from the layer-wise RBM. In positive phase, a variational approximation corresponding to a mean-field relaxation is proposed. In the negative phase, a persistent MCMC chain is proposed to use. It edges DBN on the MNIST dataset, both in terms of the data log-likelihood and in terms of classification error.</cite>
+    + <cite>[111] convolutional structure DBN is transformed into a deep Boltzmann machine.</cite>
+
+**Ch9. Looking Forward**
+
+- *Arguemtns*
+    + Connections between the existing training methods and approaches helping to deal with difficult optimization problems based on the principle of continuation methods:
+        * Firstly solve an easier and smoothed version of the problem
+        * Gradually consider less smoothing with the intuition that a smooth version of the problem reveals the global picture.
+    + Greedy layer-wise training algorithm for DBNs is an approximate continuation method. Instead of a continuum of training criteria, a discrete sequence of presumably gradually more difficult optimization problems is dealt with. 
+    + Why unsupervised pre-training helps?
+        1. *regularization effect of the learning*: *direct the parameter to a region from which gradient descent can yield good solutions.* (empirically demonstrated)
+        2. *better optimization of the lower layers of the deep architectures.
+    + The use of stochastic gradient (such as the one obtained from CD-k) and small initial weights is close to a continuation method.
+    + *Controlling the magnitude of the offsets and weights in an RBM is equivalent to controlling the temperature in a Boltzmann machine (a scaling coefficient for the energy function).*
+    + Unsupervised or semi-supervised learning is crucial to deep architectures in several aspects:
+        1. scarcity of labeled examples and availability of many unlabeled examples
+        2. unknown future task.
+        3. Once a good high-level representation is learned, other learn-ing tasks (e.g., supervised or reinforcement learning) could be much easier.
+        4. layer-wise unsupervised learning. Much of the learning could be done using infor-mation available locally in one layer or sub-layer of the architecture, thus avoiding the hypothesized problems with supervised gradients propagating through long chains with large fan-in elements.
+        5. The extra constraints imposed on the optimization by requiring the model to capture not only the input-to-target dependency but also the statistical regularities of the input distribution might be helpful in avoiding some poorly gener-alizing apparent local minima
+- *Bibliography*
+    + <cite>[3] approaches based on the principle of continuation methods to deal with difficult optimization problems.</cite>
+    + <cite>[6, 97, 121] start training from an unsupervised representation learning algorithm (e.g. sparse coding), fine-tuning the representation with a discriminant criterion or combining the discriminant and unsupervised criteria.</cite>
+    + <cite>[36, 211] mathimatical connection between early stopping and l2 regularization.</cite>
+    + <cite>[20] training with a curriculum. showing better performance on vision and language tasks, compared to training only with the target distribution.</cite>
+    + <cite>[148] scarcity of labeled examples and availability of many unlabeled examples</cite>
+    + <cite>[202] online procedure for training deep architectures that preserves an unsupervised component all along.</cite>
+    + <cite>[187,188] improve upon Contrastive Divergence taking computation time into account.</cite>
+    + <cite>[163,133] instead of using reconstruction error to monitor the learning progress of RBMs and DBNs, use other  tractable approximations of the partition functions. (Annealed Importance Sampling)</cite>
+    + <cite>[112] cortex working principle</cite>
