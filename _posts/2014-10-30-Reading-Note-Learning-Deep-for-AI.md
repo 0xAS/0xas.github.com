@@ -140,9 +140,13 @@ tags : [DeepLearning, DBN]
     + *Score matching*: the score function of a distribution is defined as $\Psi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
 - *Arguements*
     + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* 
-    $$ \frac{\partial{logP(x)}}{\theta} = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} $$
-                                        $$= -\frac{1}{\sum_h e^{-Energy(x,h)}}\sum_h e^{-Energy(x,h)}\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \frac{1}{\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h}}\sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{theta}} $$
-                                        $$= -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} $$
+    $$ 
+    \begin{aligned}
+        \frac{\partial{logP(x)}}{\theta} &= \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} \\
+        & = -\frac{1}{\sum_h e^{-Energy(x,h)}}\sum_h e^{-Energy(x,h)}\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \frac{1}{\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h}}\sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{theta}} \\
+        & = -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} 
+        \end{aligned}
+    $$
         * Derivatives are easy to compute. Hence *the only difficulty* here is to propose a sampling procedure to sample from $$P(h\mid x)$$ and one to sample from $$P(x,h)$$, to approximate the log-likelihood gradient of Boltzmann machine.
         * MCMC sampling approach is based on *Gibbs Sampling*. Sampled sample of $$x's$$ distribution converges to $$P(x)$$ as the number of sampling step goes to infinity under some conditions.
     + In a boltzmann machine, for binary sample units, $$P(S_i\mid S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. $$sigm(d_i + 2a_{-i}^{'}s_{-i})$$.
@@ -230,7 +234,7 @@ tags : [DeepLearning, DBN]
     + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
     + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise.
     
-    Complementary priors allow the posterior distribution $$P(h|x)$$ to factorize by a proper choice of $$P(h)$$.
+    Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
     > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\mid x) = \prod_i P(h_i\mid x)$$ and $$P(x\mid h)=\prod_j P(x_j\mid h)$$ must have the form
     > $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
     + Contrastive divergence update in this generalized RBM:
