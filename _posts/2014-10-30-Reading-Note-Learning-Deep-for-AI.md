@@ -140,13 +140,13 @@ tags : [DeepLearning, DBN]
     + *Score matching*: the score function of a distribution is defined as $\Psi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
 - *Arguements*
     + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* \\
-    $$ \frac{\partial{logP(x)}}{\theta} = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} $$ \\
+    -> $$ \frac{\partial{logP(x)}}{\theta} = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} $$ \\
                                         $$= -\frac{1}{\sum_h e^{-Energy(x,h)}}\sum_h e^{-Energy(x,h)}\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \frac{1}{\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h}}\sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{theta}} $$\\
-                                        $$= -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} $$ \\
+                                        $$= -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} $$ \\<-
         * Derivatives are easy to compute. Hence *the only difficulty* here is to propose a sampling procedure to sample from $$P(h\mid x)$$ and one to sample from $$P(x,h)$$, to approximate the log-likelihood gradient of Boltzmann machine.
         * MCMC sampling approach is based on *Gibbs Sampling*. Sampled sample of $$x's$$ distribution converges to $$P(x)$$ as the number of sampling step goes to infinity under some conditions.
-    + In a boltzmann machine, for binary sample units, $$P(S_i|S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. $$sigm(d_i + 2a_{-i}^{'}s_{-i})$$.
-    + $$Two MCMC chains$$ are needed for each sample $$x$$. *The positive phase*, in which $$x$$ is clamped and $$(h|x)$$ is sampled; *the negative phase* in which $$(x,h)$$ is sampled. *The computation of the gradient can be very expensive and the training time will be very long*. These are why Boltzmann machine was replaced by back-propagation for multi-layer neural network in 1980s.
+    + In a boltzmann machine, for binary sample units, $$P(S_i\mid S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. $$sigm(d_i + 2a_{-i}^{'}s_{-i})$$.
+    + *Two MCMC chains* are needed for each sample $$x$$. *The positive phase*, in which $$x$$ is clamped and $$(h\mid x)$$ is sampled; *the negative phase* in which $$(x,h)$$ is sampled. *The computation of the gradient can be very expensive and the training time will be very long*. These are why Boltzmann machine was replaced by back-propagation for multi-layer neural network in 1980s.
     + For *continous-valued inputs*, *Gaussian input units* are better than binomial units (binary units).
     + Adding a hidden unit can always improve the log-likelihood.
     + RBM can also seen as a multi-clustering. Each hidden unit creates a two-region partition of the input space. $$n$$ hidden units make $$2^n$$ components mapped from the input space. This doesn't mean that every possible configuration of hidden unit will have an associated region in the input sapce.
@@ -188,13 +188,13 @@ tags : [DeepLearning, DBN]
     + *Distribution $$P(h^{k-1}|h^k)$$ and $$P(h^{l-1}, h^l)$$ define the generative model.*
     + *Training of the DBN*:
         * *Recognition phase*:
-            - first sample $$h^1 ~ Q(h^1|x)$$ from first level RBM, or alternatively with a mean-field approach using $$\overline{h^1} = E[h^1|x]$$.
+            - first sample $$h^1 ~ Q(h^1\mid x)$$ from first level RBM, or alternatively with a mean-field approach using $$\overline{h^1} = E[h^1\mid x]$$.
             - take the output of first-level RBM as the input for the second-level RBM and compute the $$h^2$$.
             - repeat this until the last layer.
             - once all the layers' parameters are learned, these parameters can be used to initialize a deep multi-layer neural network, which can be fine tuned with the help of supervised learning.
         * *generative phase*:
-            - sample a visible vector $$h^{l-1}$$ from top-level RBM. Use CD-k (Gibbs chain in the RBM alternating between $$h^l ~ P(h^l|h^{l-1})$$ and $$h^{l-1} ~ P(h^{l-1} | h^l)$$).
-            - for $$k=l-1$$ down to 1, sample $$h^{k-1}$$ given $$h^k$$ according to the level-k hidden-to-visible conditional distribution $$P(h^{k-1}|h^k)$$.
+            - sample a visible vector $$h^{l-1}$$ from top-level RBM. Use CD-k (Gibbs chain in the RBM alternating between $$h^l ~ P(h^\mid h^{l-1})$$ and $$h^{l-1} ~ P(h^{l-1}\mid h^l)$$).
+            - for $$k=l-1$$ down to 1, sample $$h^{k-1}$$ given $$h^k$$ according to the level-k hidden-to-visible conditional distribution $$P(h^{k-1}\mid h^k)$$.
             - $$x=h^0$$ is the DBN sample.
     + Training of stacked auto-encoder: it just changes the RBM to auto-encode. So the initialization of parameters are done by reconstruction error minimization.
     + In general, the DBN has an edge over stacked auto-encoders. However, denoising auto-encoder is comparable to DBN, which performs the stochastic approximation.
@@ -207,7 +207,7 @@ tags : [DeepLearning, DBN]
 - *Concepts*
     + sparse deep architecture
     + *Denoising auto-encoders*: stochastic version of the auto-encoder where the input is stochastically corrupted, however the uncorrupted input is still used as target for the reconstruction.
-        * Training criterion: a reconstruction log-likehood $$-logP(x|c(x^{\overline{x}}))$$, where $$x$$ is the uncorrupted input, $$\overline{x}$$ is the corrupted one, and $$c(\overline{x})$$ is the code obtained from $$\overline{x}$$.
+        * Training criterion: a reconstruction log-likehood $$-logP(x\mid c(x^{\overline{x}}))$$, where $$x$$ is the uncorrupted input, $$\overline{x}$$ is the corrupted one, and $$c(\overline{x})$$ is the code obtained from $$\overline{x}$$.
     + Lateral connections: introduse lateral connections between visible units.
     + Conditional RBMs: some of the parameters are not free, but instead parametrized functions of a conditioning random variable. Generalizing RBMs to conditional RBMs allows building deep architectures in which the hidden variables at each level can be conditioned on the value of other variable.
     + Temporal RBMs: an extension of conditional RBM. The parameters (offsets and weights) are not only conditional on past inputs, but also past values of the state (units). it explores the temporal dependencies of the signal in time domain. 
@@ -223,15 +223,15 @@ tags : [DeepLearning, DBN]
             1. it makes the resulting codes somewhat unstable. small perturbations of the input x could give rise to very different values of the optimal code h.
             2. optimizing equation 7.1 is efficient, it can be hundreds of time slower than the kind of computation involved in computing the codes in ordinary auto-encoders or RBMs, making both training and recognition very slow.
             3. joint optimization of the bases W with higher levels of a deep architecture is another stability issue.
-    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because sparse coding systems only parametrize the decoder, while the encoder is defined implicitly as the solution of an optimization. Instead, an ordinary auto-encoder or an RBM has an encoder part $$(P(h|x))$$ and a decoder part $$(P(x|h))$$.
+    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because sparse coding systems only parametrize the decoder, while the encoder is defined implicitly as the solution of an optimization. Instead, an ordinary auto-encoder or an RBM has an encoder part $$(P(h\mid x))$$ and a decoder part $$(P(x\midh))$$.
     + middle ground between ordinary auto-encoders and sparse coding. Let the codes h be free but include a parametric encoder and a penalty for the difference between the free non-parametric codes h and the outputs of the parametric encoder.
     + Lateral connections capture pairwise dependencies that can be more easily captured this way than using hidden units, saving the hidden units for capturing higher-oder dependencies.
         1. advantage: the higher level factors represented by the hidden units do not have to encode all the local "details" that the lateral connections at the levels below can capture.
     + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
-    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h|x)$$ and $$P(x|h)$$ both factorise.
+    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\midx)$$ and $$P(x\midh)$$ both factorise.
     
     Complementary priors allow the posterior distribution $$P(h|x)$$ to factorize by a proper choice of $$P(h)$$.
-    > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h|x) = \prod_i P(h_i|x)$$ and $$P(x|h)=\prod_j P(x_j|h)$$ must have the form
+    > Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\midx) = \prod_i P(h_i\midx)$$ and $$P(x\midh)=\prod_j P(x_j\midh)$$ must have the form
     > $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
     + Contrastive divergence update in this generalized RBM:
         $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
