@@ -238,6 +238,7 @@ tags : [DeepLearning, DBN]
     >$$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$
 
     Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
+    \\
     + Contrastive divergence update in this generalized RBM:
         $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
         The gradient of the free energy of a sample $$x$$ is thus \\
