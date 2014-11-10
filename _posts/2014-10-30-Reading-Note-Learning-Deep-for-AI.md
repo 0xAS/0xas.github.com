@@ -121,14 +121,24 @@ tags : [DeepLearning, DBN]
 - *Concepts*
     + *Energy based model*: The model associates a scalar energy to each configuration of the variables of interst.
         $$P(x) = \frac{e^{-Energy(x)}}{Z}$$, where $$Z = \sum_x e^{-Energy(x)}$$ is the partition function as a sum running over the input space.
-    + *Boltzmann machine*: Energy function of a BM is $$Energy(x,h) =  -b^'x - c^'h - h^'Wx - x^'Ux - h^'Vh$$. These parameters (offsets and weights) are collectively denoted by $$\theta$$.
+    + *Boltzmann machine*: Energy function of a BM is $$Energy(x,h) =  -b^{'}x - c^{'}h - h^{'}Wx - x^{'}Ux - h^{'}Vh$$. These parameters (offsets and weights) are collectively denoted by $$\theta$$.
     + *Restricted Boltzmann Machine (RBM)*: Building block of the DBN. It shares parametrization with individual layers of a DBN.
         * Hidden units are independent of each other, when conditioning on visible units $$x$$. Likewise for visible units.
         * Energy function:
-            $$Energy(x,h) = -b^'x - c^' - h^'Wx$$
+            $$Energy(x,h) = -b^{'}x - c^{'} - h^{'}Wx$$
           Free energy function:
-            $$ FreeEnergy(x) = -b^'x - \sum_i log \sum_{h_i}e^{j_i (c_i + W_ix)}$$
+            $$ FreeEnergy(x) = -b^{'}x - \sum_i log \sum_{h_i}e^{j_i (c_i + W_ix)}$$
         * Conditional probability: 
-            $$P(h_i = 1|x) = $$
+            $$P(h_i = 1|x) = \prod_{i} P(h_i | x) P(x | h) = \prod_{i}P(x_i | h) $$, in binary case: 
+            $$ P(h_i = 1 | x) = \frac{e^{c_i + W_ix}}{1 + e^{c_i + W_ix}} = sigm(c_i + W_ix)$$
+            $$ P(w_i = 1 | h) = \frac{e^{b_i + W_ih}}{1 + e^{b_i + W_ih}} = sigm(b_i + W_ih)$$
+    + *CD-K*: the idea of k-step contrastive divergence involves two approximations:
+        * Replace average over all possible inputs by a simple sample
+        * Run the MCMC (Monte Carlo Markov Chain) chain $$x_1, x_2, ... , x_{k+1}$$ for only $$k$$ steps starting from the observed example $$x_1 = x$$.
+        * Equation: $$ \Delta \theta \propto \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} - \frac{\partial{FreeEnergy(\wildtilde{x})}}{\partial{\theta}}$$
+    + *Persistent MCMC for Negative Phase*: instead of CD-k for updating parameters, an MCMC chain is kept in the background to obtain the negative phase samples $$(x,h)$$.
+    + *Score matching*: the score function of a distribution is defined as $\phi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
 - *Arguements*
+    + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).*
+    $$ \frac{\partial{logP(x)}}{\theta}  = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\wildtilde{x},h}e^{-Energy(\wildtilde{x},h)}}}{\theta}$$ 
 - *Bibliography*
