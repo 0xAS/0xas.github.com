@@ -232,12 +232,11 @@ tags : [DeepLearning, DBN]
     + Lateral connections capture pairwise dependencies that can be more easily captured this way than using hidden units, saving the hidden units for capturing higher-oder dependencies.
         1. advantage: the higher level factors represented by the hidden units do not have to encode all the local "details" that the lateral connections at the levels below can capture.
     + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
-    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise.
-    
+    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise. Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
+
     >Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\mid x) = \prod_i P(h_i\mid x)$$ and $$P(x\mid h)=\prod_j P(x_j\mid h)$$ must have the form $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$\\
-    Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
     
-    + Contrastive divergence update in this generalized RBM:
+    + Contrastive divergence update in this generalized RBM:\\
         $$ FreeEnergy(x) = -log\sum_h exp(-\sum_{i,j} \eta_{i,j}(h_i, x_j))$$ \\
         The gradient of the free energy of a sample $$x$$ is thus \\
         $$ 
@@ -253,7 +252,7 @@ tags : [DeepLearning, DBN]
     + <cite>[195]shows how the strategy is highly successful as unsupervised pre-training for a deep architecture, and links the denoising auto-encoder to a generative model.</cite>
     + <cite>[141] model based on lateral connected RBMs, proves that DBN based on this model generates more realistic image patches than DBN based on ordinary RBMs.</cite>
     + <cite>[139] whitening is useful for image processing systems.</cite>
-    + <cite>[73] energy function associated with a model of the the form of Equation 5.5 such that P(h|x) and P(x|h) must have the form.</cite>
+    + <cite>[73] energy function associated with a model of the the form of Equation 5.5 such that P(h\mid x) and P(x\mid h) must have the form.</cite>
     
 **Ch8. Stochastic Variational Bounds for Joint Optimization of DBN Layers**
 
