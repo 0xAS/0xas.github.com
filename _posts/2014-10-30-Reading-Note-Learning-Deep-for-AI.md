@@ -137,8 +137,51 @@ tags : [DeepLearning, DBN]
         * Run the MCMC (Monte Carlo Markov Chain) chain $$x_1, x_2, ... , x_{k+1}$$ for only $$k$$ steps starting from the observed example $$x_1 = x$$.
         * Equation: $$ \Delta \theta \propto \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} - \frac{\partial{FreeEnergy(\widetilde{x})}}{\partial{\theta}}$$
     + *Persistent MCMC for Negative Phase*: instead of CD-k for updating parameters, an MCMC chain is kept in the background to obtain the negative phase samples $$(x,h)$$.
-    + *Score matching*: the score function of a distribution is defined as $\phi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
+    + *Score matching*: the score function of a distribution is defined as $\Psi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
 - *Arguements*
     + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* \\
-    $$ \frac{\partial{logP(x)}}{\theta}  = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta}$$ 
+    $$ \frac{\partial{logP(x)}}{\theta}  = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} \\
+        = -\frac{1}{\sum_h e^{-Energy(x,h)}}\sum_h e^{-Energy(x,h)}\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \frac{1}{\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h}}\sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{theta}} \\
+        = -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}}$$ 
+        * Derivatives are easy to compute. Hence *the only difficulty* here is to propose a sampling procedure to sample from $$P(h|x)$$ and one to sample from $$P(x,h)$$, to approximate the log-likelihood gradient of Boltzmann machine.
+        * MCMC sampling approach is based on *Gibbs Sampling*. Sampled sample of $$x's$$ distribution converges to $$P(x)$$ as the number of sampling step goes to infinity under some conditions.
+    + In a boltzmann machine, for binary sample units, $$P(S_i|S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. $$sigm(d_i + 2a_{-i}^{'}s_{-i})$$.
+    + $$Two MCMC chains$$ are needed for each sample $$x$$. *The positive phase*, in which $$x$$ is clamped and $$(h|x)$$ is sampled; *the negative phase* in which $$(x,h)$$ is sampled. *The computation of the gradient can be very expensive and the training time will be very long*. These are why Boltzmann machine was replaced by back-propagation for multi-layer neural network in 1980s.
+    + For *continous-valued inputs*, *Gaussian input units* are better than binomial units (binary units).
+    + Adding a hidden unit can always improve the log-likelihood.
+    + RBM can also seen as a multi-clustering. Each hidden unit creates a two-region partition of the input space. $$n$$ hidden units make $$2^n$$ components mapped from the input space. This doesn't mean that every possible configuration of hidden unit will have an associated region in the input sapce.
+    + *Sampling from an RBM* is useful for several reasons:
+        1. It obtains *the estimator of the log-likelihood gradient*.
+        2. Inspection of examples generated from the model helps get an idea of what the model has captured or not captured about the data distribution.
+    + Contrastive divergence is an *approximation of the log-likelihood gradient* that is successful for training RBMs.
+        1. Empirical result is that even $$k=1$$ (CD-1) often gives good results. Taking $$k$$ larger than 1 gives more precise results.
+        2. CD-k corresponds to keeping the first $$k$$ terms of a series that converges to the log-likelihood gradient.
+        3. Gibbs sampling does not need to sample in the positive phase, since the free energy is computed analytically.
+        4. Set of variables of $$(x,h)$$ can be sampled in two sub-steps in each step of the Gibbs chain.
+        5. Traiing an energy-based model is to make the energy of observed inputs smaller, and to shovel energy elsewhere.
+    + The contrastive divergence algorithm is fueled by *the contrast* between *the statics collected when the input data is a real training sample*, and *that when the input data is a chain sample*.
+    + The Gibbs chain can be associated with an infinite directed graphical model, and the convergence of the chain justifies Contrastive Divergence.
+    + The training of an energy-based model can also be considered to solve a series of classification problems, in which *one tries to discriminate training examples from samples generated by the model*. The expression for the log-likelihood gradient corresponds to the one obtained for energy-based models, where training examples from $$P_1$$ as positive samples, model samples as negative examples.
+- *Theorem*
+    + Consider the converging Gibbs chain $$x_1 => h_1 => x_2 => h_2 ...$$ starting at data point $$x_1$$. The log-likelihood gradient can be written:
+        $$ \frac{}{} = -\frac{}{} + E[\frac{}{}] + E[\frac{}{}] $$
+        and the final term converges to 0 as $$t$$ goes to infinity.
+- *Bibliography*   
+    * <cite>[200] general formulation where x and h can be in any of the exponential family distributions.</cite>
+    * <cite>[31] extensive numerical comparison of training with CD-k vs. exact log-likelihood gradient.</cite>
+    * <cite>[12] demonstrates Theorem 5.1 which shows how one can expand the log-likelihood gradient for any t >= 1.</cite>
+    * <cite>[75] unfold the deep auto-encoder to form a very deep auto-encoder and fine tune the global reconstruction error.</cite>
+    * <cite>[1,76,77] papers about Boltzmann Machine.</cite>
+    * <cite>[4] Monte Carlo Markov Chain.</cite>
+    * <cite>[57] gibbs sampling</cite>
+    * <cite>[12] demonstration of the expansion of the log-likelihood of P(x_1) in a Gibbs chain.</cite>
+    * <cite>[201] understand the value of these samples from the model in improving the log-likelihood.</cite>
+
+**Ch6. Greedy Layer-wise Training of Deep Architectures**
+
+- *Concepts*
+    + *Deep Belief Networks (DBNs)*: a generative model (generative path with $$P$$ distributions) and a mean to extract multiple levels of representation of the input (recognition path with $$Q$$ distributions).
+     ![Deep Belief Network as a generative model](/images/DBN.png "DBN network")
+
+- *Arguements*
 - *Bibliography*
