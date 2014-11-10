@@ -60,3 +60,7 @@ tags : [DeepLearning, DBN]
     + *Distributed representation*: the input pattern is represented by a set of features that are not mutually exclusive and might even be statistically independent.
 - *Arguments*
     + *Curse of dimension*: what matters for generalization is not dimensionality, but instead the number of "variations" of the function we wish to obtain after learning.
+    + Architectures based on matching local templates can be thought of as having two levels:
+        * $$1^{st} level$$: input sample will be matched to a set of templates, with an output of a value indicating the degree of matching.
+        * $$2^{nd} level$$: perform a kind of interpolation to predit with template the input sample mostly fits in.
+            $$ f(x) = b + \sum_i {\alpha_i K (x, x_i)}$$
