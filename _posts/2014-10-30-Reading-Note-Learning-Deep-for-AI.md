@@ -135,10 +135,10 @@ tags : [DeepLearning, DBN]
     + *CD-K*: the idea of k-step contrastive divergence involves two approximations:
         * Replace average over all possible inputs by a simple sample
         * Run the MCMC (Monte Carlo Markov Chain) chain $$x_1, x_2, ... , x_{k+1}$$ for only $$k$$ steps starting from the observed example $$x_1 = x$$.
-        * Equation: $$ \Delta \theta \propto \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} - \frac{\partial{FreeEnergy(\wildtilde{x})}}{\partial{\theta}}$$
+        * Equation: $$ \Delta \theta \propto \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} - \frac{\partial{FreeEnergy(\widetilde{x})}}{\partial{\theta}}$$
     + *Persistent MCMC for Negative Phase*: instead of CD-k for updating parameters, an MCMC chain is kept in the background to obtain the negative phase samples $$(x,h)$$.
     + *Score matching*: the score function of a distribution is defined as $\phi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
 - *Arguements*
-    + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).*
-    $$ \frac{\partial{logP(x)}}{\theta}  = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\wildtilde{x},h}e^{-Energy(\wildtilde{x},h)}}}{\theta}$$ 
+    + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* \\
+    $$ \frac{\partial{logP(x)}}{\theta}  = \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta}$$ 
 - *Bibliography*
