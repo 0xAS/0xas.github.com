@@ -300,7 +300,7 @@ tags : [DeepLearning, DBN]
     + Greedy layer-wise training algorithm for DBNs is an approximate continuation method. Instead of a continuum of training criteria, a discrete sequence of presumably gradually more difficult optimization problems is dealt with. 
     + **Why unsupervised pre-training helps?**
         1. *regularization effect of the learning*: *direct the parameter to a region from which gradient descent can yield good solutions.* (empirically demonstrated)
-        2. *better optimization of the lower layers of the deep architectures.
+        2. *better optimization of the lower layers of the deep architectures.*
     + The use of stochastic gradient (such as the one obtained from CD-k) and small initial weights is close to a continuation method.
     + *Controlling the magnitude of the offsets and weights in an RBM is equivalent to controlling the temperature in a Boltzmann machine (a scaling coefficient for the energy function).*
     + Unsupervised or semi-supervised learning is crucial to deep architectures in several aspects:
