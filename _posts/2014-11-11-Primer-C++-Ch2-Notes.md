@@ -9,7 +9,7 @@ tags : [C++Primer, Basis]
 
 *Primitive Built-in Types*
 
-- Integral Types: arithmetic types representing integers, characters and boolean values. \\
+- Integral Types: arithmetic types representing integers, characters and boolean values.
 
 | signed | unsigned | boolean | 
 |--------|:---------:|--------:|
