@@ -13,7 +13,7 @@ tags : [C++Primer, Basis]
     + a byte = 8 bits, a word = 4 bytes = 32 bits.
 
 
-| signed | unsigned | boolean | 
-|--------|:---------:|--------:|
+ signed | unsigned | boolean 
+--------|:---------:|--------:
 
     
