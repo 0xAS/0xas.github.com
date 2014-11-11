@@ -4,8 +4,6 @@ category : LearningNote
 tags : [C++Primer, Basis]
 ---
 {% include JB/setup %}
- signed|unsigned|boolean 
---------|:---------:|--------:
 
 **Chapter 2: Variables and Basic Types**
 
@@ -15,5 +13,9 @@ tags : [C++Primer, Basis]
     + a byte = 8 bits, a word = 4 bytes = 32 bits.
 
 
-
+>| signed | unsigned | boolean | 
+>|--------|:---------:|--------:|
+>|both postive and negative numbers | only valus greater than 0 | true or false |
+>| sign bit = 1, value < 0 | | |
+>| sign bit = 0, value >= 0| | |
     
