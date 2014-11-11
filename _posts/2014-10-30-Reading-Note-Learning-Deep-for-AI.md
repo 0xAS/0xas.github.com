@@ -293,12 +293,12 @@ tags : [DeepLearning, DBN]
 
 **Ch9. Looking Forward**
 
-- *Arguemtns*
-    + Connections between the existing training methods and approaches helping to deal with difficult optimization problems based on the principle of continuation methods:
+- *Arguments*
+    + Connections between the existing training methods and approaches help to deal with difficult optimization problems based on the principle of continuation methods:
         * Firstly solve an easier and smoothed version of the problem
         * Gradually consider less smoothing with the intuition that a smooth version of the problem reveals the global picture.
     + Greedy layer-wise training algorithm for DBNs is an approximate continuation method. Instead of a continuum of training criteria, a discrete sequence of presumably gradually more difficult optimization problems is dealt with. 
-    + Why unsupervised pre-training helps?
+    + **Why unsupervised pre-training helps?**
         1. *regularization effect of the learning*: *direct the parameter to a region from which gradient descent can yield good solutions.* (empirically demonstrated)
         2. *better optimization of the lower layers of the deep architectures.
     + The use of stochastic gradient (such as the one obtained from CD-k) and small initial weights is close to a continuation method.
