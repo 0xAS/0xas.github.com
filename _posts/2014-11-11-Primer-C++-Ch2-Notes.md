@@ -8,6 +8,7 @@ tags : [C++Primer, Basis]
 **Chapter 2: Variables and Basic Types**
 
 *Primitive Built-in Types*
+
 - Integral Types: arithmetic types representing integers, characters and boolean values.
     | signed | unsigned | boolean | 
     |--------|:---------:|--------:|
