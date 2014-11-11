@@ -95,17 +95,17 @@ tags : [DeepLearning, DBN]
     + *Greedy layer-wise unsupervised training* (RBM, auto-encoder) helps to *initialize the network's parameters*, which *improves the generalization performance*.
     + Possible explanation for the *improvements brought by unsupervised pre-training*.
         * These unsupervised training algorithms have layer-local unsupervised criteria. That helps *guide the parameters of that layer towards better regions in parameter space*.
-        * Unsupervised pre-training can be seen as *a form of regularizer* (and prior): unsupervised pre-training amounts to a constraint on the region in parameter space where a solution is allowed.
-        * The effect of unsupervised learning is most marked for the lower layers of a deep architecture, which means it is more in the "optimization" direction.
-        * Unsupervised pre-training helps generalization by allowing for a better tuning of lower layers a deep architecture. WIth unsupervised pre-training, the lower layers are constrained to capture regularities of the input distribution.
-        * The unsupervised pre-training does not only help to regularize the nework, but also helps to optimize the weights of the lower layers in the deep architecture.
+        * Unsupervised pre-training can be seen as *a form of regularizer* (and prior): unsupervised pre-training amounts to *a constraint on the region in parameter space where a solution is allowed*.
+        * The effect of unsupervised learning is mostly marked for the lower layers of a deep architecture, which means it is more in the "optimization" direction.
+        * Unsupervised pre-training helps generalization by *allowing for a better tuning of lower layers a deep architecture*. With unsupervised pre-training, *the lower layers are constrained to capture regularities of the input distribution*.
+        * The unsupervised pre-training does *not only* help to *regularize* the nework, *but also* helps to *optimize* the weights of the lower layers in the deep architecture.
         * The gradient descent criterion defined at the output layer becomes less useful as it propagates backwards to the lower layer. That's why the generalization error is poor with random parameter initialization. Because the criterion cannot help optimize the lower level layer parameters.
         * Generally speaking, *unsupervised learning could help reduce the dependency on the unreliable update direction given by the gradient of a supervised criterion*. It also helps to decompose the problem into sub-problems associated with different levels of abstraction.
-    + Convolutional neural networks is not difficult to train even without unsupervised pre-training.
-    + One issue with *auto-encoder*: if there is no other constraint, the auto-encoder with n-dimensional inout and an encoding of dimension at least n could potentially just learn the identity function.
-        * This might be avoided by using the stochastic gradient descent with early stopping, which is similar to an $$l_2$$ regularization of the parameters.
-        * *adding noises* to the encoding may help avoid this problem as well.
-    + *Denoising auto-encoder* not only tries to *encode the input* but also to *capture the statistical structure in the input*, by approximately *maximizing the likelihood of a generative model*. This maximizes a lower bound on the log-likelihood of a generative model.
+    + *Convolutional neural networks is not difficult to train even without unsupervised pre-training*.
+    + *One issue with auto-encoder: potential of learning the identiy function.* If there is no other constraint, the auto-encoder with n-dimensional inout and an encoding of dimension at least n could potentially just learn the identity function. (Is this problem a kind of overfitting problems?)
+        * This might be *avoided by using the stochastic gradient descent with early stopping*, which is similar to an $$l_2$$ regularization of the parameters. 
+        * *adding noises to the encoding* may help avoid this problem as well.
+    + *Denoising auto-encoder* not only tries to *encode the input* but also to *capture the statistical structure in the input, by approximately maximizing the likelihood of a generative model*. This *maximizes a lower bound on the log-likelihood of a generative model*.
 - *Bibliography*
     + <cite>[73] initial experiments using RBM for each layer</cite>
     + <cite>[17,98,99] statistical comparisons to prove the advantage of unsupervised pre-training versus random initialization</cite>
@@ -118,27 +118,31 @@ tags : [DeepLearning, DBN]
 **Ch5. Energy based Models and RBM**
 
 - *Concepts*
-    + *Energy based model*: The model associates a scalar energy to each configuration of the variables of interst.
-        $$P(x) = \frac{e^{-Energy(x)}}{Z}$$, where $$Z = \sum_x e^{-Energy(x)}$$ is the partition function as a sum running over the input space.
-    + *Boltzmann machine*: Energy function of a BM is $$Energy(x,h) =  -b^{'}x - c^{'}h - h^{'}Wx - x^{'}Ux - h^{'}Vh$$. These parameters (offsets and weights) are collectively denoted by $$\theta$$.
+    + *Energy based model*: The model associates *a scalar energy to each configuration of the variables of interst*. \\
+    $$P(x) = \frac{e^{-Energy(x)}}{Z}$$,\\
+    where $$Z = \sum_x e^{-Energy(x)}$$ is the partition function as a sum running over the input space.
+    + *Boltzmann machine*: Energy function of a BM is \\
+    $$Energy(x,h) =  -b^{'}x - c^{'}h - h^{'}Wx - x^{'}Ux - h^{'}Vh$$. \\
+    These parameters (offsets and weights) are collectively denoted by $$\theta$$.
     + *Restricted Boltzmann Machine (RBM)*: Building block of the DBN. It shares parametrization with individual layers of a DBN.
-        * Hidden units are independent of each other, when conditioning on visible units $$x$$. Likewise for visible units.
-        * Energy function:
-            $$Energy(x,h) = -b^{'}x - c^{'} - h^{'}Wx$$
-          Free energy function:
+        * *Hidden units are **independent** of each other*, when *conditioning on visible units $$x$$*. Likewise for visible units.
+        * Energy function:\\
+            $$Energy(x,h) = -b^{'}x - c^{'} - h^{'}Wx$$\\
+          Free energy function:\\
             $$ FreeEnergy(x) = -b^{'}x - \sum_i log \sum_{h_i}e^{j_i (c_i + W_ix)}$$
-        * Conditional probability: 
-            $$P(h_i = 1|x) = \prod_{i} P(h_i | x) P(x | h) = \prod_{i}P(x_i | h) $$, in binary case: 
-            $$ P(h_i = 1 | x) = \frac{e^{c_i + W_ix}}{1 + e^{c_i + W_ix}} = sigm(c_i + W_ix)$$
+        * Conditional probability: \\
+            $$P(h_i = 1|x) = \prod_{i} P(h_i | x) P(x | h) = \prod_{i}P(x_i | h) $$,\\ 
+            in binary case: \\
+            $$ P(h_i = 1 | x) = \frac{e^{c_i + W_ix}}{1 + e^{c_i + W_ix}} = sigm(c_i + W_ix)$$\\
             $$ P(w_i = 1 | h) = \frac{e^{b_i + W_ih}}{1 + e^{b_i + W_ih}} = sigm(b_i + W_ih)$$
     + *CD-K*: the idea of k-step contrastive divergence involves two approximations:
         * Replace average over all possible inputs by a simple sample
         * Run the MCMC (Monte Carlo Markov Chain) chain $$x_1, x_2, ... , x_{k+1}$$ for only $$k$$ steps starting from the observed example $$x_1 = x$$.
         * Equation: $$ \Delta \theta \propto \frac{\partial{FreeEnergy(x)}}{\partial{\theta}} - \frac{\partial{FreeEnergy(\widetilde{x})}}{\partial{\theta}}$$
     + *Persistent MCMC for Negative Phase*: instead of CD-k for updating parameters, an MCMC chain is kept in the background to obtain the negative phase samples $$(x,h)$$.
-    + *Score matching*: the score function of a distribution is defined as $\Psi = \frac{\partial{logp(x)}}{\partial{x}}$. This does not depend on the normalization constant. The idea is to match the score function of the model with the score function of the empirical density.
+    + *Score matching*: the score function of a distribution is defined as $$\Psi = \frac{\partial{logp(x)}}{\partial{x}}$$. This does not depend on the normalization constant. The idea is to *match the score function of the model with the score function of the empirical density*.
 - *Arguments*
-    + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).* 
+    + Boltzmann Machine is defined by an energy function $$P(x)=e^{-E(x)/Z)}$$. Due to the quadratic interaction in $$h$$, *an Monte Carlo Markov Chain sampling procedure can be applied to obtain a stochastic estimator of the gradient (log-likelihood gradient).*\\ 
     $$ 
     \begin{aligned}
         \frac{\partial{logP(x)}}{\theta} &= \frac{\partial{log \sum_h e^{-Energy(x,h)}}}{\theta} - \frac{\partial{log\sum_{\widetilde{x},h}e^{-Energy(\widetilde{x},h)}}}{\theta} \\
@@ -146,48 +150,47 @@ tags : [DeepLearning, DBN]
         & = -\sum_h P(h|x)\frac{\partial{Energy(x,h)}}{\partial{\theta}} + \sum_{\widetilde{x},h}\frac{\partial{Energy(\widetilde{x},h)}}{\partial{\theta}} 
         \end{aligned}
     $$
-        * Derivatives are easy to compute. Hence *the only difficulty* here is to propose a sampling procedure to sample from $$P(h\mid x)$$ and one to sample from $$P(x,h)$$, to approximate the log-likelihood gradient of Boltzmann machine.
-        * MCMC sampling approach is based on *Gibbs Sampling*. Sampled sample of $$x's$$ distribution converges to $$P(x)$$ as the number of sampling step goes to infinity under some conditions.
-    + In a boltzmann machine, for binary sample units, $$P(S_i\mid S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. $$sigm(d_i + 2a_{-i}^{'}s_{-i})$$.
-    + *Two MCMC chains* are needed for each sample $$x$$. *The positive phase*, in which $$x$$ is clamped and $$(h\mid x)$$ is sampled; *the negative phase* in which $$(x,h)$$ is sampled. *The computation of the gradient can be very expensive and the training time will be very long*. These are why Boltzmann machine was replaced by back-propagation for multi-layer neural network in 1980s.
+        * Derivatives are easy to compute. Hence *the only difficulty* here is to *propose a sampling procedure to sample from $$P(h\mid x)$$ and one to sample from $$P(x,h)$$, to approximate the log-likelihood gradient of Boltzmann machine*.
+        * MCMC sampling approach is based on *Gibbs Sampling*. *Sampled sample of $$x's$$ distribution converges to $$P(x)$$ as the number of sampling step goes to infinity under some conditions.*
+    + In a boltzmann machine, for binary sample units, $$P(S_i\mid S_{-i})$$ can be expressed as a usual equation for a neuron's output in terms of other neurons $$S_{-i}$$. ($$sigm(d_i + 2a_{-i}^{'}s_{-i})$$)
+    + *Two MCMC chains* are needed for each sample $$x$$. *The positive phase*, in which *$$x$$ is clamped and $$(h\mid x)$$ is sampled*; *the negative phase* in which *$$(x,h)$$ is sampled*. *The computation of the gradient can be very expensive and the training time will be very long*. These are why Boltzmann machine was replaced by back-propagation for multi-layer neural network in 1980s.
     + For *continous-valued inputs*, *Gaussian input units* are better than binomial units (binary units).
     + Adding a hidden unit can always improve the log-likelihood.
     + RBM can also seen as a multi-clustering. Each hidden unit creates a two-region partition of the input space. $$n$$ hidden units make $$2^n$$ components mapped from the input space. This doesn't mean that every possible configuration of hidden unit will have an associated region in the input sapce.
     + *Sampling from an RBM* is useful for several reasons:
         1. It obtains *the estimator of the log-likelihood gradient*.
         2. Inspection of examples generated from the model helps get an idea of what the model has captured or not captured about the data distribution.
-    + Contrastive divergence is an *approximation of the log-likelihood gradient* that is successful for training RBMs.
-        1. Empirical result is that even $$k=1$$ (CD-1) often gives good results. Taking $$k$$ larger than 1 gives more precise results.
-        2. CD-k corresponds to keeping the first $$k$$ terms of a series that converges to the log-likelihood gradient.
+    + *Contrastive divergence* is *an approximation of the log-likelihood gradient* that is successful for training RBMs.
+        1. *Empirically, even $$k=1$$ (CD-1) often gives good results.* Taking $$k$$ larger than 1 gives more precise results.
+        2. *CD-k corresponds to keeping the first $$k$$ terms of a series that **converges to the log-likelihood gradient***.
         3. Gibbs sampling does not need to sample in the positive phase, since the free energy is computed analytically.
         4. Set of variables of $$(x,h)$$ can be sampled in two sub-steps in each step of the Gibbs chain.
-        5. Traiing an energy-based model is to make the energy of observed inputs smaller, and to shovel energy elsewhere.
-    + The contrastive divergence algorithm is fueled by *the contrast* between *the statics collected when the input data is a real training sample*, and *that when the input data is a chain sample*.
+        5. Traiing an energy-based model is to *make the energy of observed inputs smaller*, and *to shovel energy elsewhere*.
+    + The *contrastive divergence* algorithm is fueled by *the contrast between the statics collected when the input data is a real training sample*, and *that when the input data is a chain sample*.
     + The Gibbs chain can be associated with an infinite directed graphical model, and the convergence of the chain justifies Contrastive Divergence.
     + The training of an energy-based model can also be considered to solve a series of classification problems, in which *one tries to discriminate training examples from samples generated by the model*. The expression for the log-likelihood gradient corresponds to the one obtained for energy-based models, where training examples from $$P_1$$ as positive samples, model samples as negative examples.
 - *Theorem*
-    + Consider the converging Gibbs chain $$x_1 => h_1 => x_2 => h_2 ...$$ starting at data point $$x_1$$. The log-likelihood gradient can be written:
-        $$ \frac{\partial{P(x_1)}}{\partial{\theta}} = -\frac{\partial{FreeEnergy(x_1)}}{\partial{\theta}} + E[\frac{\partial{FreeEnergy(x_t)}}{\partial{\theta}}] + E[\frac{\partial{logP(x_t)}}{\partial{\theta}}] $$
-        and the final term converges to 0 as $$t$$ goes to infinity.
+    + Consider the converging Gibbs chain $$x_1 \rightarrow h_1 \rightarrow x_2 \rightarrow h_2 ...$$ starting at data point $$x_1$$. The log-likelihood gradient can be written:\\
+        $$ \frac{\partial{P(x_1)}}{\partial{\theta}} = -\frac{\partial{FreeEnergy(x_1)}}{\partial{\theta}} + E[\frac{\partial{FreeEnergy(x_t)}}{\partial{\theta}}] + E[\frac{\partial{logP(x_t)}}{\partial{\theta}}] $$\\
+        and the final term converges to 0 as $$t$$ goes to infinity. ($$ E[\frac{\partial{logP(x_t)}}{\partial{\theta}}] \rightarrow 0, when t \rightarrow \infty$$)
 - *Bibliography*   
-    * <cite>[200] general formulation where x and h can be in any of the exponential family distributions.</cite>
-    * <cite>[31] extensive numerical comparison of training with CD-k vs. exact log-likelihood gradient.</cite>
-    * <cite>[12] demonstrates Theorem 5.1 which shows how one can expand the log-likelihood gradient for any t >= 1.</cite>
-    * <cite>[75] unfold the deep auto-encoder to form a very deep auto-encoder and fine tune the global reconstruction error.</cite>
-    * <cite>[1,76,77] papers about Boltzmann Machine.</cite>
-    * <cite>[4] Monte Carlo Markov Chain.</cite>
-    * <cite>[57] gibbs sampling</cite>
-    * <cite>[12] demonstration of the expansion of the log-likelihood of P(x_1) in a Gibbs chain.</cite>
-    * <cite>[201] understand the value of these samples from the model in improving the log-likelihood.</cite>
+    * <cite>[<a href="https://www.ics.uci.edu/~welling/publications/papers/GenHarm3.pdf" target="_blank">200</a>] general formulation where x and h can be in any of the exponential family distributions.</cite>
+    * <cite>[<a href="http://www.gatsby.ucl.ac.uk/aistats/fullpapers/217.pdf" target="_blank">31</a>] extensive numerical comparison of training with CD-k vs. exact log-likelihood gradient.</cite>
+    * <cite>[<a href="http://www.iro.umontreal.ca/~lisa/pointeurs/cd_expansion_nc_final.pdf" target="_blank">12</a>] demonstrates Theorem 5.1 which shows how one can expand the log-likelihood gradient for any t >= 1. Demonstration of the expansion of the log-likelihood of P(x_1) in a Gibbs chain.</cite>
+    * <cite>[<a href="http://www.cs.toronto.edu/~hinton/science.pdf" target="_blank">75</a>] unfold the deep auto-encoder to form a very deep auto-encoder and fine tune the global reconstruction error.</cite>
+    * <cite>[<a href="http://www.enterrasolutions.com/media/docs/2013/08/cogscibm.pdf" target="_blank">1</a>,<a href="https://www.cs.toronto.edu/~hinton/absps/pdp7.pdf" target="_blank">76</a>,<a href="http://www.cs.utoronto.ca/~hinton/absps/bmtr.pdf" target="_blank">77</a>] papers about Boltzmann Machine.</cite>
+    * <cite>[<a href="http://www.cs.princeton.edu/courses/archive/spr06/cos598C/papers/AndrieuFreitasDoucetJordan2003.pdf" target="_blank">4</a>] Monte Carlo Markov Chain.</cite>
+    * <cite>[<a href="http://www.stat.cmu.edu/~acthomas/724/Geman.pdf" target="_blank">57</a>] gibbs sampling</cite>
+    * <cite>[<a href="http://papers.nips.cc/paper/2275-self-supervised-boosting.pdf" target="_blank">201</a>] understand the value of these samples from the model in improving the log-likelihood.</cite>
 
 **Ch6. Greedy Layer-wise Training of Deep Architectures**
 
 - *Concepts*
-    + *Deep Belief Networks (DBNs)*: a generative model (generative path with $$P$$ distributions) and a mean to extract multiple levels of representation of the input (recognition path with $$Q$$ distributions).
+    + *Deep Belief Networks (DBNs)*: a **generative model** (generative path with $$P$$ distributions) and a mean to extract multiple levels of representation of the input (recognition path with $$Q$$ distributions).
      ![Deep Belief Network as a generative model](/images/DBN.png "DBN network")
 - *Arguments*
-    + Deep Belief Network with $$l$$ layers models the joint distribution between observed vector $$x$$ and $$l$$ hidden layers $$h^k$$ as follows:
-        $$ P(x, h^1, ... , h^l) = (\prod_{h^k}^{h^{k+1}}P(h^k|h^{k+1}))P(h^{l-1}, h^l)$$
+    + Deep Belief Network with $$l$$ layers *models the joint distribution between observed vector $$x$$ and $$l$$ hidden layers $$h^k$$* as follows: \\
+    $$ P(x, h^1, ... , h^l) = (\prod_{h^k}^{h^{k+1}}P(h^k|h^{k+1}))P(h^{l-1}, h^l)$$
     + *Distribution $$P(h^{k-1}\mid h^k)$$ and $$P(h^{l-1}, h^l)$$ define the generative model.*
     + *Training of the DBN*:
         * *Recognition phase*:
@@ -199,39 +202,39 @@ tags : [DeepLearning, DBN]
             - sample a visible vector $$h^{l-1}$$ from top-level RBM. Use CD-k (Gibbs chain in the RBM alternating between $$h^l ~ P(h^l \mid h^{l-1})$$ and $$h^{l-1} ~ P(h^{l-1}\mid h^l)$$).
             - for $$k=l-1$$ down to 1, sample $$h^{k-1}$$ given $$h^k$$ according to the level-k hidden-to-visible conditional distribution $$P(h^{k-1}\mid h^k)$$.
             - $$x=h^0$$ is the DBN sample.
-    + Training of stacked auto-encoder: it just changes the RBM to auto-encode. So the initialization of parameters are done by reconstruction error minimization.
+    + Training of stacked auto-encoder: it just changes the RBM to auto-encoder. So the initialization of parameters are done by reconstruction error minimization.
     + In general, the DBN has an edge over stacked auto-encoders. However, denoising auto-encoder is comparable to DBN, which performs the stochastic approximation.
 - *Bibliography*
-    + <cite>[73] learning algorithm for DBN by G.Hinton.</cite>
-    + <cite>[109, 148] self-taught learning</cite> 
+    + <cite>[<a href="https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf" target="_blank">73</a>] learning algorithm for DBN by G.Hinton.</cite>
+    + <cite>[<a href="http://papers.nips.cc/paper/2979-efficient-sparse-coding-algorithms.pdf" target="_blank">109</a>, <a href="http://www.cs.stanford.edu/people/ang//papers/icml07-selftaughtlearning.pdf" target="_blank">148</a>] self-taught learning</cite> 
 
 **Ch7. Variants of RBMs and Auto-encoders**
 
 - *Concepts*
     + sparse deep architecture
-    + *Denoising auto-encoders*: stochastic version of the auto-encoder where the input is stochastically corrupted, however the uncorrupted input is still used as target for the reconstruction.
-        * Training criterion: a reconstruction log-likehood $$-logP(x\mid c(x^{\overline{x}}))$$, where $$x$$ is the uncorrupted input, $$\overline{x}$$ is the corrupted one, and $$c(\overline{x})$$ is the code obtained from $$\overline{x}$$.
-    + Lateral connections: introduse lateral connections between visible units.
+    + *Denoising auto-encoders*: stochastic version of the auto-encoder where *the input is stochastically corrupted*, however *the uncorrupted input is still used as target for the reconstruction*.
+        * Training criterion: a *reconstruction log-likehood* $$-logP(x\mid c(x^{\overline{x}}))$$, where $$x$$ is the uncorrupted input, $$\overline{x}$$ is the corrupted one, and $$c(\overline{x})$$ is the code obtained from $$\overline{x}$$.
+    + Lateral connections: introduce lateral connections between visible units.
     + Conditional RBMs: some of the parameters are not free, but instead parametrized functions of a conditioning random variable. Generalizing RBMs to conditional RBMs allows building deep architectures in which the hidden variables at each level can be conditioned on the value of other variable.
     + Temporal RBMs: an extension of conditional RBM. The parameters (offsets and weights) are not only conditional on past inputs, but also past values of the state (units). it explores the temporal dependencies of the signal in time domain. 
     + Factorized RBMs: for probabilistic language models.
 - *Arguments*
     + why the sparse representation?
-        1. if one is to have fixed-size representations, sparse representations are more efficient than non-sparse ones in an information-theoretic sense, allowing for varying the effective number of bits per example.
-        2. the fixed-length representation is going to be used as input for further processing so that it should be easy to interpret. A highly compressed encoding is usually highly entangled so that no subset of bits in the code can really be interpreted unless all the other bits are taken into account. But sparse representation allows a subset or an individual bit can interpret some features of the data, which might be sufficient for some particular prediction tasks.
-    + In compressed sensing, sparsity is achieved with the $$l_1$$ penalty on the codes. Given bases in matrix $$W$$, we look for codes $$h$$ such that the input signal $$x$$ is reconstructed with low $$l_2$$ reconstruction error while $$h$$ is sparse: $$ min_h \left \| x- Wh \right \|_2^2 + \lambda \left \|h \right \|_1 $$. where $$\left \|h \right \|_1 = \sum_i \left \|h_i \right \|$$
-    + sparse coding performs a kind of explaining away: it chooses one configuration among many of the hidden codes that could explain the input.
+        1. if one is to have fixed-size representations, *sparse representations are more efficient than non-sparse ones in an information-theoretic sense*, allowing for varying the effective number of bits per example.
+        2. the fixed-length representation is going to be used as input for further processing so that it should be easy to interpret. A highly compressed encoding is usually highly entangled so that no subset of bits in the code can really be interpreted unless all the other bits are taken into account. But *sparse representation allows a subset or an individual bit can interpret some features of the data*, which might be sufficient for some particular prediction tasks.
+    + In compressed sensing, sparsity is achieved with the $$l_1$$ penalty on the codes. Given bases in matrix $$W$$, we look for codes $$h$$ such that the input signal $$x$$ is reconstructed with low $$l_2$$ reconstruction error while $$h$$ is sparse: $$ min_h \left \| x- Wh \right \|_2^2 + \lambda \left \|h \right \|_1 $$, where $$\left \|h \right \|_1 = \sum_i \left \|h_i \right \|$$
+    + *sparse coding performs a kind of explaining away*: it chooses one configuration among many of the hidden codes that could explain the input.
         1. advantage: if a cause is much more probable than the other, then it is the one that we want to highlight.
         2. disadvantage: 
-            1. it makes the resulting codes somewhat unstable. small perturbations of the input x could give rise to very different values of the optimal code h.
+            1. it makes *the resulting codes somewhat unstable*. small perturbations of the input x could give rise to very different values of the optimal code h.
             2. optimizing equation 7.1 is efficient, it can be hundreds of time slower than the kind of computation involved in computing the codes in ordinary auto-encoders or RBMs, making both training and recognition very slow.
-            3. joint optimization of the bases W with higher levels of a deep architecture is another stability issue.
-    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because sparse coding systems only parametrize the decoder, while the encoder is defined implicitly as the solution of an optimization. Instead, an ordinary auto-encoder or an RBM has an encoder part $$(P(h\mid x))$$ and a decoder part $$(P(x\mid h))$$.
-    + middle ground between ordinary auto-encoders and sparse coding. Let the codes h be free but include a parametric encoder and a penalty for the difference between the free non-parametric codes h and the outputs of the parametric encoder.
+            3. *joint optimization of the bases $$W$$ with higher levels of a deep architecture is another stability issue*.
+    + sparse auto-encoders and sparse RBMs do not suffer from any of these sparse coding issues. This is because *sparse coding systems only parametrize the decoder*, while *the encoder is defined implicitly as the solution of an optimization*. *Instead, an ordinary auto-encoder or an RBM has **an encoder part $$(P(h\mid x))$$** and **a decoder part $$(P(x\mid h))$$.***
+    + middle ground between ordinary auto-encoders and sparse coding. Let the codes $$h$$ be free but include a parametric encoder and a penalty for the difference between the free non-parametric codes $$h$$ and the outputs of the parametric encoder.
     + Lateral connections capture pairwise dependencies that can be more easily captured this way than using hidden units, saving the hidden units for capturing higher-oder dependencies.
         1. advantage: the higher level factors represented by the hidden units do not have to encode all the local "details" that the lateral connections at the levels below can capture.
     + Contrastive Divergence for RBMs can be easily generalized to the case of conditional RBMs.
-    + Generalisation of RBM: a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise. Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
+    + Generalisation of RBM: *a generalized RBM is an energy-based probabilistic model with input vector $$x$$ and hidden vector $$h$$ whose energy function is such that $$P(h\mid x)$$ and $$P(x\mid h)$$ both factorise.* Complementary priors allow the posterior distribution $$P(h\mid x)$$ to factorize by a proper choice of $$P(h)$$.
 
     >Proposition 7.1 The energy function associtated with a model of the form of Equation (5.5) such that $$P(h\mid x) = \prod_i P(h_i\mid x)$$ and $$P(x\mid h)=\prod_j P(x_j\mid h)$$ must have the form $$ Energy(x,h) = \sum_j \phi_j(x_j) + \sum_i \xi_i(h_i) + \sum_{i,j} \eta_{i,j}(h_i, x_j) (7.7)$$\\
     
@@ -246,22 +249,22 @@ tags : [DeepLearning, DBN]
         \end{aligned}
         $$
 - *Bibliography*
-    + <cite>[150] justify the sparsity of the representation in the context of models based on auto-encoders. how one might get good models even though the partition function is not explicitly minimized, or only minimized approximately as long as other constraints are used on the learned representation.</cite>
-    + <cite>[110] training sparse DBN.</cite>
-    + <cite>[195]shows how the strategy is highly successful as unsupervised pre-training for a deep architecture, and links the denoising auto-encoder to a generative model.</cite>
-    + <cite>[141] model based on lateral connected RBMs, proves that DBN based on this model generates more realistic image patches than DBN based on ordinary RBMs.</cite>
-    + <cite>[139] whitening is useful for image processing systems.</cite>
-    + <cite>[73] energy function associated with a model of the the form of Equation 5.5 such that P(h\mid x) and P(x\mid h) must have the form.</cite>
+    + <cite>[<a href="http://www.cs.toronto.edu/~ranzato/publications/ranzato-nips07.pdf" target="_blank">150</a>] justify the sparsity of the representation in the context of models based on auto-encoders. how one might get good models even though the partition function is not explicitly minimized, or only minimized approximately as long as other constraints are used on the learned representation.</cite>
+    + <cite>[<a href="http://ai.stanford.edu/~ang/papers/nips07-sparsedeepbeliefnetworkv2.pdf" target="_blank">110</a>] training sparse DBN.</cite>
+    + <cite>[<a href="http://www.iro.umontreal.ca/~vincentp/Publications/denoising_autoencoders_tr1316.pdf" target="_blank">195</a>]shows how the strategy is highly successful as unsupervised pre-training for a deep architecture, and links the denoising auto-encoder to a generative model.</cite>
+    + <cite>[<a href="http://www.cs.toronto.edu/~osindero/PUBLICATIONS/OsinderoHinton_ModelingImagePatchesWithDHMRFs_NIPS07_final.pdf" target="_blank">141</a>] model based on lateral connected RBMs, proves that DBN based on this model generates more realistic image patches than DBN based on ordinary RBMs.</cite>
+    + <cite>[<a href="http://redwood.berkeley.edu/bruno/papers/VR.pdf" target="_blank">139</a>] whitening is useful for image processing systems.</cite>
+    + <cite>[<a href="https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf" target="_blank">73</a>] energy function associated with a model of the the form of Equation 5.5 such that P(h\mid x) and P(x\mid h) must have the form.</cite>
     
 **Ch8. Stochastic Variational Bounds for Joint Optimization of DBN Layers**
 
 - *Concepts*
-    + *KL Divergence*: a.k.a. *relative entropy*. a non-symmetric *measure of the difference between two probability distributions $$P$$ and $$Q$$*. Specially, KL divergence of $$Q$$ from $$P$$ is to measure the information lost when the $$Q$$ is used to approximate the $$P$$.  
+    + *KL Divergence*: a.k.a. *relative entropy*. a non-symmetric *measure of the difference between two probability distributions $$P$$ and $$Q$$*. Specially, *KL divergence of $$Q$$ from $$P$$ is to measure the information lost when the $$Q$$ is used to approximate the $$P$$.*  
     + *wake-sleep algorithm*: wake phase & sleep phase
-      1. wake phase updates for the weights of the top RBM. sample x from the training set generate $$h ~ Q(h\mid x)$$ and use this $$(h,x)$$ as fully observed data for training $$P(x\mid h)$$ and $$P(h)$$.
+      1. *wake phase updates for the weights of the top RBM.* sample x from the training set generate $$h ~ Q(h\mid x)$$ and use this $$(h,x)$$ as fully observed data for training $$P(x\mid h)$$ and $$P(h)$$.
       2. sleep phase: sample $$(h,x)$$ from model $$P(x,h)$$ and use that pair as fully observed data for training $$Q(h\mid x)$$
 - *Arguments*
-    + The log-likelihood of a DBN can be *lower bounded* using *Jensen's inequality*, and can justify the greedy layer-wise training strategy.\\
+    + The *log-likelihood of a DBN* can be *lower bounded* using *Jensen's inequality*, and can *justify the greedy layer-wise training strategy.*\\
     $$
     \begin{aligned}
     logP(x) & = (\sum_h Q(h|x))logP(x) = \sum_hQ(h|x)log\frac{P(x,h)}{P(h|x)}\\
@@ -271,22 +274,22 @@ tags : [DeepLearning, DBN]
     & = KL(Q(h|x)||P(h|x)) + H_{Q(h|x)} + \sum_hQ(h|x)lop(P(h)P(x|h)) \\
     & = KL(Q(h|x)||P(h|x)) + H_{Q(h|x)} + \sum_hQ(h|x)(logP(h) + logP(x|h))
     \end{aligned}
-    $$
+    $$\\
     $$H_{Q(h\mid x)}$$ is the entropy of distribution $$Q(h\mid x)$$.\\
-    Due to the non-negativity of the KL divergence:\\
-    $$ logP(x) \geq H_{Q(h\mid x)} + \sum_hQ(h|x)(logP(h) + logP(x|h))$$ \\which becomes an equity when $$P$$ and $$Q$$ are identical.
+    Due to the *non-negativity of the KL divergence*:\\
+    $$ logP(x) \geq H_{Q(h\mid x)} + \sum_hQ(h|x)(logP(h) + logP(x|h))$$, which becomes an equity when $$P$$ and $$Q$$ are identical.
     + There exists a DBN whose $$h^1$$ marginal equals the first RBM's $$h^1$$ marginal, as long as the dimension of $$h^2$$ equals the dimension of $$h^0 = x$$. By symmetry of the roles of visible and hidden units in an RBM joint distribution, the marginal distribution over the visible vector of the second RBM is equal to the marginal distribution of the hidden vector of the first RBM.
-    + Further training of an additional RBM increases a lower bound on the log-likelihood inequality.
+    + *Further training of an additional RBM increases a lower bound on the log-likelihood inequality.*
     + As the lower bound continues to increase, the actual log-likelihood could start decreasing. 
-    + Another argument to explain why the greedy procedure works is that: training distribution for the second RBM looks more like data generated by an RBM than the original training distribution. 
-    + a good criterion for training the first RBM is the KL divergence between the data distribution and the distribution of the stochastic reconstruction vectors after one step of the Gibbs chain. This criterion yields better optimization of the DBN.
-        1. disadvantage: this criterion is intractable since it involves summing over all configurations of the hidden vector $$h$$.
+    + Another argument to explain why the greedy procedure works is that: *training distribution for the second RBM looks more like data generated by an RBM than the original training distribution.*
+    + a good *criterion for training the first RBM is the **KL divergence between the data distribution and the distribution of the stochastic reconstruction vectors** after one step of the Gibbs chain*. This criterion yields better optimization of the DBN.
+        * disadvantage: *this criterion is intractable since it involves summing over all configurations of the hidden vector $$h$$.*
     + In the Wake phase, we consider $$Q$$ fixed and do a stochastic gradient step towards maximizing the expected value of $$F(x)$$ over samples $$x$$ of the training set, with respect to parameters $$P$$. In the Sleep phase, make $$Q$$ as close to $$P$$ as possible in the sense of minimizing $$KL(Q(h\mid x)\mid\mid P(h\mid x))$$. However, instead of minimizing $$KL$$, take $$P$$ as the reference because $$KL$$ is intractable.
 - *Bibliography*
-    + <cite>[72] train sigmoidal belief networks with Wake-Sleep algorithm</cite>
-    + <cite>[73] wake-sleep algorithm for DBN.</cite>
-    + <cite>[161] transform DBN to a Boltzmann Machine by halving the RBM weights when initializing the deep Boltzmann machine from the layer-wise RBM. In positive phase, a variational approximation corresponding to a mean-field relaxation is proposed. In the negative phase, a persistent MCMC chain is proposed to use. It edges DBN on the MNIST dataset, both in terms of the data log-likelihood and in terms of classification error.</cite>
-    + <cite>[111] convolutional structure DBN is transformed into a deep Boltzmann machine.</cite>
+    + <cite>[<a href="http://www.gatsby.ucl.ac.uk/~dayan/papers/hdfn95.pdf" target="_blank">72</a>] train sigmoidal belief networks with Wake-Sleep algorithm</cite>
+    + <cite>[<a href="https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf" target="_blank">73</a>] wake-sleep algorithm for DBN.</cite>
+    + <cite>[<a href="http://www.cs.toronto.edu/~fritz/absps/dbm.pdf" target="_blank">161</a>] transform DBN to a Boltzmann Machine by halving the RBM weights when initializing the deep Boltzmann machine from the layer-wise RBM. In positive phase, a variational approximation corresponding to a mean-field relaxation is proposed. In the negative phase, a persistent MCMC chain is proposed to use. It edges DBN on the MNIST dataset, both in terms of the data log-likelihood and in terms of classification error.</cite>
+    + <cite>[<a href="http://web.eecs.umich.edu/~honglak/icml09-ConvolutionalDeepBeliefNetworks.pdf" target="_blank">111</a>] convolutional structure DBN is transformed into a deep Boltzmann machine.</cite>
 
 **Ch9. Looking Forward**
 
