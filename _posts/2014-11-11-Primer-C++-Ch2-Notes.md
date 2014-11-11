@@ -11,6 +11,7 @@ tags : [C++Primer, Basis]
 - Primitive Built-in Types
     + Integral Types: arithmetic types representing integers, characters and boolean values.
         * a byte = 8 bits, a word = 4 bytes = 32 bits.
+        * when the assigned value exceeds the range which a data type can hold, the compiler will let the assigned value modulo the max range value.
     + Floating-point Types: *float (32 bits), double (64 bits), long double (96 or 128 bits)*
 - Literal Constants: 
     + Literal: we can only speak of it in terms of its value
@@ -27,4 +28,5 @@ tags : [C++Primer, Basis]
 >|both postive and negative numbers | only valus greater than 0 | true or false |
 >| sign bit = 1, value < 0 | | |
 >| sign bit = 0, value >= 0| | |
-    
+
+<!--Read more-->
