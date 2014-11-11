@@ -304,18 +304,18 @@ tags : [DeepLearning, DBN]
     + The use of stochastic gradient (such as the one obtained from CD-k) and small initial weights is close to a continuation method.
     + *Controlling the magnitude of the offsets and weights in an RBM is equivalent to controlling the temperature in a Boltzmann machine (a scaling coefficient for the energy function).*
     + Unsupervised or semi-supervised learning is crucial to deep architectures in several aspects:
-        1. scarcity of labeled examples and availability of many unlabeled examples
+        1. *scarcity of labeled examples* and *availability of many unlabeled examples*
         2. unknown future task.
-        3. Once a good high-level representation is learned, other learn-ing tasks (e.g., supervised or reinforcement learning) could be much easier.
-        4. layer-wise unsupervised learning. Much of the learning could be done using infor-mation available locally in one layer or sub-layer of the architecture, thus avoiding the hypothesized problems with supervised gradients propagating through long chains with large fan-in elements.
-        5. The extra constraints imposed on the optimization by requiring the model to capture not only the input-to-target dependency but also the statistical regularities of the input distribution might be helpful in avoiding some poorly gener-alizing apparent local minima
+        3. Once a good high-level representation is learned, other learning tasks (e.g., supervised or reinforcement learning) could be much easier.
+        4. *layer-wise unsupervised learning*. Much of the learning could be done using information available locally in one layer or sublayer of the architecture, thus avoiding the hypothesized problems with supervised gradients propagating through long chains with large fan-in elements.
+        5. The extra constraints imposed on the optimization by requiring the model to *capture* not only the *input-to-target dependency* but also *the statistical regularities of the input distribution* might be helpful in *avoiding some poorly generalizing apparent local minima.*
 - *Bibliography*
-    + <cite>[3] approaches based on the principle of continuation methods to deal with difficult optimization problems.</cite>
-    + <cite>[6, 97, 121] start training from an unsupervised representation learning algorithm (e.g. sparse coding), fine-tuning the representation with a discriminant criterion or combining the discriminant and unsupervised criteria.</cite>
-    + <cite>[36, 211] mathimatical connection between early stopping and l2 regularization.</cite>
-    + <cite>[20] training with a curriculum. showing better performance on vision and language tasks, compared to training only with the target distribution.</cite>
-    + <cite>[148] scarcity of labeled examples and availability of many unlabeled examples</cite>
-    + <cite>[202] online procedure for training deep architectures that preserves an unsupervised component all along.</cite>
-    + <cite>[187,188] improve upon Contrastive Divergence taking computation time into account.</cite>
-    + <cite>[163,133] instead of using reconstruction error to monitor the learning progress of RBMs and DBNs, use other  tractable approximations of the partition functions. (Annealed Importance Sampling)</cite>
-    + <cite>[112] cortex working principle</cite>
+    + <cite>[<a href="http://epubs.siam.org/doi/book/10.1137/1.9780898719154" target="_blank">3</a>] approaches based on the principle of continuation methods to deal with difficult optimization problems.</cite>
+    + <cite>[<a href="https://www.ri.cmu.edu/pub_files/2008/12/differentiableSparseCoding.pdf" target="_blank">6</a>, <a href="http://machinelearning.org/archive/icml2008/papers/601.pdf" target="_blank">97</a>, <a href="http://www.di.ens.fr/~fbach/nips2008_sdl.pdf" target="_blank">121</a>] start training from an unsupervised representation learning algorithm (e.g. sparse coding), fine-tuning the representation with a discriminant criterion or combining the discriminant and unsupervised criteria.</cite>
+    + <cite>[<a href="http://ronan.collobert.com/pub/matos/2004_links_icml.pdf" target="_blank">36</a>, <a href="http://moodle.technion.ac.il/pluginfile.php/195968/mod_resource/content/0/OCP_ICML03.pdf" target="_blank">211</a>] mathimatical connection between early stopping and l2 regularization.</cite>
+    + <cite>[<a href="http://ronan.collobert.com/pub/matos/2009_curriculum_icml.pdf" target="_blank">20</a>] training with a curriculum. showing better performance on vision and language tasks, compared to training only with the target distribution.</cite>
+    + <cite>[<a href="http://www.cs.stanford.edu/people/ang//papers/icml07-selftaughtlearning.pdf" target="_blank">148</a>] scarcity of labeled examples and availability of many unlabeled examples</cite>
+    + <cite>[<a href="http://www.thespermwhale.com/jaseweston/papers/deep_embed.pdf" target="_blank">202</a>] online procedure for training deep architectures that preserves an unsupervised component all along.</cite>
+    + <cite>[<a href="http://www.machinelearning.org/archive/icml2008/papers/638.pdf" target="_blank">187</a>, <a href="http://dl.acm.org/citation.cfm?id=1553506" target="_blank">188</a>] improve upon Contrastive Divergence taking computation time into account.</cite>
+    + <cite>[<a href="http://www.cs.utoronto.ca/~rsalakhu/papers/eval_latents.pdf" target="_blank">133</a>, <a href="http://www.cs.toronto.edu/~rsalakhu/papers/dbn_ais.pdf" target="_blank">163</a>] instead of using reconstruction error to monitor the learning progress of RBMs and DBNs, use other  tractable approximations of the partition functions. (Annealed Importance Sampling)</cite>
+    + <cite>[<a href="http://www.cnbc.cmu.edu/~tai/papers/lee_mumford_josa.pdf" target="_blank">112</a>] cortex working principle</cite>
