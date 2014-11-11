@@ -10,91 +10,91 @@ tags : [DeepLearning, DBN]
 **Ch1. Introduction**
 
 - *Concepts*
-    + *Depth of architectures:* the number of levels of composition of non-linear operations in the function learned. (shallow architectures: 1, 2, or 3 levels). Mammal brain is in a deep architecture [173].
-    + *Distributed representation [68,156]:* the information is not localized in a particular neuron but distributed.
+    + *Depth of architectures:* the number of levels of composition of non-linear operations in the function learned. (shallow architectures: 1, 2, or 3 levels). Mammal brain is in a deep architecture [<a href="http://serre-lab.clps.brown.edu/wp-content/uploads/2012/08/Serre_etal_PBR07_wfig.pdf" target="_blank">173</a>].
+    + *Distributed representation [<a href="http://www.cogsci.ucsd.edu/~ajyu/Teaching/Cogs202_sp12/Readings/hinton86.pdf" target="_blank">68</a>,<a href="http://www.iro.umontreal.ca/~vincentp/ift3395/lectures/backprop_old.pdf" target="_blank">156</a>]:* the information is not localized in a particular neuron but distributed.
 - *Arguments*
-    + The *motivation of deep learning* is to *automatically discover abstractions from the lowest level features to the highest level abstract concepts*. The ideal learning algorithms are desired to discover these features with as little human effort as possible, without having to manually define all necessary abstractions or having to provide a huge set of relevant hand-labeled samples.
-    + The *aim of deep learning methods* is to learn feature hierarchies with features from higher levels of the hierarchy formed by the composition of lower level features.
-    + Automatical feature learning at multiple levels of abstraction allows a system to learn complex (non-linear) functions mapping the input to the output directly from data, without depending completely on human-crafted
+    + The *motivation of deep learning* is to *automatically discover abstractions from the lowest level features to the highest level abstract concepts*. The ideal learning algorithms are desired to *discover these features with as little human effort as possible*, without having to manually define all necessary abstractions or having to provide a huge set of relevant hand-labeled samples.
+    + The *aim of deep learning methods* is to *learn feature hierarchies with features from higher levels of the hierarchy formed by the composition of lower level features*.
+    + *Automatical feature learning at multiple levels of abstraction* allows a system to learn complex (non-linear) functions mapping the input to the output directly from data, without depending completely on human-crafted
 <!--more-->
     features. *Important for high-level features*: since humans often do not know how to specify explicitly in terms of raw sensory input.
     + **Breakthrough in 2006**
-        * <cite>Hinton et al [73], greedy layer-wise learning algorithm exploiting an unsupervised learning algorithm for each RBM layer [51]</cite>
-        * <cite>auto-encoders proposed [17, 153]. guiding the training of intermediate levels of representation using unsupervised learning, which can be performed locally at each level.</cite>
+        * <cite>Hinton et al [<a href="https://www.cs.toronto.edu/~hinton/absps/fastnc.pdf" target="_blank">73</a>], greedy layer-wise learning algorithm exploiting an unsupervised learning algorithm for each RBM layer [<a href="http://cseweb.ucsd.edu/~yfreund/papers/freund94unsupervised.pdf" target="_blank">51</a>]</cite>
+        * <cite>auto-encoders proposed [<a href="http://papers.nips.cc/paper/3048-greedy-layer-wise-training-of-deep-networks.pdf" target="_blank">17</a>, <a href="http://papers.nips.cc/paper/3112-efficient-learning-of-sparse-representations-with-an-energy-based-model.pdf" target="_blank">153</a>]. guiding the training of intermediate levels of representation using unsupervised learning, which can be performed locally at each level.</cite>
         * <cite>deep convolutional neural network</cite>
     + Observation found with many successful experiment: once a good representation has been found at each level, it can be used to initialize and successfully train a deep neural network by supervised gradient-based optimization.
-    + Brain has **sparse** and **distributed representation** to process visual information.
-    + Deep architectures natually provide sharing and re-use components for multi-task learning: low-level visual features and intermediate-level visual features are useful for a large group of visual tasks. Deep learning algorithms are based on learning intermediate representations which can be shared across tasks.
+    + Brain has *sparse and *distributed representation* to process visual information.
+    + Deep architectures natually provide *sharing* and *re-use components* for multi-task learning: low-level visual features and intermediate-level visual features are useful for a large group of visual tasks. *Deep learning algorithms are based on learning intermediate representations which can be shared across tasks*.
     + Learning about a large set of interrelated concepts might provide a key to the kind of broad generalizations that human appear able to do.
 - *Bibliography*
-    + <cite>[173] [link]() biological side of how human brain processes the information. The brain appears to process information through multiple stages of transformation and representation, especially in primate visual system.</cite>
-    + <cite>[17,153] [link]() auto-encoder based deep architecture learning algorithm</cite>
-    + <cite>[37] [link]() poverty of labeled data solved by dln.</cite>
+    + <cite>[<a href="http://serre-lab.clps.brown.edu/wp-content/uploads/2012/08/Serre_etal_PBR07_wfig.pdf" target="_blank">173</a>] biological side of how human brain processes the information. The brain appears to process information through multiple stages of transformation and representation, especially in primate visual system.</cite>
+    + <cite>[<a href="http://papers.nips.cc/paper/3048-greedy-layer-wise-training-of-deep-networks.pdf" target="_blank">17</a>, <a href="http://papers.nips.cc/paper/3112-efficient-learning-of-sparse-representations-with-an-energy-based-model.pdf" target="_blank">153</a>] auto-encoder based deep architecture learning algorithm</cite>
+    + <cite>[<a href="http://ronan.collobert.com/pub/matos/2008_nlp_icml.pdf" target="_blank">37</a>] poverty of labeled data solved by dln.</cite>
 
 **Ch2. Theoretical Advantages of Deep Architectures**
 
 - *Concepts*
     + *Computational elements*: logical gates (AND, OR, NOT), affine transformation, kernel computation.
     + *Compact function*: the expression of a function is compact when it has few computational elements.
-    + *artificial neuron*: an affine transformation followed by a non-linearity.
-    + *Monotone weighted threshold circuits*: multi-layer neural networks with linear threshold units and positive weights.
+    + *artificial neuron*: an *affine transformation followed by a non-linearity*.
+    + Monotone weighted threshold circuits: multi-layer neural networks with linear threshold units and positive weights.
 - *Arguments*
     + The formal arguments for the power of deep architectures investigate into two directions:
-        * **Computational Complexity of Circuits**: Deep architectures can **compactly represent** highly varying functions which would otherwise require a very large size to be represented with an inappropriate architecture, normally in *exponential times*.
+        * **Computational Complexity of Circuits**: Deep architectures can **compactly represent** *highly varying functions* which would otherwise require a very large size to be represented with an inappropriate architecture, normally in *exponential times*.
         * A function which can be expressed by the composition of computational elements from a given set, can be pictured as a graph formalizing the composition with one node per computational element. *Depth of architecture refers to the depth of that graph*.
         * The composition of computational units in a small but deep circuit can actually be seen as an efficient factorization of a large but shallow circuit.
-        * The depth of architectures is very important for statistical efficiency.
+        * The *depth of architectures* is very *important* for *statistical efficiency*.
 - *Bibliography*
-    + <cite>[156]: multilayer neural network: putting artificial neurons into the set of computational elements.</cite>
-    + <cite>[63]: Theorem 2.1: monotone weighted threshold circuits </cite>
-    + <cite>[19] & [191]: discussion on the power of deep architectures and their potential for AI</cite>
-    + <cite>[140] an early survey of theoretical results in computational complexity relevant to machine learning algorithms.</cite>
+    + <cite>[<a href="http://www.iro.umontreal.ca/~vincentp/ift3395/lectures/backprop_old.pdf" target="_blank">156</a>]: multilayer neural network: putting artificial neurons into the set of computational elements.</cite>
+    + <cite>[<a href="http://www.nada.kth.se/~johanh/montresholdcircuit.pdf" target="_blank">63</a>]: Theorem 2.1: monotone weighted threshold circuits </cite>
+    + <cite>[<a href="http://yann.lecun.com/exdb/publis/pdf/bengio-lecun-07.pdf" target="_blank">19</a>, <a href="https://people.cs.umass.edu/~lrn/papers/neco-stl.pdf" target="_blank">191</a>]: discussion on the power of deep architectures and their potential for AI</cite>
+    + <cite>[<a href="http://dl.acm.org/citation.cfm?id=640192" target="_blank">140</a>] an early survey of theoretical results in computational complexity relevant to machine learning algorithms.</cite>
 
 **Ch3. Local vs. Non-local Generalization**
 
 - *Concepts*
-    + *Local in input space estimator*: an estimator obtains good generalization for a new input $$x$$ by mostly exploiting training samples in the neighborhood of $$x$$.
+    + *Local in input space estimator*: an estimator obtains good generalization for a new input $$x$$ by mostly *exploiting training samples in the neighborhood of $$x$$*.
     + *Parity function*: a boolean function whose value is 1 if and only if the input vector has an odd number of ones.
     + *Local kernel*: a kernel is locak when $$k(x, x_i) > row$$ is true only for $$x$$ in some connected region around $$x_i$$ (for some threshold row). $$x_i$$ is he training sample, while $$x$$ is the input sample to be learned/classified.
-    + *Distributed representation*: the input pattern is represented by a set of features that are not mutually exclusive and might even be statistically independent.
+    + *Distributed representation*: the input pattern is represented by *a set of features* that are *not mutually exclusive and might even be statistically independent*.
 - *Arguments*
-    + *Curse of dimension*: what matters for generalization is not dimensionality, but instead the number of "variations" of the function we wish to obtain after learning.
+    + *Curse of dimension*: what matters for generalization *the number of "variations" of the function we wish to obtain* after learning.
     + Architectures based on matching local templates can be thought of as having two levels:
-        * $$1^{st} level$$: input sample will be matched to a set of templates, with an output of a value indicating the degree of matching.
-        * $$2^{nd} level$$: perform a kind of interpolation to predit with template the input sample mostly fits in.
-            $$ f(x) = b + \sum_i {\alpha_i K (x, x_i)}$$
-    + Kernal machine is the *prototypical example* of local matching architecture. It yields generalization by exploiting the *smoothness prior*.
+        * $$1^{st}$$ level: input sample will be matched to a set of templates, with an output of a value indicating the degree of matching.
+        * $$2^{nd}$$ level: perform a kind of interpolation to predit with template the input sample mostly fits in. \\
+        $$ f(x) = b + \sum_i {\alpha_i K (x, x_i)}$$
+    + *Kernal machine is the prototypical example of local matching architecture*. It yields generalization by exploiting the *smoothness prior*.
     + For a maximally varying function such as the parity function, the number of examples necessary to achieve some error rate with a Gaussian kernel machine is *exponential* in the input dimension.
-    + *Biggest disadvantage of supervised, semi-supervised learning algorithms based on neighbor graph*: they need as many samples as there are variations of interest in the target function, and they *cannot generalize to new variations not covered in the training set*.
+    + *Biggest disadvantage of supervised, semi-supervised learning algorithms based on neighbor graph*: they need *as many samples as there are variations of interest in the target function*, and they *cannot generalize to new variations not covered in the training set*.
     + Local representation for a vector can be represented in a much more compact way with the help of distributed representation (*exponentially*).
 - *Bibliography*
-    + <cite>[160] a Gaussian Process kernel machine can be improved using a Deep Belief Network to learn a feature space</cite>
-    + <cite>[41] computational complexity literature tells that the number of training examples necessary to achieve a given error rate is exponential in the input dimension.</cite>
+    + <cite>[<a href="https://www.cs.toronto.edu/~hinton/absps/dbngp.pdf" target="_blank">160</a>] a Gaussian Process kernel machine can be improved using a Deep Belief Network to learn a feature space</cite>
+    + <cite>[<a href="http://www.sciencedirect.com/science/article/pii/S0885064X99905198" target="_blank">41</a>] computational complexity literature tells that the number of training examples necessary to achieve a given error rate is exponential in the input dimension.</cite>
     
 **Ch4. Neural Networks for Deep Architectures**
 
 - *Concepts*
     + *Neural Network*: multilayer perceptron.
         * *equation of each layer*: 
-        $$h^k = tanh(b^k + W^k h^{k-1})$$
-        This equation performs an additional nonlinear computation on top of the affine transformation. The hyperbolic tangent non-linearity can be replaced by sign function, softamx function, etc..
-        * *loss function*: 
-        $$L(h^l, y) = -logP(Y = y|x) = -log h_{y}^{l}$$
+        $$h^k = tanh(b^k + W^k h^{k-1})$$ \\
+        This equation performs an *additional nonlinear computation on top of the affine transformation*. The hyperbolic tangent non-linearity can be replaced by sign function, softamx function, etc..
+        * *loss function*: \\
+        $$L(h^l, y) = -logP(Y = y\mid x) = -log h_{y}^{l}$$\\
         Loss function is typically *convex* in $$b^l + W^l h^{l-1}$$.
-        * *training rule*: The target is to reduce the loss of the prediction. By that, it means to minimize the log-likelihood of the conditional probability of $$y$$ given $$x$$.
-    + Sigmoid belief network: units in each layer are independent given the values of the units in the layer above.
+        * *training rule*: The target is to *reduce the loss of the prediction*. By that, it means to *minimize the log-likelihood of the conditional probability of $$y$$ given $$x (P(y\mid x))$$*.
+    + Sigmoid belief network: *units in each layer are independent given the values of the units in the layer above*.
     + Deep belief network: similar to sigmoid networks, but top two layers are RBM.
     + LeCun's Convolutional neural networks: convolutional layers, subsampling layers, error gradient. Each neuron is associated with a fixed two dimenional position that corresponds to a location in the input image, along with a receptive field.
-    + Auto-encoder: encode the input $$x$$ into some representation $$c(x)$$ so that the input can be reconstructed from that representation.
-    + Training distribution: the emperical distribution of the training set, or the generating distribution for our training samples.
-    + Model distribution: the probability distribution of the trained model.
+    + Auto-encoder: encode the input $$x$$ into some representation $$c(x)$$ so that *the input can be reconstructed from that representation*.
+    + Training distribution: the *emperical distribution of the training set*, or the generating distribution for our training samples.
+    + Model distribution: the *probability distribution of the trained model*.
 - *Arguments*
-    + *Difficulties* in training deep architectures:
-        * random initialization of network parameters often leads to "*apparent local minima or plateaus*"
+    + *Difficulties in training deep architectures*:
+        * *random initialization of network parameters* often leads to "*apparent local minima or plateaus*"
         * the deeper the network goes, the worse the generalization we get.
-    + Greedy layer-wise unsupervised training (RBM, auto-encoder) helps to initialize the network's parameters, which improves the generalization performance.
-    + Possible explanation for the improvements brought by unsupervised pre-training.
-        * These unsupervised training algorithms have layer-local unsupervised criteria. That helps guide the parameters of that layer towards better regions in parameter space.
+    + *Greedy layer-wise unsupervised training* (RBM, auto-encoder) helps to *initialize the network's parameters*, which *improves the generalization performance*.
+    + Possible explanation for the *improvements brought by unsupervised pre-training*.
+        * These unsupervised training algorithms have layer-local unsupervised criteria. That helps *guide the parameters of that layer towards better regions in parameter space*.
         * Unsupervised pre-training can be seen as *a form of regularizer* (and prior): unsupervised pre-training amounts to a constraint on the region in parameter space where a solution is allowed.
         * The effect of unsupervised learning is most marked for the lower layers of a deep architecture, which means it is more in the "optimization" direction.
         * Unsupervised pre-training helps generalization by allowing for a better tuning of lower layers a deep architecture. WIth unsupervised pre-training, the lower layers are constrained to capture regularities of the input distribution.
