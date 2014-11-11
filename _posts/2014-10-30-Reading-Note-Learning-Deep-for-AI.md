@@ -5,7 +5,7 @@ tags : [DeepLearning, DBN]
 ---
 {% include JB/setup %}
 
-*"Learning Deep Architectures for AI"* [link](http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf) gives a brief introduction about one main type of deep learning algorithms, *Deep Belief Networks (DBNs)*. It starts with the motivation for deep architecture, after which is the brief theoretical introduction of *DBNs*. This reading notes tries to summarize the arguments, theorems, proofs, fomulars and algorithms in chapter wise.
+*"Learning Deep Architectures for AI"* <a href="http://www.iro.umontreal.ca/~bengioy/papers/ftml_book.pdf" target="_blank">link</a> gives a brief introduction about one main type of deep learning algorithms, *Deep Belief Networks (DBNs)*. It starts with the motivation for deep architecture, after which is the brief theoretical introduction of *DBNs*. This reading notes tries to summarize the arguments, theorems, proofs, fomulars and algorithms in chapter wise.
 
 **Ch1. Introduction**
 
