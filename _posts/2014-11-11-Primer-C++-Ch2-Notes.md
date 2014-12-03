@@ -29,7 +29,7 @@ tags : [C++Primer, Basis]
 >| sign bit = 1, value < 0 | | |
 >| sign bit = 0, value >= 0| | |
 
-<!--Read more-->
+<!--more-->
 
 - constructor:
     + default constructor: constructor with no arguments, usually called when there is no specific initializer available.
@@ -39,8 +39,8 @@ tags : [C++Primer, Basis]
 
 - Library *string* type
     + *string* supports variable-length character strings
-    + common ways to initialize a string
-        ```cpp
+    + common ways to initialize a string\\
+        ```c++
         string s1;              // Default constructor; s1 is the empty string
         string s2(s1);          // initialize s2 as a copy of s1
         string s3("value");     // initialize s3 as a copy of the string literal
@@ -48,8 +48,8 @@ tags : [C++Primer, Basis]
         ```
     + reading and writing of *string*('>>' & '<<') always discard the whitespace(space).
     + '*getline*' reads the entire line, but discard the newline sign('\n').
-    + operations defined for *string*
-        ```cpp
+    + operations defined for *string*\\
+        ```c++
         string.empty()          // returns true if string is empty; otherwise false.
         string.size()           // returns number of characters in the string
         string[n]               // access the n+1 th element in the string. string index starts from 0 to string.size()-1
