@@ -40,6 +40,7 @@ tags : [C++Primer, Basis]
 - Library *string* type
     + *string* supports variable-length character strings
     + common ways to initialize a string
+    
     >{% highlight cpp %}
     std::string s1;              // Default constructor; s1 is the empty string
     std::string s2(s1);          // initialize s2 as a copy of s1
