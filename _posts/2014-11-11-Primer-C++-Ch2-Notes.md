@@ -41,15 +41,16 @@ tags : [C++Primer, Basis]
     + *string* supports variable-length character strings
     + common ways to initialize a string
     {% highlight cpp %}
-    using namespace std;
     std::string s1;              // Default constructor; s1 is the empty string
     std::string s2(s1);          // initialize s2 as a copy of s1
     std::string s3("value");     // initialize s3 as a copy of the string literal
     std::string s4(n, "c");      // initialize s4 with n copies of the character 'c'
-    {% endhighlight %}    
+    {% endhighlight %} 
+
     + reading and writing of *string*('>>' & '<<') always discard the whitespace(space).
     + '*getline*' reads the entire line, but discard the newline sign('\n').
     + operations defined for *string*
+    
     ```cpp
     string.empty()          // returns true if string is empty; otherwise false.
     string.size()           // returns number of characters in the string
@@ -60,5 +61,5 @@ tags : [C++Primer, Basis]
     s1 == s2                // returns trun if v1 and v2 are equal, otherwise false
     !=, <, <=, >, >=        // comparison between strings
     ```
-    
+
 
