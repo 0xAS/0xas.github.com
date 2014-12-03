@@ -5,16 +5,16 @@ tags : [C++Primer, Basis]
 ---
 {% include JB/setup %}
 
-    ```cpp
-    string.empty()          // returns true if string is empty; otherwise false.
-    string.size()           // returns number of characters in the string
-    string[n]               // access the n+1 th element in the string. string index starts from 0 to string.size()-1
-    s1 + s2                 // concatenats s1 and s2
-                            // **when mixing strings and string literals, at least one operand to each '+' operator must be of *string* type**
-    s1 = s2                 // replace characters in s1 by a copy of s2
-    s1 == s2                // returns trun if v1 and v2 are equal, otherwise false
-    !=, <, <=, >, >=        // comparison between strings
-    ```
+```cpp
+string.empty()          // returns true if string is empty; otherwise false.
+string.size()           // returns number of characters in the string
+string[n]               // access the n+1 th element in the string. string index starts from 0 to string.size()-1
+s1 + s2                 // concatenats s1 and s2
+                        // **when mixing strings and string literals, at least one operand to each '+' operator must be of *string* type**
+s1 = s2                 // replace characters in s1 by a copy of s2
+s1 == s2                // returns trun if v1 and v2 are equal, otherwise false
+!=, <, <=, >, >=        // comparison between strings
+```
 
 **Chapter 2: Variables and Basic Types**
 
