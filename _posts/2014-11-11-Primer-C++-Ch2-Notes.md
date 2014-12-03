@@ -5,8 +5,8 @@ tags : [C++Primer, Basis]
 ---
 {% include JB/setup %}
 
-```cpp
-string.empty()          // returns true if string is empty; otherwise false.
+```matlab
+string.empty() %         // returns true if string is empty; otherwise false.
 string.size()           // returns number of characters in the string
 string[n]               // access the n+1 th element in the string. string index starts from 0 to string.size()-1
 s1 + s2                 // concatenats s1 and s2
