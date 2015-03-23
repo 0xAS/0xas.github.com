@@ -64,3 +64,58 @@ tags : [C++Primer, Basis]
     {% endhighlight %} 
 
 
+**Chapter 4: Arrays and Pointers**
+
+- Array
+    + *initialization*
+    + *operation*
+
+- Pointer
+    + *pointer* is a compound type, pointing to an object of some other type. It offers indirect access to the object to which it points.
+    + It can point to an object, instead of a single element in an array.
+    + "*" is the pointer operator, "&" is the *address-of* operator.
+    + 4 way to initialize/assign:
+        * constant expression with value 0
+        * address of an object of an appropriate type
+        * address on past the end of another object
+        * another valid pointer of the same type
+    + *Difference between Pointers and References*
+        * Reference is another name (alias) to the object, however pointer is just an indirective access of the object. 
+        * Once initialized, reference is fixed to one object. However, reference can be changed to different addresses of different objects.
+    + When you define a const object, you must initialize the const object. However, the const pointer doesn't have to be initialized.
+
+- C-Style character strings
+    + strcpy: copy entire strings
+    + strncpy: copy an assigned number of strings
+
+**Chapter 5: Expressions**
+
+- Definitions:
+    + *Expression* is composed of one or more operands that are combined by operators. 
+    + *unary* and *binary* operators. 
+        * unary operators have the highest precedence.
+    + *overflow*: a situation whereby the calculated result size exceeds that which can be defined by the data type.
+    + *relational and logical* operators return values of *bool*.
+        * *logical* operator treats the operands as conditions. If the value is 0, then the result of logical operator is *false*. Otherwise, it is *true*.
+        * *short circuite evaluation*: evalute the left operands first. If the left operands can not determine the condition, it will evaluate the rest operands.
+    + *Bitwise* operators: take operands of integral type. These operators treat their operands as a collection of bits, providing operations to test and set individual bit.
+        * it is strongly recommended to use *unsigned int* while using bitwise operators.
+        * *bitset* operations are more direct, easier to read, easier to write and more likely to be used correctly.
+        * *I/O operators '>>' & '<<'* are left associative.
+        * *shift operators '>>' & '<<'* have middel-level precedence. LOWER that *arithmetic* operators, but HIGHER than *relational, assignment, conditional* operators.
+    + *assignment* operators: left-hand operands of assignment operators must be *nonconst* lvalues.
+        * assignment operator is right-associative.
+        * compound operators: *a op= b* is essentially equal to *a = a op b*. The left-hand operand is only evaluated once.
+    + *incremental '++' & decremental '--'* operators: they provide a shorthand for adding or subtracting 1 from an object.
+        * *prefix operators* yield a *changed result/value* and also a *changed operand*.
+        * *postfix operators* yield an *unchanged result/value* but *changed operand*.
+        * mostly, we use prefix operators.
+        * *postfix operators* have higher precedence than *dereference '*'* operator.
+    + *Arrow '->'* operator: 
+        (*p).foo  // dereference p to get an object, and then fetch its member named foo.
+        p->foo    // equavilant way to fetch the foo from the object to which p points.
+    + *conditional operator*: the only ternary operator in c++.
+        cond ? expression1 (true) : expression2 (false);
+    + *sizeof* operator: returns the size of defined data type in bytes.
+    + When in doubt, parenthesize expressions to force the grouping that the logic of your program requires.
+    + If you change the value of an operand, don't use that operand elsewhere in the same statement.
