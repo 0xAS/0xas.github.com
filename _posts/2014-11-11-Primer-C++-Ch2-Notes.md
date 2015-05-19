@@ -230,6 +230,8 @@ tags : [C++Primer, Basis]
 **Chapter 8: The IO Library**
 
 - Definitions:
+    + *base class*: a class that is the parent of another class. The base class defines the interface that a derived class inherits.
+    + *derived class*: a class that shares the interface with its parent class.
     + *condition states*: A set of condition state members that indicate whether a given IO object is in a usable state, or has encountered a particular kind of error.
 - Notes:
     + The standard IO types are defined in three separate headers:
@@ -258,3 +260,97 @@ tags : [C++Primer, Basis]
             - *tie* the output stream to an input stream. The output buffer is flushed whenever the associated input stream is read. *The library ties cout to cin*.
                 + To break existing tie,  we pass in an argument of 0. (cin.tie(0)).
         * Buffers are not flushed if the program crashes. Thus we should use *endl* when writing output.
+    + File Input and Output:
+        * Supplying a file name as an initializer to an *ifstream* or *ofstream* object has the effect of opening the specified file.
+        * If defining a stream object without a specified name, we need to use the call function of the stream object to bind the stream to a file specified by the filename.
+        * Standard IO library uses *C-style* character strings rather than C++ strings to refer to file names. We can use *c_str* member of *string* class to obtain a C-style string.
+        * *close* a file stream before associate it with a different file.
+        * If we reuse a file stream to read or write more than one file, we must *clear* the stream before using it to read from another file.
+        * File modes: integral constants to set one or more modes when we open a given file.
+            - *out, trunc, app* only for *ofstream* or *fstream*
+            - *in* only for *ifstream* or *fstream*
+            - *ate, binary* can be used for both: *ate* only affects at the opening of the file; *binary* mode processes the file as a sequence of bytes.
+            - *fstream* can both read and write its associated file.
+    + String streams
+        * *istringstream, ostringstream, stringstream*
+        * *sstream* must be included. 
+
+**Chapter 9 Sequential Containers**
+
+- Definitions:
+    + *Container*: a type holds a collection of objects of a specified type.
+    + *adaptors*: container adaptors adapts an underlying container type by defining a new interface in terms of the operations provided by the original type. *stackm*, *queue* and *priority_queue*.
+    + *sequantial container*: a type that holds an *ordered* collection of objects of a single type. Elements in a sequential container are accessed by position.
+    + *iterator*: a type whose operations support navigating among the elements of a container and examining values in the container.
+    + *iterator range*: denoted by a pair of iterators that refer to two elements, or to one past the last element, in the same container.
+    + *Adaptor*: adaptor is a general concept in the library.Essentially, an adaptor is a mechanism for making one thing act like another.
+
+- Notes:
+    + 3 types of *sequential containers*: vector, list and deque.
+    + Most commonly used container constructor is the default constructor, which provides the best run-time performance and easier access.
+    + 3 ways to initialize a sequential container:
+        * Initialize a container as a copy of another container
+        * initialize as a copy of a range of elements
+        * allocate and initialize a specified number of elements (*only valid for sequential container, not for associative container*)
+    + **It is always necessary to check the validity of the iterator or the iterator range.**
+    + *vector* & *deque* allow random access to their elements by iterator/position, therefore it is possible to perform relational operators and arithmetic.
+    + *begin* & *end* refer to the first and one-past-the-end in the container respectively.
+    + all sequential containers support "*push_back()*" to add element at the end of current containers. However, *list* and *deque* also support "*push_front()*".
+    + Container elements are **copies**. Read/write on them have no effect on the values from which are copied.
+    + Don't cache the iterator returned from *end*. Inserting or deleting elements in a deque or vector will invalidate the cached iterator.
+    + *front()* & *back()* return reference to the first and last element in the container respectively, instead of iterator to these elements.
+    + *pop_front* & *pop_back* remove the first and last elements in the container respectively.
+    + Generally speaking, unless there is a good reason to prefer another container, *vector* is usually the right one to use.
+    + Rules of thumb for selecting approriate container to use:
+        * Random access to elements: *vector* or *deque*.
+        * Need to insert or delete elements in the middle of the container: *list*.
+        * Need to insert ot delete elements at the front and the back, but not in the middel: *deque*.
+    + When not certain which container to use, write the code so that it uses only operations common to both *vectors* and *lists*： use iterators, not subscripts, and avoid random access to elements.
+    + *additional ways to construct strings*:
+        * *string s(cp, n)*: create *s* as a copy of *n* characters from array pointed by *cp*.
+        * *string s(s2, pos2)*: create *s* as a copy of characters in the string *s2* startomg at omdex *pos2*.
+        * *string s(s2, pos2, len2)*: create *s* as a copy of *len2* characters from *s2* starting at index *pos2*.
+    + *string* class provides 6 search functions, all returning a *string::size* type value that is the index of where the match occured, or a special value named *string::npos* if there is no match.
+        * *find* functions are case sensitive.
+        * *s1.compare(s2)* functions have following results: 
+            - negative: s1 is less than s2.
+            - positive: s1 is larger than s2.
+            - 0: s1 is equal to s2. 
+
+**Chapter 10 Associative Container**
+
+- Definitions:
+    + *Associative container*: a type that holds a collection of objects that supports efficient lookup by key.
+    + *pair*: a type that holds two data values. It is a template type, defined in *utility* header.
+    + *map*: a map is a collection of key-value pairs, often referred to as an *associative array*. It is associative in that values are associated with a particular key rather than being fetched by position in the array.
+    + *set*: a collection of keys.
+    + *value_type*: the type of the element stored in a container.
+    + * operator: The dereference operator when applied to a *map, set, multimap*, or *multimap* iterator yields a *value_type*.
+- Notes:
+    + *Associative containers use the key to order and access elements. The use of a key distinguishes them from the sequential containers, in which elements are accessed positionally.*
+    + *pair*: The members of a pair are *public*, respectively named as *first* and *second*. The members can be accessed using the dot operator notation.
+    + *associative container*:
+        * associative containers cannot be defined from a size, since there would be no way to know what values to give the keys.
+        * *type*: a pair representing the types of the keys and associated values.
+        * elements are ordered by *key*. When we iterate across an associative container, we are guaranteed that the elements are accessed in key order, irrespective of the order in which the elements were placed in the container.
+    + *map*: indicate both the key and value type when defining a map object.
+        * The key type should support the "<" operator.
+        * We can change the value, but not the key member of the pair.
+        * dereferencing the iterator yields a pair object in which *first* member holds the *const* key and *second* member holds the value.
+        * **Using index that is not already present adds an element with that index to the map. That means if a new element appears, the map will initialize the associated value by default constructor.** This sometimes can be a side effect.
+        * map iterator returns a *value_type*, which is a pair consisting of a *const key_type* and *mapped_type*. While subscript operator returns a value of type *mapped_type*.
+        * when using *insert()*, a pair of the map *value_type* should be passed as an argument.
+        * *m.count(k)*: returns the number of occurences of *k* within *m*. It can be used to determine whether a key is in the map.
+        * *m.find(k)*: returns an iterator to the element indexed by *k*, if there is one, or returns an off-the-end iterator if the key is not present. It retrieves an element without adding it.
+    + *set*: most useful when we simply want to know whether a value is present.
+        * *set* does not provide a subscript operator, and does not define *mapped_type*.
+        * There can only be one element with a given key in a *set*.
+        * To fetch an element from a set, use *set.find()*.
+    + *multimap* & *multiset*: multimap and multiset allow multiple instances of a key.
+        * when a multimap or multiset has multiple instances of a given key, those instances will be adjacent elements within the container.
+        * *lower_bound* and *upper_bound*: these two are associative container operations. They take a key ad return an iterator.
+            - *lower_bound*: returns the iterator referring to the first instance of the key.
+            - *upper_bound*: returns the iterator referring to just after the last instance.
+            - If the key is not in the *multimap* or *multiset*, *lower_bound* and *upper_bound* will return the same iterator, indicating that there is no such element in the container. Moreover, they will return an iterator referring to the point at which the key can be inserted without disrupting the order within the container.
+        * *m.equal_range(key)*: it returns a pair of iterators. If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers to one past the last instance of the key. If no matching element found, both the first and second iterator refer to the position where this key could be inserted.
+    + Knowing what operations we need to provide can help us see what data structures we'll need and how we might implement those actions.
