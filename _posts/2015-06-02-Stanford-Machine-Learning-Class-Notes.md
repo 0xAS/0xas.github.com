@@ -18,4 +18,4 @@ tags : [MachineLearning, Basis]
     + *Univariable linear regression*: linear regression with one variable is also known as "univariable linear regression". It is used to predict a signle output value from a single input value.
 - *Notes*:
     + Hypothesis function:\\
-        $$ h_{\theta}(x) = \theta_0 + \theta_1 \multi x$$
+        $$ h_{\theta}(x) = \theta_0 + \theta_1 \times x$$
