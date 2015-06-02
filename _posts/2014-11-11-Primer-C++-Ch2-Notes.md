@@ -354,3 +354,16 @@ tags : [C++Primer, Basis]
             - If the key is not in the *multimap* or *multiset*, *lower_bound* and *upper_bound* will return the same iterator, indicating that there is no such element in the container. Moreover, they will return an iterator referring to the point at which the key can be inserted without disrupting the order within the container.
         * *m.equal_range(key)*: it returns a pair of iterators. If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers to one past the last instance of the key. If no matching element found, both the first and second iterator refer to the position where this key could be inserted.
     + Knowing what operations we need to provide can help us see what data structures we'll need and how we might implement those actions.
+
+**Chapter 11 Generic Algorithms**
+
+- Definitions:
+    + *inserter*: an inserter is an iterator adaptor that takes a container and yields an iterator that inserts elements into the specified container.
+        * There are three kinds of inserters:
+            - *back_inserter*: it creates an iterator that uses *push_ack*.
+            - *front_inserter*: it uses *push_front*.
+                + We can only use *front_inserter* only if the container has a push_front operation.
+            - *inserter*: it uses *insert*. Its second argument is an iterator indicating the position ahead of which insertion should begin.
+- Notes:
+    + Generic algorithms are type independent. They achieve their type independence by operating in terms of iterators. 
+    + Iterators can be categorized by the operations that they support: *input, output, forward, bidirectional* and *random access*.
