@@ -12,6 +12,7 @@ tags : [MachineLearning, Basis]
     + *Supervised Learning*: given a dataset and knowing what the correct output should look like, supervised learning tries to find the relationship between the input and output.
         * It is categorized into "*regression*" and "*classification*" problems.
     + *Unsupervised Learning*: Unsupervised learning derives structure from data where we don't necessarily know the effect of the variables, approaching problems with little or no idea what our results should look like.
+    
 **Chapter 2. Linear Regression with One Variable**
 
 - *Definition*:
@@ -31,4 +32,4 @@ tags : [MachineLearning, Basis]
 
         Intuitively, this could be thought of as: \\
         **repeat until convergence:**\\
-        $$ \theta_j := \theta_j - \alpha$$[Slope of tangent aka derivative]\\
+        $$ \theta_j := \theta_j - \alpha$$[Slope of tangent aka derivative]
