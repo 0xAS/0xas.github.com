@@ -12,3 +12,10 @@ tags : [MachineLearning, Basis]
     + *Supervised Learning*: given a dataset and knowing what the correct output should look like, supervised learning tries to find the relationship between the input and output.
         * It is categorized into "*regression*" and "*classification*" problems.
     + *Unsupervised Learning*: Unsupervised learning derives structure from data where we don't necessarily know the effect of the variables, approaching problems with little or no idea what our results should look like.
+**Chapter 2. Linear Regression with One Variable**
+
+- *Definition*:
+    + *Univariable linear regression*: linear regression with one variable is also known as "univariable linear regression". It is used to predict a signle output value from a single input value.
+- *Notes*:
+    + Hypothesis function:\\
+        $$ h_{\theta}(x) = \theta_0 + \theta_1 \multi x$$
