@@ -23,4 +23,4 @@ tags : [MachineLearning, Basis]
         By giving input 'x' to $$h_{\theta}(x)$$, we can get an output 'y' as the predict value.
 <!--more-->
     + Cost function: It takes an average of all the results of hypothesis with inputs from x's compared to the actual output y's. \\
-        $$ J(\theta_0,\theta_1) = \frac{1}{2m} \sum_{i = 1}^{m}(h_{\theta}(x^{(i)} - y^{(i)}))^2 $$
+        $$ J(\theta_0,\theta_1) = \frac{1}{2m} \sum_{i = 1}^{m}(h_{\theta}(x^{(i)}) - y^{(i)})^2 $$
