@@ -31,4 +31,4 @@ tags : [MachineLearning, Basis]
 
         Intuitively, this could be thought of as: \\
         **repeat until convergence:**\\
-        $$ \theta_j := \theta_j - \alpha[ Slope of tangent aka derivative]$$
+        $$ \theta_j := \theta_j - \alpha$$[Slope of tangent aka derivative]\\
