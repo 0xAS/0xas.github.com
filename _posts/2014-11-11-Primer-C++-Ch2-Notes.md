@@ -367,3 +367,32 @@ tags : [C++Primer, Basis]
 - Notes:
     + Generic algorithms are type independent. They achieve their type independence by operating in terms of iterators. 
     + Iterators can be categorized by the operations that they support: *input, output, forward, bidirectional* and *random access*.
+
+**Chapter 12 Classes**
+
+- Definitions:
+    + *class*: C++ mechanism for defining our own abstract data types. Classes may have data, function or type members. A class defines a new type and a new scope.
+    + *Data abstraction*: The ability to define both data and function members. Data abstaction is a programming technique that relies on the separation of interface and implementation. Fundamental to object-oriented and generic programming.
+    + *Encapsulation*: The ability to protect class members from general access. It is a term that describes the technique of combining lower-level elements to form a new higher-level entity. It hides the implementation details of a type. In C++, it is enforced by preventing general user access to the *private* parts of a class.
+    + *Mutuable*: a mutable data member is a member that is *never const*, even when it is a member of a *const* object.
+    + *constructors*: special member functions that control how objects of the class are initialized.
+    + *const member function*: a member function that may not change an object's odinary (i.e. neither *static* nor *mutable*) data members.
+    + *friend*: the friend mechanism allows a class to grant access to its nonpublic members to specified functions or classes. The keyword *friend* may only appear within a class definition.
+    + *static* member: a static member exists independently of any object of its calss; each static member is an object associated with the class, not with the objects of that class.
+        * A static member function has no *this* parameter. It may directly access the static members of its class but may not directly use the nonstatic members.
+- Notes:
+    + Classes are the most fundamental features in C++. It allows us to define new types that are tailored to our own applications, making our programs shorter and easier to modify.
+    + Member functions define the interface to the class. The class is encapsultated by making the data and functions used by the implementation of a class *private*.
+    + Name lookup in Class member definitions:
+        * Class members follow normal block-scope name lookup.
+        * after function scope, look in class scope.
+        * after class scope, look in the surrounding scope.
+        * names are resolved where they appear within the file.
+    + Constructors should initialize every data member. IT should use a constructor initializer list to initialize the data member.
+    + *Constructor Initializer*: members of a class type that do not have a default constructor and members that are *const* or reference types must be initialized in the constructor initializer regardless of type.
+    + The order in which members are initialized is the order in which the members are defined.
+    + *static members*:
+        * the name of a static member is in the scope of the class, avoiding name collisions with members of other classes or global objects.
+        * Encapsulation can be enforced.
+        * static members must be defined exactly once outside the class body. They are not initialized through the class constructors but instead should be initialized when they are defined.
+        * Only integral *const static* members can be initialized within the class body. However, the data member should still be defined outside the class definition.
