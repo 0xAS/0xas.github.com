@@ -396,3 +396,62 @@ tags : [C++Primer, Basis]
         * Encapsulation can be enforced.
         * static members must be defined exactly once outside the class body. They are not initialized through the class constructors but instead should be initialized when they are defined.
         * Only integral *const static* members can be initialized within the class body. However, the data member should still be defined outside the class definition.
+
+**Chapter 13 Copy Control**
+
+- Definitions:
+    + *copy constructor*: The constructor that takes a signal parameter, a (usually const) reference to an object of the class type itself, is called the copy constructor.
+    + *assignment operator*: define what it means to assign one object of a class type to another of the same type. It must be a member of its class and should return a reference to its object.
+    + *destructor*: special member function that cleans up an object when the object goes out of scope or is deleted.
+- Notes:
+    + For classes consisting of pointer members, it is always worth paying attention to the "copy-control" functions: *copy constructor, assignment operator, destructor*.
+        * if a class does not define one or more of these operations, the compiler will define them automatically. The synthesized operations perform memberwise initialization, assignment, or destruction.
+        * Unlike the copy constructor and assignment operator, the synthesized destructor is created and run regardless of wether the class defines its own destructor. The synthesized destructor is run after the class-defined destructor, if there is one, completes.
+    + Classes that allocate memory or other resources almost always require that the class defines the copy-control members to manage the allocated resource.
+    + *copy constructor*: used to explicitly or implicitly initialize one object from another of the same type, or to copy an object to pass it as an argument to a function.
+    + *use count*: programming technique used in copy-control members. A separate class is created that points to the shared object and manages the use count.
+    + *value semantics*: the copy-control behavior of classes that mimic the way arithmetic types are copied.
+
+**Chapter 14 Overloaded Operations and Conversations**
+
+- Definitions:
+    + Overloaded operators are functions with special names: the keyword *operator* followed by the symbol for the operator being defined.
+    + *Binders:* a *binder* is a function adaptor that converts a binary function object into a unary function object by binding one of the operands to a given value. It binds an operand of a psecified function object.
+    + *Negators:* a *negator* is a function adaptor that reverses the truth value of a predicate function object.
+    + *conversion operator*: a conversion operator defines conversion that converts a value of a class type to a value of some other type. It is declared in the class body by specifying the keyword *operator* followed by the type that is the target type of the conversion. *operator type()*
+- Notes:
+    + Overloaded operators: no additional operators can be defined for the built-in data types.
+        * precedence and associativity of operators are fixed, regardless of the type of the operands.
+        * default arguments for the overloaded operators are illegal, except for *operator ()*, the function call operator.
+        * Don't overload operators with built-in meanings. It is usually not a good idea to overload the comma(,), address-of(&), logical AND(&&), or logical OR(||) operators.
+        * Before designing the overloaded operators, it is important to firstly define the interface. Once defined, we can think about what operators to overload. Normally operations with a logical mapping to an operator are good candidates.(==, <<, >>, !)
+        * Classes that will be used as the key type of an associative container should define "<" operator. If the type will be stored in a sequential container, the class ordinarily should define the equality (==) and less-than (<) operators.
+        * The assignment (=), subscript([]), call(()), and member access arrow (->) operators must be defined as members.
+        * The compound-assignment operators ordinarily ought to be members of the class. 
+        * Operators that change the state of their object or that are closely tied to their given type, such as increment, decrement, and dereference, usually should be members of the class.
+        * Symmetric operators, such as the arithmetic, equality, relational, and bitwise operators, are best defined as ordinary nonmember functions.
+    + Input and Output operators: Classes supporting I/O should define overloaded operators for input(>>) and output(<<).
+        * The "output" operator should take an *ostream&* as the first parameter, and a reference to a *const* object of the class type as its second. The operator should return a reference to its *ostream* parameter.
+        * Generally, output operators should print the contents of the object, with minimal formatting. They should not print a newline.
+        * Unlike "output" operator, "input" operator take a nonconst Class reference as the second parameter.
+    + The equality and inequality operators should always be defined in tearms of each other.
+    + Assignment operator should return a reference to *this.
+    + Classes that represent containers from which individual elements can be retrieved usually define the subscript operator, *operator[]*. It must be defined as a class member function. Normally, a class that defines subscript needs to define two versions: nonconst version, and const version.
+    + Arrow operator *operator->* should be defined as a member function, while deference operator (*) is recommended to be defined as a member function.
+    + The overloaded arrow operator must return either a pointer to a class type, or an object of a class type that defines its own operator arrow.
+    + *increment (++)* and *decrement(--)* operators are most often implemented for classes that provide pointerlike behavior on the elements of a sequence. Ordinarily, it is best to define both the prefix and postfix versions.
+    + *function call operator()*: typicallythe call operator is overloaded for classes that represent an operation. It must be declared as a member function. A class may define multiple versions of the call operator, each of which differs as to the number or types of their parameters.
+    + *function objects* are most often used as arguments to the generic algorithms.
+    + The standard library defines a set of arithmetic, relational, and logical function-object classes. The are defined inthe *functional* header.
+        * each of the library function-object classes represents an operator.
+        * each of the function-object classes is a class template to which we supply a single type.
+    + The standard library defines two binder adaptors: *bind1st, bind2nd*, and two negators: *not1, not2*.
+    + Conversions to an array or function type are not allowed. Conversions to a pointer types, both data and function pointers, and to reference types are allowed. 
+        * The conversion function must be a member function. It should not specify a return type, and also the parameter list should be empty.
+        * Althoug not specifying a return type, each conversion function should return a value of the named type.
+        * Only one class-type conversion can be applied.
+        * The rank of the standard conversion, if any, following the conversion function is used to select the best match, if two conversion operators/constructors can be used in a call.
+        * *avoid writing pairs of classes where each offers an implicit conversion to the other.*
+        * There should be only one conversion to a built-in type.
+        * A programmer facing with an ambiguous conversion can use a cast to indicate explicitly which conversion operation to apply.
+        * Needing to use a constructor or a cast to convert an argument in a call to an overloaded function is a sign of bad design.
