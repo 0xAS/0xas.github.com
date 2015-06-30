@@ -455,3 +455,50 @@ tags : [C++Primer, Basis]
         * There should be only one conversion to a built-in type.
         * A programmer facing with an ambiguous conversion can use a cast to indicate explicitly which conversion operation to apply.
         * Needing to use a constructor or a cast to convert an argument in a call to an overloaded function is a sign of bad design.
+
+**Chapter 15 Object-Oriented Programming**
+
+- Definition
+    + Object-oriented programming (OOP) is based on three fundamental concepts: data abstraction, inheritance, and dynamic binding.
+    + The key idea behind *OOP* is *polymorphism*. In C++, polymorphism applies only to references or pointers to types related by inheritance.
+    + *Inheritance* lets us define classes that model relationships among types, sharing what's common and specializing only that which is inerently different. Members defined by the *base class* are inherited by its *derived calss*.
+    + *Dynamic binding*: it allows us to write programs that use objects of any type in an inheritance hierarchy without caring about the objects' specific types.
+    + *Polymorphism*: it referes to the ability to obtain type-specific behavior based on the dynamic type of a reference or pointer.
+    + *protected* access label is for members accessible by the derived classes, but not accessible by general users of the type.
+    + *class derivation list*: it names one or more base classes and has the form *class classname: access-label base-class*, where access-label is one of *public, protected or private*, and the *base-class* is the name of a previously defined class.
+    + *Immediate base class*: it is the class named in the derivation list.
+    + *Refactoring*: refactoring involves redesigning a class hierarchy to move operations and/or data from one class to another. It happens most often when classes are redesigned to add new functionality. 
+    + *Virtual function*: a member function that defines type-specific behavior.
+    + *Pure virtual function*: a pure virtual function is specified by writing = 0 after the function parameter list. Defining a pure virtual function indicates that the function provides an interface for subsequent types to override but that the version in this class will never be called. 
+    + *Abstract base class*: a class contains one or more pure virtual functions is an abstract base class. An attempt to create an object of an abstract base class is a compile-time error.
+    + *handle class*: the handle class stores and manages a pointer to the base class.
+- Notes
+    + The fact that *the static and dynamic types of references and pointers can differ* is the cornerstone of how C++ supports polymorphism.
+    + In C++, we use *class* for *data abstraction*, *class derivation* to *inherit* one class from another: a derived class inherits the members of its base class(es). *Dynamic binding* lets the compiler determine at run time whether to use a function defined in the base or derived class.
+    + Inheritance lets us write new classes that share behavior with their base class(es), but redefine that behavior as needed. Dynamic binding lets the compiler decide at runtime which version of a function to run based on an object's dynamic type. 
+    + Classes related by inheritance are often described as forming an inheritance hierarchy. 
+    + Functions defined as *virtual* are ones that the base expects its derived classes to redefine. Functions that the base class intends its children to inherit are not defined as virtual.
+    + Classes used as the root class of an inheritance hierarchy generally define a virtual destructor.
+    + Calls to nonvirtual functions are resolved at compile time. Calls to virtual functions are resolved at run time.
+    + A derived object may access the *protected* members of its base class only through a derived object. The derived class has no special access to the protected members of base type objects.
+    + The declaration of a virtual function in the derived class must exactly match the way the function is defined in the base, with only one exception: the virtual function returns a reference to the base class.
+    + The key to dynamic binding in C++: the actual type of the object might differ from the static type of the reference or pointer addressing that object.
+    + There is automatic conversion which converts a reference/pointer to a derived type to a reference/pointer to its base type(s). However, it is not autoamatic to convert from reference/pointer to base to reference/pointer to derived.
+    + Constructors and the copy-control members are not inherited. Each class defines its own constructors and copy-control members.
+    + Constructor of derived class initializes its base class in addition to initializing its own data members. A derived constructor indirectly initializes the members it inherits by including its bas class in its constructor initializer list.
+        * The constructor initializer list supplies initial values for a class' base class and members. The base class is initialized first and then the members of the derived class are initialized in the order in which they are declared.
+        * If a derived class defines its own copy constructor, that copy constructor usually should explicitly use the base-class copy constructor to initialize the base part of the project.
+        * Unlike copy constructor and assign operator, the derived destructor is never responsible for destroying the members of its base objects. The compiler always implicitly invokes the destructor for the base part of a derived object. *Each destructor does only what is necessary to clean up its own members.*
+        * To ensure that the proper destructor is run, *the destructor must be virtual in the base class*. The root class of an inheritance hierarchy should define a virtual destructor even if the destructor has no work to do.
+    + Under inheritance, the scope of the derived class is nested within the scope of its base classes.
+        * Name lookup happens at compile time.
+        * A derived-class member with the same name as a member of the base class hides direct access to the base-class member, which should be avoided though.
+        * Functions defined in a derived class do not overload members defined in the base. The base class functions are considered only if the derived does not define the function at all.
+    + Name Lookup and Inheritane:
+        * Start by determining the static type of the object, reference, or pointer through which the function is called.
+        * Look for the function in that class. If not found, look in the immediate base class and continue up the chain of classes.
+        * Once the name is found, do normal type-checking.
+        * Assuming the call is legal, the compiler generates code.
+    + Object does not support object-oriented programming in C++, instead we must use pointers and references to support OOP.
+        * Handles that cover an inheritance hierarchy typically behave like either a smart pointer or a value.
+        * 
