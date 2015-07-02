@@ -501,4 +501,52 @@ tags : [C++Primer, Basis]
         * Assuming the call is legal, the compiler generates code.
     + Object does not support object-oriented programming in C++, instead we must use pointers and references to support OOP.
         * Handles that cover an inheritance hierarchy typically behave like either a smart pointer or a value.
-        * 
+
+**Chapter 16 Templates and Generic Programming**
+
+- Definitions
+    + *Templates*: A template is a type-independent blueprint that the compiler uses to generate a variety of type-specific instances.
+        * *function template*: a function template is a type-independent function which is used as a formula for generating a type-specific version of the function. 
+        * *class template*: a class definition can be used to define a set of type-specific classes.
+        * Template definition starts with the keyword *template*, followed by a *template parameter list*, a comma-separated list of one or more template parameters.
+    + *Instantiation*: The process of generating a type-specific instance of a template is known as instantiation.
+    + The process of determining the types and values of the template arguments from the type of the function arguments is called *template argument deduction*.
+    + *member templates*: a member that is itself a class or function template in a class is referred to as member templates. They may not be virtual.
+    + *Template Specialization*: it is a sepratate definition in which the actual type(s) or value(s) of one or more template parameter(s) is (are) specified.
+    + *Partial specialization*: a class template partial specialization is itself a template. The definition of a partial specialization looks like a template definition. The template parameter list of a partial class specialization is a subset of the parameter list of the corresponding class template definition.
+    + *export* keyword: it is used to indicate that the compiler must remember the location of the associated template definition.
+- Notes
+    + a template parameter can be a *type parameter*, which represents a type, or a *nontype parameter*, which represents a constant expression. A type parameter is defined following the keyword *class* or *typename*.
+        * the name of a template parameter can be used after it is declared until the end of the template declaration or definition.
+        * a name used as a template parameter may not be reused within the template.
+        * the name of a template parameter can be used only once within the same template parameter list.
+        * in addition to defining data or function members, a class may define type members. Explicitly telling the compiler *typename* could treat the declared member as a type.
+        * It's always a good idea to specify *typename* if you intend to declare a name as a type.
+        * each type parameter is bound to an actual type.
+        * *nontype parameters* are values when the function is called. The type of that value is sepcified in the template parameter list.
+        * When writing template code, it is useful to keep the number of requirements placed on the argument types as small as possible.
+    + Each instantiation of a class template consistutes an independent class type.
+        * When instantiating a class template, we must always specify the template arguments explicitly.
+        * The type defined by a template class always includes the template argument(s).
+        * Multiple type parameter arguments must match exactly. If the designer of a function template wants to allow normal conversions on the arguments, then the function must be defined with different type parameters.
+        * In general, arguments are not converted to match an existing instantiation, instead a new instantiation is generated.
+        * *const* conversions and "array/function to pointer conversions" are two exceptions while instantiating template class/function.
+        * normal conversions apply for nontemplate arguments.
+    + For *class template members*, inside the scope of a class template, we may refer to the class itself using its unqualified name. However, if you refer to other template class, you need to use the full name (i.e. including the template parameters)
+        * To define a member function of a class template, it must start with the keyword *template* followed by the template parameter list for the class.
+        * It must indicate the class of which it is a member.
+        * The class name must include its template parameters.
+        * member-function template parameters are fixed by the template arguments of the object.
+        * Nontype template arguments must be compile-time constant expressions.
+        * When we grant access to all instances of a given template, there need not be a declaration for that class or function template in scope. When we want to restrict friendship to a specific instantiation, the class or function must have been declared before it can be used in a friend declaration.
+        * When a member template is a member of a class template, its definition must include the class-template paramters as well as its own template parameters. The class-template parameter list comes first, followed by the member's own template parameter list.
+    + The form of a *template specialization* is:
+        * the keyword *template* followed by an *empty* bracket pair (< >).
+        * followed by the template name and a bracket pair specifying the template parameters that this specialization defines.
+        * When we define a nontemplate function, normal conversions are applied to the arguments. When we specialize a template, conversions are not applied to the argument types.
+        * A program cannot have both an explicit specialization and an instantiation for the same template with the same set of template arguments. It is an error for a specialization to appear after a call to that instance of the template has been seen.
+        * A class template specialization ought to define the same interface as the template it specializes.
+        * Member specializations are declared just as any other function template specialization. They must start with an empty template parameter list.
+    + The viable functions by the kinds of conversions, if any, required to make the call is ranked. If the call is ambiguous, remove any function template instances from the set of viable functions, which consists of ordinary nontemplate viable functions and function template instances.
+        * It is almost always better to define a function-template specialization than to use a nontemplate version.
+
