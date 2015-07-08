@@ -550,3 +550,94 @@ tags : [C++Primer, Basis]
     + The viable functions by the kinds of conversions, if any, required to make the call is ranked. If the call is ambiguous, remove any function template instances from the set of viable functions, which consists of ordinary nontemplate viable functions and function template instances.
         * It is almost always better to define a function-template specialization than to use a nontemplate version.
 
+
+**Chapter 17 Tools for Large Programs**
+
+- Definitions
+    + *stack unwinding* continues up the chain of nested function calls until a *catch* clause for the exception is found.
+    + *exception object*: it is used to communicate between the throw and catch sides of an exception.
+    + *exception specifier*: it is a type name followed by an optional parameter name. The type of the specifier determines what kinds of exceptions the handler can catch. It must either be a built-in type or a programmer-defined type. A forward declaration for the type is not sufficient.
+    + *exception specification*: used on a function declaration to indicate what (if any) exception types a function throws.
+    + *rethrowing*: the process that when a catch cannot completely handle an exception, the exxception will be passed out to another catch further up the list of function calls, is called rethrowing. It is a throw not followed by a type or an expression.
+    + *catch-all*: it is a catch clause with the form (...), which hanles all the exceptions. When combined with other clauses, catch-all will always be at the last place.
+    + *exception safe*: the programs operate correctly even if an exception occurs. 
+    + *Resource Allocation Is Initialization (RAII)* is a technique that guarantees that resources are properly freed by defining a class to encapsulate the acquisition and release of a resource.
+    + *auto_ptr* is a template class that takes a single type parameter, which provides exception safety for dynamically allocated objects. It is defined in the *memory* header.
+    + *namespace*. a namespace definition begin with the keyword *namespace* followed by the name space name.
+    + *using declaration* mechanism to inject a single name from a namespace into the current scope.
+    + *using derective*: mechanism for making all the names in a namespace available in the nearest scope containing both the using directive and the namespace itself.
+    + *unnamed namespace*: it is a namespace defined without a name, It is local to a particular file and never spans multiple text files.
+    + *multiple inheritance* is the ability to derive a class from more than one immediate base class.
+    + *virtual inheritance*: it is a mechanism whereby a class specifies that it is willing to share the state of its virtual base class. Under virtual inheritance, only one shared base-class subobject is inherited for a given virtual base regardless of how many times the class occurs as a virtual base within the derivation hierarchy.
+- Notes
+    + Exceptions let us separate problem detection from problem resolution. The part of the program that detects a problem need not know how to deal with it.
+    + An *exception* is *raised* by *throwing* an object. The type of that object determies which handler will be invoked. It must be possible to copy the throwed object.
+    + Exception object is managed by the compiler and is guaranteed to reside in space that will be accessible to whatever *catch* is invoked.
+    + it is usually a bad idea to throw a pointer.
+    + during stack unwinding, the memory used by local objects is freed and destructors for local objects of class type are run.
+        * while stack unwinding is in progress for an exception, a destructor that throws another exception of its own, causes the library terminate function called. Destructors should never throw exceptions.
+        * Uncaught exceptions terminate the program.
+    + The selected catch exception specifier is the first catch found that can handle the exception, not necessarily the one matching the exception best.
+        * most conversions are not allowed between the types of the exception and the *catch* specifier, except the followings: conversions from nonconst to const, conversions from derived type to base type, and an array to a pointer to the type of the array.
+        * a catch clause that handles an exception of a type related by inheritance ought to define its parameter as a referee.
+        * multiple *catch* clauses with types related by inheritance must be ordered from most derived type to least derived.
+    + rethrowing: the exception that is thrown is the original exception object, not the catch parameter. The type depends on the dynamic type of the exception object, not the static type of the catch parameter.
+    + The only way for a constructor to handle an exception from a constructor initializer is to write the constructor as a function try block.
+    + using classes to anage acquisition and deallocation ensures that resources are freed if an exception occurs.
+    + *auto_ptr* may hold only a pointer to an object, and may not be used to point to a dynamically allocated array. 
+        * It is a template, so that it can hold pointers of any type.
+        * In most common case, we initialize an *auto_ptr* to the address of an object returned by a *new* expression.
+        * When we copy an *auto_ptr* or assign its value to another *auto_ptr*, ownership of the underlying object is transferred from the original to the copy. The *original auto_ptr* is *reset to an unbound state*.
+        * To test the *auto_ptr*, we must use its *get* member, which returns the underlying pointer contained in the *auto_ptr*.
+        * Do not use an *auto_ptr* to hold a pointer to a statically allocated object.
+        * Never use two *auto_ptrs* to refer to the same object.
+        * Do not use an *auto_ptr* to hold a pointer to a dynamically allocated array.
+        * Do not store an *auto_ptr* in a container.
+    + *exception specification* follows the function parameter list. it is the keyword *throw* followed by a list of exception types enclosed in parentheses.
+        * An empty specification list says that the function does not throw any exception.
+        * if a function throws an exception not listed in its specification, the library function *unexpected* is invoked, which calls *terminate* to abort the program.
+        * The exception specification cannot be checked at compile time,.
+        * The exception specification of a derived-class virtual function must be either equally or more restrictive than the exception specification of the corresponding base-class virtual function.
+        * exception specification can be provided in the definition of a pointer to function. The specification of the source pointer must be at leaset as restrictive as the specification of the destination pointer.
+    + the name of a namespace must be unique within the scope in which the namespace is defined.
+        * a namespace definition does not end with a semicolon.
+        * entities defined within the namespace are called namespace members.
+        * a namespace can be defined in several parts.
+        * members may not be defined in unrelated namespaces.
+        * names defined inside a nested namespace are local to that namespace.
+        * names defined in an unnamed namespace are visible only to the file containing the namespace.
+        * unnamed namespaces are used to declare entities that are local to a file.
+        * header files should NOT contain *using* directives or *using* declarations, except inside functions or other scopes.
+        * a namespace can have many synonyms, or aliases, which can be used interchangeably with the original namespace.
+        * a *using* directive does not declare local aliases for the namespace member names. It has the effect of lifting the namespace members into the nearest scope that contains both the namespace itself and the *using* directive.
+        * If the name is not local to the member function, we first try to resolve the name to a class member before looking in the outer scopes.
+        * The qualified name indicates the scopes that are searched, in reverse order.
+        * Functions that take parameters of a class type, which are defined in the same namespace as the itself, are visible when an object of the class type is used as an argument.
+    + The base-class constructors are invoked in the order in which they appear in the class derivation list. Destructors are always invoked in the reverse order from which the constructors are run.
+        * The same base-class can only be declared once in the class derivation list.
+        * A pointer or reference to a derived class can be converted to a pointer or reference to any of its base classes.
+        * using a pointer to one class does not allow the access to members of another base.
+        * Each base class is implicityle constructed, assigned or destroyed, using that base calss' own copy constructor, assign operator, or destructor.
+        * When a class has multiple base classes, name lookup happens simultaneously through all the immediate base classes.
+        * Specifying virtual derivation has an impact only in classes derived from the class that specifies a virtual base. It is a statement about the derived class' relationship to its own, future derived class.
+        * The *virtual* specifier states a willingness to share a single instance of the named base class within a subsequenty derived class.
+        * In a virtual derivation, the virtual base is initialized by the *most derived constructor*.
+        * *virtual base classes are always constructed prior to nonvirtual base classes regardless of where they appear in the inheritance hierarchy*.
+
+**Chapter 18 Specialized Tools and Techniques**
+
+- Definitions
+    + *allocator* class is a template that provides typed memory allocation and object construction and destruction.
+- Notes
+    + C++ has two tways to allocate and free unconstructed, raw memory:
+        * *allocator* class. It provides type-aware memory allocation.
+        * The library operator *new* and *delete*.
+    + C++ has various ways to construct and destroy objects in raw memory:
+        * *allocator* class has *construct* and *destroy* members.
+        * *new* to construct.
+        * *uninitilalized_fill* and *uninitialized_copy* construct objects in their destination rather than assigning to them.
+    + users of *allocator* class must separately *construct* and *destroy* objects placed in the allocated memory.
+    + In general, it is more type-safe to use an *allocator* rather than using the *operator new* and *operator delete* functions directly.
+    + A class may manage the memory used for objects of its type by defining its own members named *operator new* and *operator delete*.
+    + If storage was allocated with a *new* expression invoking the global *operator new* function, then the *delete* expression should also invoke the global *operator delete* function.
+ 
