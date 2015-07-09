@@ -628,6 +628,18 @@ tags : [C++Primer, Basis]
 
 - Definitions
     + *allocator* class is a template that provides typed memory allocation and object construction and destruction.
+    + *freelist* is a memory management technique that involves preallocating unconstructed memory to hold ojbects that will be created as needed.
+    + *Run-Time Type Identification (RTTI)* helps program to retrieve the actual derived types of the objects, which are referred to by pointers or references.
+    + *new expression* allocates and constructs an object of a specified type.
+    + *pointer to member* embodies the type of the calss as well as the type of the member. It applies to nonstatic member of a class.
+    + *function tabel*: it is a collection of cuntion pointers from which a given call is selected at run time.
+    + a *union* is a special kind of class. A *union* may have multiple data members, but at any point in time, only one of the members may have a value. When a value is assigned to one member of the *union*, all other members become undefined.
+    + *local class*: a class defined inside a function body.
+    + *porting* is the process of moving a program to a new machine. C programs are said to be portable.
+    + *bit-filed* is a special class data member which can be declared to hold a specified number of bits. It is normally used when a program needs to pass binary data to another program or hardware device.
+    + *linkage directives* are to indicate the language used for any non-C++ function.
+    + *volatile*: it is a type qualifier that signifies to the compiler that a variable might be changed outside the direct control of the program. It is a signal to the compiler that it may not perform certain optimizations.
+
 - Notes
     + C++ has two tways to allocate and free unconstructed, raw memory:
         * *allocator* class. It provides type-aware memory allocation.
@@ -640,4 +652,44 @@ tags : [C++Primer, Basis]
     + In general, it is more type-safe to use an *allocator* rather than using the *operator new* and *operator delete* functions directly.
     + A class may manage the memory used for objects of its type by defining its own members named *operator new* and *operator delete*.
     + If storage was allocated with a *new* expression invoking the global *operator new* function, then the *delete* expression should also invoke the global *operator delete* function.
- 
+    + Modern C++ programs should use the *allocator* classes rather than these library functions (*new operator* and *delete operator*).
+    + *RTTI* is provided through two operators:
+        * *typeid* operator: it returns the actual type of the object referred to by a pointer or a reference.
+            - *typeid* can be used to expressions of any type. It is usually used to compare the types of two expressions, or to compare the type of an expression to a specifid type.
+            - The operands to the *typeid* should be objects, not pointers.
+        * *dynamic_cast*: it safely converts from a pointer or reference to a base type to a pointer or a reference to a derived type.
+            - if a *dynamic_cast* operator fails, the result of the *dynamic_cast* is 0.
+        * These operators return dynamic type information only for classes with one or more virtual functions.
+        * *type_info* class varies by compiler. However, there are 4 common functions which should be provided by all compilers: "==, !=, t.name(), t1.before(t2)". *type_info* objects may not be copied.
+    + A pointer to member function is defined by specifying the function return type, parameter list, and a class.
+        * The pointer-to-member dereference operator (.*) fetches the member from an object or reference.
+        * The pointer-to-member arrow operator(->*) fetches the member through a pointer to an object.
+    + *nested class* are independent classes and are largely unrelated to their enclosing class. Objects of the enclosing and nested classes are independent from one another.
+        * classes nested inside a class template are templates.
+        * If a nested class had declared a static member, its definition would also need to be defined in the outer scope.
+        * A nested class of a class template is not instantiated automatically when the enclosing class template is instantiated. The nested class is instantiated only if it is itself used in a context that requires a complete class type.
+        * When processing the declarations of the class members, any name used must appear piror to its use. When processing definitions, the entire nested and enclosing class(es) are in scope.
+    + Unions provide a convenient way to represent a set of mutually exclusive values that may have different types.
+        * The amount of storage allocated for a union is at least as much as the amount necessary to contain its largest data member.
+        * A union may not serve as a base class.
+        * A union cannot have a static data member, a member that is a reference, or a member of a class type that defines a constructor, destructor, or assignment operator.
+        * *discriminant* is a programming technique which uses an object to determine which actual type is held in a union at any given time. It keeps track of what value is stored in the *union*, to avoid accessing the *union* value through the wrong member.
+        * An anonymous *union* cannot have private or protected members, nor can an anonymous *union* define member functions.
+    + All members including functions of a local class must be completely defined inside the class body.
+        * a local class is not allowed to define *static* data members.
+        * local classes may not use variables from the function's scope, except static variables, enumerators defined within the enclosing local scopes, and type names.
+        * normal protection rules apply to local classes. In practice, private members are hardly ever necessary in a local class.
+    + A bit-filed must be an integral data type.
+        * Ordinarily it is best to make a bit-filed an unsigned type.
+        * Bit-fields with more than one bit are usually manipulated using the built-in bitwise operators.
+        * The address-of operator (&) cannot be applied to a bit-filed. So there can be no pointers referring to class bit-fileds. Nor can a bit-field be a static member of its class.
+    + Programs using *volatile* usually must be changed when they are moved to new machines or compilers.
+        * An object should be declared *volatile* when its value might be changed in ways outside either the control or detection of the compiler.
+        * Synthesized copy control does not apply to volatile objects.
+    + Linkage directive may not appear inside a class or function definition. It must appear on the first declaration of a function.
+        * An entire header file can be imported by using linkage directives.
+        * By using the linkage directive on a function definition, we can make a C++ function available to a program written in another language.
+        * C doesn't support function overloading. Thus it is an error to declare more than one function with C linkage with a given name.
+        * To declare a pointer to a function written in another programming language, we must use a linkage directive.
+        * A pointer to a C function cannot be initialized or be assigned to point to a C++ function (and vice versa).
+        * Linkage directives apply to the entire declaration.
