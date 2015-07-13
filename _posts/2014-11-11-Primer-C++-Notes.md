@@ -279,7 +279,7 @@ tags : [C++Primer, Basis]
 
 - Definitions:
     + *Container*: a type holds a collection of objects of a specified type.
-    + *adaptors*: container adaptors adapts an underlying container type by defining a new interface in terms of the operations provided by the original type. *stackm*, *queue* and *priority_queue*.
+    + *adaptors*: container adaptor adapts an underlying container type by defining a new interface in terms of the operations provided by the original type. *stack*, *queue* and *priority_queue*.
     + *sequantial container*: a type that holds an *ordered* collection of objects of a single type. Elements in a sequential container are accessed by position.
     + *iterator*: a type whose operations support navigating among the elements of a container and examining values in the container.
     + *iterator range*: denoted by a pair of iterators that refer to two elements, or to one past the last element, in the same container.
@@ -295,16 +295,17 @@ tags : [C++Primer, Basis]
     + **It is always necessary to check the validity of the iterator or the iterator range.**
     + *vector* & *deque* allow random access to their elements by iterator/position, therefore it is possible to perform relational operators and arithmetic.
     + *begin* & *end* refer to the first and one-past-the-end in the container respectively.
-    + all sequential containers support "*push_back()*" to add element at the end of current containers. However, *list* and *deque* also support "*push_front()*".
+    + all sequential containers support "*push_back( )*" to add element at the end of current containers. However, *list* and *deque* also support "*push_front( )*".
     + Container elements are **copies**. Read/write on them have no effect on the values from which are copied.
     + Don't cache the iterator returned from *end*. Inserting or deleting elements in a deque or vector will invalidate the cached iterator.
-    + *front()* & *back()* return reference to the first and last element in the container respectively, instead of iterator to these elements.
+    + *front( )* & *back( )* return reference to the first and last element in the container respectively, instead of iterator to these elements.
     + *pop_front* & *pop_back* remove the first and last elements in the container respectively.
     + Generally speaking, unless there is a good reason to prefer another container, *vector* is usually the right one to use.
     + Rules of thumb for selecting approriate container to use:
         * Random access to elements: *vector* or *deque*.
         * Need to insert or delete elements in the middle of the container: *list*.
         * Need to insert ot delete elements at the front and the back, but not in the middel: *deque*.
+    + *containers cannot be used to store iostream, for the reason that all elements of a container should support assignment and copy. However, iostream doesn't support assignment or copy.*
     + When not certain which container to use, write the code so that it uses only operations common to both *vectors* and *lists*： use iterators, not subscripts, and avoid random access to elements.
     + *additional ways to construct strings*:
         * *string s(cp, n)*: create *s* as a copy of *n* characters from array pointed by *cp*.
@@ -316,6 +317,7 @@ tags : [C++Primer, Basis]
             - negative: s1 is less than s2.
             - positive: s1 is larger than s2.
             - 0: s1 is equal to s2. 
+    + The iterators of *list* don't support arithmetic computation or certain relationship operators.
 
 **Chapter 10 Associative Container**
 
