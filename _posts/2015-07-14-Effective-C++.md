@@ -20,10 +20,10 @@ A short review of the terminology, the C++ vocabulary:
         * Template C++: the generic programming part of C++.
         * The STL: standard template library.
 - *Item 2*: prefer consts, enums, and inlines to #defines. This can be called "prefer compiler to preprocessor" as well.
-    + #define doesn't respect scope. Once a macro is defined, it's in force for the rest of the compilation.
+    + *#define* doesn't respect scope. Once a macro is defined, it's in force for the rest of the compilation.
     + When replacing #define with constant, two special cases are worth mentioning:
-        * 1. defining cosntant pointers.
-        * 2. To limit the scope of a constant to a class, make it a memer. To ensure there's at most one copy of the constant, make it a *static* member.
+        * Defining cosntant pointers.
+        * To limit the scope of a constant to a class, make it a memer. To ensure there's at most one copy of the constant, make it a *static* member.
     + When you need the value of a class constant during compilation of the class, use "*the enum hack*". It takes the advantage of the fact that the values of an enumerated type can be used where ints are expected.
     + *For simple constants, prefer const objects or enums to #defines*.
     + *For function-like macros, prefer inline functions to #defines*.
