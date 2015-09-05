@@ -27,6 +27,7 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
     + When you need to use pointers, you would normally want to use a smart pointer as this can alleviate many of the problems with 'raw' pointers, mainly forgetting to delete the object and leaking memory.
     
 <!--more-->
+
     + With a 'raw' C++ pointer, the programmer has to explicitly destroy the object when it is no longer useful.
     
     >{% highlight cpp %}
