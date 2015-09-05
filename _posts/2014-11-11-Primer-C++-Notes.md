@@ -200,6 +200,7 @@ tags : [C++Primer, Basis]
             - constructor is a special member function that is distinguished from other member funtions by having the same name as its class. It has no return type.
             - *default constructor*: takes no arguments. It says what happens when we define an object but do not supply an explicit initializer.
             - *constructor initializer list*: the colon and the following text up to the open curly is the constructor initializer list. It specifies the initial values for one or more data members of the class. They are separated by **commas**.
+            - *explicit*: a keyword to prevent implicit conversion. *explicit* is only for constructor! Prefixing the *explicit* keyword to the constructor prevents the comipler from using that constructor for implicit conversions.
     + *Overloaded Functions*: two functions in the same scope are overloaded if they have the same name but different parameter lists.
         * Functions cannot be overloaded based only on differences in the return type.
         * declarations for every version of an overloaded function must appear in the same scope.
@@ -294,6 +295,8 @@ tags : [C++Primer, Basis]
         * allocate and initialize a specified number of elements (*only valid for sequential container, not for associative container*)
     + **It is always necessary to check the validity of the iterator or the iterator range.**
     + *vector* & *deque* allow random access to their elements by iterator/position, therefore it is possible to perform relational operators and arithmetic.
+        * *capacity*: how many it could hold before new space must be allocated.
+        * *size*: the number of elements in the vector.
     + *begin* & *end* refer to the first and one-past-the-end in the container respectively.
     + all sequential containers support "*push_back( )*" to add element at the end of current containers. However, *list* and *deque* also support "*push_front( )*".
     + Container elements are **copies**. Read/write on them have no effect on the values from which are copied.
