@@ -31,7 +31,7 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
     + With a 'raw' C++ pointer, the programmer has to explicitly destroy the object when it is no longer useful.
     
     >{% highlight cpp %}
-    MyObject* ptr = new MyObject();
+      MyObject* ptr = new MyObject();
     ptr->doSomething();         // use the object in some way
     delete ptr;                 // destroy the object. done with it.
     // !------------------------------------------------------------
@@ -41,16 +41,17 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
     + A smart pointer by comparison defines a policy as to when the object is destroyed. You still have to create the object, but you no longer have to worry about destroying it.
     
     >{% highlight cpp %}
-      string.empty()          // returns true if string is empty; otherwise false.
-    string.size()           // returns number of characters in the string
-    string[n]               // access the n+1 th element in the string. string index starts from 0 to string.size()-1
-    s1 + s2                 // concatenats s1 and s2
-    s1 = s2                 // replace characters in s1 by a copy of s2
-    s1 == s2                // returns trun if v1 and v2 are equal, otherwise false
-    !=, <, <=, >, >=        // comparison between strings
+      SmartPtr<MyObject> ptr(new MyObject());
+    ptr->doSomething();         // use the object in some way
+
+    // destruction of the object happens, depending on the policy the
+    // smart pointer class uses.
+
+    // destruction would happen even if doSomething() throws an exception
     {% endhighlight %} 
 
     + The simplest policy in use involves the scope of the smart pointer wrapper object, such as implemented by *boost::scoped_ptr* or *std::unique_ptr*.
+
 
 - *lock. mutex*
 - *thread*
