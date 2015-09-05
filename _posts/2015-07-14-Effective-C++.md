@@ -27,6 +27,9 @@ A short review of the terminology, the C++ vocabulary:
     + When you need the value of a class constant during compilation of the class, use "*the enum hack*". It takes the advantage of the fact that the values of an enumerated type can be used where ints are expected.
     + *For simple constants, prefer const objects or enums to #defines*.
     + *For function-like macros, prefer inline functions to #defines*.
+
+<!--more-->
+
 - *Item 3*: use *const* whenever possible.
     + The purpose of *const* om member functions is to identify which member functions may be invoked on *const* objects.
         * 1. Make the interface of a class easier to understand which functions may modify an object and which may not. 
@@ -34,9 +37,6 @@ A short review of the terminology, the C++ vocabulary:
     + Declearing something *const* helps compilers detect usage errors.
     + Compilers enforce bitwise constness, but you should program using conceptual constness.
     + When *const* and *non-const* member functions have essentially identical implementations, code duplication can be avoided by having the *non-const* version call the *const* version.
-
-<!--more-->
-
 - *Item 4*: make sure that objects are initialized before they are used.
     + Always initialize the object before using it.
         * Make sure that all constructors initialize everything in the object.
