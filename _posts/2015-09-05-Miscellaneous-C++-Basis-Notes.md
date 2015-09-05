@@ -22,10 +22,31 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
     + A demonstration for "Stack vs. Heap".
     ![Stack vs. Heap ([source](http://vikashazrati.wordpress.com/2007/10/01/quicktip-java-basics-stack-and-heap/))](http://i.stack.imgur.com/i6k0Z.png)
 
+- *smart pointers* ([link](http://stackoverflow.com/questions/106508/what-is-a-smart-pointer-and-when-should-i-use-one))
+    + A *smart pointer* is a *class* that wraps a 'raw' C++ pointer, to manage the *lifetime of the object being pointed to*. There is no single smart pointer type, but all of them try to abstract a 'raw' pointer in a practical way.
+    + When you need to use pointers, you would normally want to use a smart pointer as this can alleviate many of the problems with 'raw' pointers, mainly forgetting to delete the object and leaking memory.
+    
+<!--more-->
+    + With a 'raw' C++ pointer, the programmer has to explicitly destroy the object when it is no longer useful.
+    
+    >{% highlight cpp %}
+    MyObject* ptr = new MyObject();
+    ptr->doSomething();         // use the object in some way
+    delete ptr;                 // destroy the object. done with it.
+    // !------------------------------------------------------------
+    // what if doSomething() throws an exception?
+    {% endhighlight %} 
+
+    + A smart pointer by comparison defines a policy as to when the object is destroyed. You still have to create the object, but you no longer have to worry about destroying it.
+
+    >{% highlight cpp %}
+    {% endhighlight %} 
+
+    + The simplest policy in use involves the scope of the smart pointer wrapper object, such as implemented by *boost::scoped_ptr* or *std::unique_ptr*.
+
 - *lock. mutex*
 - *thread*
 
 - *template*
 - *share_ptr*
-- *smart pointers*
 - *pointer to implementation*

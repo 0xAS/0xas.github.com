@@ -34,6 +34,9 @@ A short review of the terminology, the C++ vocabulary:
     + Declearing something *const* helps compilers detect usage errors.
     + Compilers enforce bitwise constness, but you should program using conceptual constness.
     + When *const* and *non-const* member functions have essentially identical implementations, code duplication can be avoided by having the *non-const* version call the *const* version.
+
+<!--more-->
+
 - *Item 4*: make sure that objects are initialized before they are used.
     + Always initialize the object before using it.
         * Make sure that all constructors initialize everything in the object.
