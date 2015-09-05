@@ -27,8 +27,7 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
 - *smart pointers* ([link](http://stackoverflow.com/questions/106508/what-is-a-smart-pointer-and-when-should-i-use-one))
     + A *smart pointer* is a *class* that wraps a 'raw' C++ pointer, to manage the *lifetime of the object being pointed to*. There is no single smart pointer type, but all of them try to abstract a 'raw' pointer in a practical way.
     + When you need to use pointers, you would normally want to use a smart pointer as this can alleviate many of the problems with 'raw' pointers, mainly forgetting to delete the object and leaking memory.
-    
-
+ 
     + With a 'raw' C++ pointer, the programmer has to explicitly destroy the object when it is no longer useful.
     
     >{% highlight cpp %}
@@ -40,8 +39,15 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
     {% endhighlight %} 
 
     + A smart pointer by comparison defines a policy as to when the object is destroyed. You still have to create the object, but you no longer have to worry about destroying it.
-
+    
     >{% highlight cpp %}
+      string.empty()          // returns true if string is empty; otherwise false.
+    string.size()           // returns number of characters in the string
+    string[n]               // access the n+1 th element in the string. string index starts from 0 to string.size()-1
+    s1 + s2                 // concatenats s1 and s2
+    s1 = s2                 // replace characters in s1 by a copy of s2
+    s1 == s2                // returns trun if v1 and v2 are equal, otherwise false
+    !=, <, <=, >, >=        // comparison between strings
     {% endhighlight %} 
 
     + The simplest policy in use involves the scope of the smart pointer wrapper object, such as implemented by *boost::scoped_ptr* or *std::unique_ptr*.
