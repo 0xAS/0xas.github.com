@@ -22,11 +22,12 @@ This post summarizes the note of some basic C++ syntax, which make me confused.
     + A demonstration for "Stack vs. Heap".
     ![Stack vs. Heap ([source](http://vikashazrati.wordpress.com/2007/10/01/quicktip-java-basics-stack-and-heap/))](http://i.stack.imgur.com/i6k0Z.png)
 
+<!--more-->
+
 - *smart pointers* ([link](http://stackoverflow.com/questions/106508/what-is-a-smart-pointer-and-when-should-i-use-one))
     + A *smart pointer* is a *class* that wraps a 'raw' C++ pointer, to manage the *lifetime of the object being pointed to*. There is no single smart pointer type, but all of them try to abstract a 'raw' pointer in a practical way.
     + When you need to use pointers, you would normally want to use a smart pointer as this can alleviate many of the problems with 'raw' pointers, mainly forgetting to delete the object and leaking memory.
     
-<!--more-->
 
     + With a 'raw' C++ pointer, the programmer has to explicitly destroy the object when it is no longer useful.
     
